@@ -104,7 +104,7 @@ public class Controller : MonoBehaviour
         {
             //Time.deltaTime * -50f
             controller.gameObject.transform.Rotate(0f, 0.25f * rotationDir, 0f);            
-            if (controller.gameObject.transform.rotation.eulerAngles.y <= standardAngle(angle + 90f) * rotationDir){
+            if (controller.gameObject.transform.rotation.eulerAngles.y <= standardAngle(angle + 90f * rotationDir)){
                 flagCamera = false;                
             }
         }
