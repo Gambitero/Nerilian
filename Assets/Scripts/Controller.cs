@@ -5,15 +5,19 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     public CharacterController controller;
+    public GameObject camera;
     private float speed = 12f;
-    private float gravity = -9.81f*9;
-    private float jumpHeight = 2.4f;
+    private float gravity = -9.81f*8;
+    public float jumpHeight = 2.4f;
     
+    public float turnSpeed = 0.25f;
+    public int cameraTurnSpeed = 1;
     private float currentTurn;
     private Collider turnObj = null;
     private int turnDir = 0;
     private float turnProgress = 0f;
 
+    public bool groundFlag = true;
     public bool flagCamera = false;
     public bool flagTurn = false;    
     
@@ -38,6 +42,29 @@ public class Controller : MonoBehaviour
         turnProgress = 0f;
         
         Debug.Log("TurnDir ==> " + turnDir);
+
+        //Activar giro de cámara
+        camera.GetComponent<CameraController>().turnCamera = true;
+        camera.GetComponent<CameraController>().turnSpeed = turnSpeed/cameraTurnSpeed * turnDir;
+        camera.GetComponent<CameraController>().targetTurnPosition = gameObject.transform.position;
+        //
+
+        this.gameObject.transform.position = new Vector3(newPos.x, this.gameObject.transform.position.y, newPos.z);
+            
+        angle = controller.gameObject.transform.rotation.eulerAngles.y;
+        
+        Debug.Log("The Starting Angle");
+        Debug.Log(angle);
+
+        angle = standardAngle(angle + 0.25f * turnDir) + 0.25f * -turnDir;
+
+        Debug.Log("The Fixed Starting Angle");
+        Debug.Log(angle);
+
+        flagCamera = true;            
+        
+        Debug.Log("The Angle");
+        Debug.Log(angle + 90 * turnDir);
     }
 
     void OnTriggerEnter(Collider obj){
@@ -46,12 +73,26 @@ public class Controller : MonoBehaviour
             Debug.Log("Enter turnpoint");
             turnObj = obj;            
         }
+
+        if (obj.gameObject.CompareTag("Platform")){
+            groundFlag = true;
+        }
     }
 
     void OnTriggerExit(Collider obj){        
         if (obj.gameObject.CompareTag("Turnpoint")){
             flagTurn = false;
             Debug.Log("Exit turnpoint");
+        }
+
+        if (obj.gameObject.CompareTag("Platform")){
+            groundFlag = false;
+        }
+    }
+
+    void OnTriggerStay(Collider obj){
+        if (obj.gameObject.CompareTag("Platform")){
+            groundFlag = true;
         }
     }
 
@@ -62,9 +103,9 @@ public class Controller : MonoBehaviour
     }
 
     void TurnPlayer(){
-        turnProgress += 0.25f;
+        turnProgress += turnSpeed;
 
-        controller.gameObject.transform.Rotate(0f, 0.25f * turnDir, 0f);
+        controller.gameObject.transform.Rotate(0f, turnSpeed * turnDir, 0f);
 
         if (turnProgress + 0.001f >= 90){
             Debug.Log("Stop");
@@ -89,7 +130,7 @@ public class Controller : MonoBehaviour
                 //controller.gameObject.transform.rotation.eulerAngles.Set(controller.gameObject.transform.rotation.eulerAngles.x, 8007f0as7f0-12f, controller.gameObject.transform.rotation.eulerAngles.z);
                 flagCamera = false;                
             }
-            */
+            */            
             TurnPlayer();
             return;
         }
@@ -107,7 +148,7 @@ public class Controller : MonoBehaviour
 
         controller.Move(move * speed * Time.deltaTime);
 
-        if(Input.GetButtonDown("Jump"))
+        if(groundFlag && Input.GetButtonDown("Jump"))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
@@ -116,25 +157,9 @@ public class Controller : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
 
-        if(Input.GetButtonUp("CameraRotation") && flagTurn)
+        if(flagTurn && Input.GetButtonUp("CameraRotation"))
         {
-            SetTurnValues();
-            this.gameObject.transform.position = new Vector3(newPos.x, this.gameObject.transform.position.y, newPos.z);
-            
-            angle = controller.gameObject.transform.rotation.eulerAngles.y;
-            
-            Debug.Log("The Starting Angle");
-            Debug.Log(angle);
-
-            angle = standardAngle(angle + 0.25f * turnDir) + 0.25f * -turnDir;
-
-            Debug.Log("The Fixed Starting Angle");
-            Debug.Log(angle);
-
-            flagCamera = true;            
-            
-            Debug.Log("The Angle");
-            Debug.Log(angle + 90 * turnDir);
+            SetTurnValues();            
         }        
     }
 }
