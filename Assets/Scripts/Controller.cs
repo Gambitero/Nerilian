@@ -7,8 +7,8 @@ public class Controller : MonoBehaviour
     public CharacterController controller;
     public GameObject camera;
     private float speed = 12f;
-    private float gravity = -9.81f*8;
-    public float jumpHeight = 2.4f;
+    private float gravity = -9.81f*4;
+    private float jumpHeight = 2f;
     
     public float turnSpeed = 0.25f;
     public int cameraTurnSpeed = 1;
@@ -17,8 +17,8 @@ public class Controller : MonoBehaviour
     private int turnDir = 0;
     private float turnProgress = 0f;
 
-    public bool groundFlag = true;
-    public bool flagCamera = false;
+    public bool groundFlag = false;
+    public bool flagTurning = false;
     public bool flagTurn = false;    
     
     public float angle;
@@ -26,13 +26,10 @@ public class Controller : MonoBehaviour
 
     public Vector3 newPos;
 
-    public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
-    Vector3 velocity;
-
-    public bool isGrounded;
+    Vector3 velocity;    
     
     void SetTurnValues(){        
         turnDir = turnObj.gameObject.GetComponent<Turnpoint>().turnDir;
@@ -61,7 +58,7 @@ public class Controller : MonoBehaviour
         Debug.Log("The Fixed Starting Angle");
         Debug.Log(angle);
 
-        flagCamera = true;            
+        flagTurning = true;            
         
         Debug.Log("The Angle");
         Debug.Log(angle + 90 * turnDir);
@@ -74,8 +71,8 @@ public class Controller : MonoBehaviour
             turnObj = obj;            
         }
 
-        if (obj.gameObject.CompareTag("Platform")){
-            groundFlag = true;
+        if (obj.gameObject.CompareTag("Deathplane")){
+            this.Die();
         }
     }
 
@@ -85,16 +82,15 @@ public class Controller : MonoBehaviour
             Debug.Log("Exit turnpoint");
         }
 
-        if (obj.gameObject.CompareTag("Platform")){
-            groundFlag = false;
+        if (obj.gameObject.CompareTag("Window")){
+            obj.gameObject.GetComponent<CameraWindow>().MoveY(obj.gameObject.transform.position.y < gameObject.transform.position.y);
         }
     }
 
+    /*
     void OnTriggerStay(Collider obj){
-        if (obj.gameObject.CompareTag("Platform")){
-            groundFlag = true;
-        }
-    }
+        
+    }*/
 
     float standardAngle(float angle){
         if(angle<0)
@@ -110,37 +106,28 @@ public class Controller : MonoBehaviour
         if (turnProgress + 0.001f >= 90){
             Debug.Log("Stop");
             controller.gameObject.transform.eulerAngles = new Vector3(controller.gameObject.transform.rotation.eulerAngles.x, angle + 90 * turnDir, controller.gameObject.transform.rotation.eulerAngles.z);
-            flagCamera = false;
+            flagTurning = false;
             return;
         }
     }
 
+    void Die(){
+        GameObject.FindGameObjectWithTag("Window").GetComponent<CameraWindow>().stop = true;        
+        Debug.Log("Has muerto");
+    }
+
     void Update()
     {
-        if (flagCamera)
-        {
-            /*
-            //Time.deltaTime * -50f
-            controller.gameObject.transform.Rotate(0f, 0.25f * rotationDir, 0f);
-            Debug.Log("---");
-            Debug.Log(controller.gameObject.transform.rotation.eulerAngles.y);
-            
-            if (controller.gameObject.transform.rotation.eulerAngles.y <= 8007f0as7f0){
-                controller.gameObject.transform.eulerAngles = new Vector3(controller.gameObject.transform.rotation.eulerAngles.x, 8007f0as7f0, controller.gameObject.transform.rotation.eulerAngles.z);
-                //controller.gameObject.transform.rotation.eulerAngles.Set(controller.gameObject.transform.rotation.eulerAngles.x, 8007f0as7f0-12f, controller.gameObject.transform.rotation.eulerAngles.z);
-                flagCamera = false;                
-            }
-            */            
+        // Realizar giro
+        if (flagTurning)
+        {                   
             TurnPlayer();
             return;
         }
 
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-        if(isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
+        //Movimiento y gravedad
+        //-----------------------------------------------------------------------------------------
+        
 
         float x = Input.GetAxis("Horizontal");
 
@@ -151,12 +138,16 @@ public class Controller : MonoBehaviour
         if(groundFlag && Input.GetButtonDown("Jump"))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }        
+        
+        if(!groundFlag){
+            velocity.y += gravity * Time.deltaTime;        
         }
 
-        velocity.y += gravity * Time.deltaTime;
-
         controller.Move(velocity * Time.deltaTime);
+        //-----------------------------------------------------------------------------------------
 
+        // Configurar valores para el giro
         if(flagTurn && Input.GetButtonUp("CameraRotation"))
         {
             SetTurnValues();            
