@@ -11,13 +11,27 @@ public class CameraController : MonoBehaviour
     public bool turnCamera = false;
     public float turnSpeed = 0.25f;
 
+    public bool stop = false;
+
     public Vector3 targetTurnPosition;
     private Vector3 offset;
+    private Vector3 spawnOffset;
+    private Vector3 spawnPosition;
+    private Quaternion spawnRotation;
 
-    void Start()
+    void SaveSpawnValues()
     {
-        turnProgress = 0f;
-        offset = transform.position - target.position;
+        spawnPosition = transform.position;
+        spawnRotation = transform.rotation;
+        spawnOffset = offset;
+    }
+
+    public void Respawn()
+    {   
+        transform.rotation = spawnRotation;     
+        transform.position = spawnPosition;
+        offset = spawnOffset;        
+        stop = false;
     }
 
     public void TurnCamera(){
@@ -33,16 +47,25 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    void Start()
+    {        
+        stop = false;
+        turnProgress = 0f;
+        offset = transform.position - target.position;
+        SaveSpawnValues();
+    }
 
     void Update()
     {
-        if(turnCamera){            
-            TurnCamera();
-            return;
-        }
-        Vector3 targetCamPos = target.position + offset;
-        //targetCamPos = new Vector3 (targetCamPos.x, targetCamPos.y, targetCamPos.z);
+        if(!stop){                
+            if(turnCamera){            
+                TurnCamera();
+                return;
+            }
+            Vector3 targetCamPos = target.position + offset;
+            //targetCamPos = new Vector3 (targetCamPos.x, targetCamPos.y, targetCamPos.z);
 
-        transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);        
+            transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);        
+        }
     }
 }

@@ -11,30 +11,53 @@ public class CameraWindow : MonoBehaviour
     private Vector3 mov;
     public float smoothing = 5f;
     public float initY;
+    public Vector3 spawnPosition;
 
     bool outLimit = false;
     public bool stop;
+
+    public SceneController sceneController;
+
+    void SaveSpawnValues()
+    {
+        spawnPosition = transform.position;        
+    }    
+
+    // Se reajusta la Y si el jugador deja de colisionar con el objeto CameraWindow triggereando el outlimit
+    public void MoveY(bool Up){        
+        if(!stop){            
+            int dir = 1;
+
+            if(!Up){
+                dir = -1;
+            }        
+            mov = new Vector3(0,5*dir,0);
+            
+            outLimit = true;
+
+            initY = transform.position.y;        
+        }
+        
+    }
+    
+    public void Respawn()
+    {        
+        transform.position = new Vector3(transform.position.x, spawnPosition.y, transform.position.z);
+        offset = transform.position.y - target.position.y;
+        initY = transform.position.y;   
+        outLimit = false;           
+        stop = false;
+    }
+    
     void Start()
-    {  
+    {   
         outLimit = false;
         stop = false;
         count = 0f;      
         offset = transform.position.y - target.position.y;
+        SaveSpawnValues();
     }
 
-    public void MoveY(bool Up){        
-        
-        int dir = 1;
-
-        if(!Up){
-            dir = -1;
-        }        
-        mov = new Vector3(0,5*dir,0);
-        
-        outLimit = true;
-
-        initY = transform.position.y;        
-    }
     void Update()
     {
         if(!stop){
@@ -59,7 +82,5 @@ public class CameraWindow : MonoBehaviour
             Vector3 targetCamPos = target.position + new Vector3(0,offset,0);
             transform.position = new Vector3(targetCamPos.x, transform.position.y,targetCamPos.z);
         }
-
-       
     }
 }

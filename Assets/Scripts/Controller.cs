@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Controller : MonoBehaviour
 {
     public CharacterController controller;
-    public GameObject camera;
+    public PlayerStats plStats; 
+    public GameObject sceneCamera;
+    public Text livesText;
     private float speed = 12f;
     private float gravity = -9.81f*4;
     private float jumpHeight = 2f;
@@ -19,11 +22,15 @@ public class Controller : MonoBehaviour
 
     public bool groundFlag = false;
     public bool flagTurning = false;
-    public bool flagTurn = false;    
+    public bool flagTurn = false;
+
+    bool waitingForRespawn = false;
+    bool waitingForEnd = false;
     
     public float angle;
     public float rotationDir = -0.25f;
 
+    public SceneController sceneController;
     public Vector3 newPos;
 
     public float groundDistance = 0.4f;
@@ -31,58 +38,64 @@ public class Controller : MonoBehaviour
 
     Vector3 velocity;    
     
-    void SetTurnValues(){        
+    // Se asignan las variables necesarias para hacer el giro
+    void SetTurnValues(){
         turnDir = turnObj.gameObject.GetComponent<Turnpoint>().turnDir;
         turnObj.gameObject.GetComponent<Turnpoint>().turnDir *= -1;
         newPos = turnObj.gameObject.transform.position;
 
         turnProgress = 0f;
         
-        Debug.Log("TurnDir ==> " + turnDir);
+        //Debug.Log("TurnDir ==> " + turnDir);
 
         //Activar giro de cámara
-        camera.GetComponent<CameraController>().turnCamera = true;
-        camera.GetComponent<CameraController>().turnSpeed = turnSpeed/cameraTurnSpeed * turnDir;
-        camera.GetComponent<CameraController>().targetTurnPosition = gameObject.transform.position;
+        sceneCamera.GetComponent<CameraController>().turnCamera = true;
+        sceneCamera.GetComponent<CameraController>().turnSpeed = turnSpeed/cameraTurnSpeed * turnDir;
+        sceneCamera.GetComponent<CameraController>().targetTurnPosition = gameObject.transform.position;
         //
-
+        controller.enabled = false;
         this.gameObject.transform.position = new Vector3(newPos.x, this.gameObject.transform.position.y, newPos.z);
+        controller.enabled = true;
             
         angle = controller.gameObject.transform.rotation.eulerAngles.y;
         
-        Debug.Log("The Starting Angle");
-        Debug.Log(angle);
+        //Debug.Log("The Starting Angle");
+        //Debug.Log(angle);
 
         angle = standardAngle(angle + 0.25f * turnDir) + 0.25f * -turnDir;
 
-        Debug.Log("The Fixed Starting Angle");
-        Debug.Log(angle);
+        //Debug.Log("The Fixed Starting Angle");
+        //Debug.Log(angle);
 
         flagTurning = true;            
         
-        Debug.Log("The Angle");
-        Debug.Log(angle + 90 * turnDir);
+        //Debug.Log("The Angle");
+        //Debug.Log(angle + 90 * turnDir);
     }
 
     void OnTriggerEnter(Collider obj){
+        // Se permite el realizar un giro, flagTurn = true
         if (obj.gameObject.CompareTag("Turnpoint")){
             flagTurn = true;
-            Debug.Log("Enter turnpoint");
+            //Debug.Log("Enter turnpoint");
             turnObj = obj;            
         }
 
+        // Muerte por caída
         if (obj.gameObject.CompareTag("Deathplane")){
             this.Die();
         }
     }
 
-    void OnTriggerExit(Collider obj){        
+    void OnTriggerExit(Collider obj){
+        // Se deja de permitir el realizar un giro, flagTurn = false      
         if (obj.gameObject.CompareTag("Turnpoint")){
             flagTurn = false;
-            Debug.Log("Exit turnpoint");
+            //Debug.Log("Exit turnpoint");
         }
 
-        if (obj.gameObject.CompareTag("Window")){
+        // Se activa el desplazamiento de cámara en y porque el jugador se ha salido de la ventana de la cámara.
+        if (obj.gameObject.CompareTag("Window")){            
             obj.gameObject.GetComponent<CameraWindow>().MoveY(obj.gameObject.transform.position.y < gameObject.transform.position.y);
         }
     }
@@ -91,33 +104,102 @@ public class Controller : MonoBehaviour
     void OnTriggerStay(Collider obj){
         
     }*/
-
+    
+    // Función auxiliar para evitar ángulos negativos
     float standardAngle(float angle){
         if(angle<0)
             return 360f+angle;
         return angle;
     }
 
+    // Se define el giro del jugador, turnSpeed define cuanto gira el jugador por cada vez que se llama a este método.
+    // El valor se va acumulando en turnProgress y cuando llega a 90 se detiene el giro, la suma de 0.001f en el if se have
+    // porque los valores flotantes no son exactos y es posible que llegue a dar 89.996.
     void TurnPlayer(){
         turnProgress += turnSpeed;
 
         controller.gameObject.transform.Rotate(0f, turnSpeed * turnDir, 0f);
 
-        if (turnProgress + 0.001f >= 90){
-            Debug.Log("Stop");
+        if (turnProgress + 0.01f >= 90){
+            //Debug.Log("Stop");
             controller.gameObject.transform.eulerAngles = new Vector3(controller.gameObject.transform.rotation.eulerAngles.x, angle + 90 * turnDir, controller.gameObject.transform.rotation.eulerAngles.z);
             flagTurning = false;
             return;
         }
     }
 
-    void Die(){
-        GameObject.FindGameObjectWithTag("Window").GetComponent<CameraWindow>().stop = true;        
-        Debug.Log("Has muerto");
+    // Método de respawn, se ejecuta tras el fadeOut y el objetivo es llevar al jugador al último spawnPoint almacenado y resetear las partes del nivel    
+    public void Respawn()
+    {   
+        // Se actualiza el texto con las vidas
+        livesText.text = "x" + plStats.lives;
+        // Se desactiva y reactiva el controller porque si no, no se puede cambiar el trasnform.position directamente.
+        controller.enabled = false;
+        this.gameObject.transform.position = sceneController.spawnPoint.transform.position;
+        this.gameObject.transform.rotation = sceneController.spawnPoint.transform.rotation;
+        controller.enabled = true;
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().Respawn();
+        GameObject.FindGameObjectWithTag("Window").GetComponent<CameraWindow>().Respawn();          
+    } 
+
+    // Define la muerrte del jugador, pierde una vida, se hace un fade in a negro (dura 1 segundo) y se detiene la camara parando el CameraWindow
+    // Si le quedan vidas se activa el waitingForRespawn y el jugador volverá a aparecer en el último punto de respawn. De lo contrario aparecerá
+    // el Game Over tras el fadeOut, proceso que comenzará poniendo la variable waitingForEnd a true.
+    public void Die(){
+        plStats.lives--;        
+        sceneController.Fade(1f);
+        GameObject.FindGameObjectWithTag("Window").GetComponent<CameraWindow>().stop = true;
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().stop = true;
+        
+        if(plStats.lives>=0)
+        {
+            waitingForRespawn = true;            
+        }
+        else
+        {
+            waitingForEnd = true;
+        }
+
+        //Debug.Log("Has muerto");
+    }
+    
+    public void Start()
+    {
+        livesText.text = "x" + plStats.lives;
     }
 
     void Update()
     {
+        //* Comportamientos relacionados con la muerte del jugador
+        //-----------------------------------------------------------------------------------------
+        // Si se está esperando al respawnear, es porque se está esperando a que finalize la animación,
+        // mientras la variable waiting de sceneController sea true, se está realizando la animación por
+        // lo que deberemos esperar a que esta se vuelva falsa antes de realizar el Respawn.
+        if(waitingForRespawn)
+        {            
+            if(!sceneController.waiting)
+            {
+                waitingForRespawn = false;
+                Respawn();
+                // El delayedFade es una animación de Fade que funciona igual que un fade pero tiene un delay
+                // (definido por la primera variable que se le pasa) en realizar la animación de fade
+                sceneController.DelayedFade(1f, 1.0f);                
+            }
+        }
+        // Si se está esperando al final de partida, cuando se termine el fadeOut, es decir cuando waiting sea
+        // false, haremos la animación de GameOver
+        else if(waitingForEnd)
+        {
+            if(!sceneController.waiting)
+            {
+                sceneController.GameOver();
+            }
+        }
+        //-----------------------------------------------------------------------------------------
+
+
+        //* Giro
+        //-----------------------------------------------------------------------------------------
         // Realizar giro
         if (flagTurning)
         {                   
@@ -125,10 +207,15 @@ public class Controller : MonoBehaviour
             return;
         }
 
-        //Movimiento y gravedad
+        // Configurar valores para el giro
+        if(flagTurn && Input.GetButtonUp("CameraRotation"))
+        {
+            SetTurnValues();            
+        }        
         //-----------------------------------------------------------------------------------------
-        
 
+        //* Movimiento y gravedad
+        //-----------------------------------------------------------------------------------------
         float x = Input.GetAxis("Horizontal");
 
         Vector3 move = transform.right * x;
@@ -145,12 +232,6 @@ public class Controller : MonoBehaviour
         }
 
         controller.Move(velocity * Time.deltaTime);
-        //-----------------------------------------------------------------------------------------
-
-        // Configurar valores para el giro
-        if(flagTurn && Input.GetButtonUp("CameraRotation"))
-        {
-            SetTurnValues();            
-        }        
+        //-----------------------------------------------------------------------------------------        
     }
 }
