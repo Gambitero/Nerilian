@@ -11,7 +11,7 @@ public class Controller : MonoBehaviour
     public Text livesText;
     private float speed = 12f;
     private float gravity = -9.81f*4;
-    private float jumpHeight = 2f;
+    public float jumpHeight = 2f;
     
     public float turnSpeed = 0.25f;
     public int cameraTurnSpeed = 1;
