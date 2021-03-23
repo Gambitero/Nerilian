@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 5852491149429950804}
   - component: {fileID: 5852491149429950807}
   - component: {fileID: 5852491149429950806}
-  - component: {fileID: 5852491149429950805}
   m_Layer: 0
-  m_Name: Turnpoint (1)
+  m_Name: Turnpoint
   m_TagString: Turnpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5852491149429950800}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.12, y: -1.8, z: -19.561}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -94,16 +93,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5852491149429950805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5852491149429950800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43b1eb9dca4d2e248b64813bb2705542, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnDir: 1

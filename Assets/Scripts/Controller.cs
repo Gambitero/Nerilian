@@ -8,12 +8,13 @@ public class Controller : MonoBehaviour
     public CharacterController controller;
     public PlayerStats plStats; 
     public GameObject sceneCamera;
-    public Text livesText;
+    public Text livesText = null;
     private float speed = 12f;
     private float gravity = -9.81f*4;
     public float jumpHeight = 2f;
     
     public float turnSpeed = 0.25f;
+    private float precision = 0.001f;
     public int cameraTurnSpeed = 1;
     private float currentTurn;
     private Collider turnObj = null;
@@ -39,9 +40,10 @@ public class Controller : MonoBehaviour
     Vector3 velocity;    
     
     // Se asignan las variables necesarias para hacer el giro
-    void SetTurnValues(){
-        turnDir = turnObj.gameObject.GetComponent<Turnpoint>().turnDir;
-        turnObj.gameObject.GetComponent<Turnpoint>().turnDir *= -1;
+    void SetTurnValues(int turnButton){
+        //turnDir = turnObj.gameObject.GetComponent<Turnpoint>().turnDir;
+        turnDir = turnButton;
+        //turnObj.gameObject.GetComponent<Turnpoint>().turnDir *= -1;
         newPos = turnObj.gameObject.transform.position;
 
         turnProgress = 0f;
@@ -113,16 +115,22 @@ public class Controller : MonoBehaviour
     }
 
     // Se define el giro del jugador, turnSpeed define cuanto gira el jugador por cada vez que se llama a este método.
-    // El valor se va acumulando en turnProgress y cuando llega a 90 se detiene el giro, la suma de 0.001f en el if se have
+    // El valor se va acumulando en turnProgress y cuando llega a 90 se detiene el giro, la suma de 0.001f en el if se hace
     // porque los valores flotantes no son exactos y es posible que llegue a dar 89.996.
     void TurnPlayer(){
         turnProgress += turnSpeed;
 
         controller.gameObject.transform.Rotate(0f, turnSpeed * turnDir, 0f);
 
-        if (turnProgress + 0.01f >= 90){
+        if (turnProgress + precision >= 90){
             //Debug.Log("Stop");
             controller.gameObject.transform.eulerAngles = new Vector3(controller.gameObject.transform.rotation.eulerAngles.x, angle + 90 * turnDir, controller.gameObject.transform.rotation.eulerAngles.z);
+            controller.gameObject.GetComponent<Transform>().rotation.Set( 
+                //truncamiento de las unidades. al parecer unity considera las precisiones en radianes y al girar 90 grados se queda residuo
+                Mathf.RoundToInt(controller.gameObject.GetComponent<Transform>().rotation.x),
+                Mathf.RoundToInt(controller.gameObject.GetComponent<Transform>().rotation.y),
+                Mathf.RoundToInt(controller.gameObject.GetComponent<Transform>().rotation.z),
+                Mathf.RoundToInt(controller.gameObject.GetComponent<Transform>().rotation.w));
             flagTurning = false;
             return;
         }
@@ -208,10 +216,18 @@ public class Controller : MonoBehaviour
         }
 
         // Configurar valores para el giro
-        if(flagTurn && Input.GetButtonUp("CameraRotation"))
+        if (flagTurn && Input.GetButtonUp("CameraRotationUP"))
         {
-            SetTurnValues();            
-        }        
+            //poner el dir -1 W
+            SetTurnValues(-1);
+        }
+        if (flagTurn && Input.GetButtonUp("CameraRotationDOWN"))
+        {
+            //poner el dir 1 S            
+            SetTurnValues(1);  
+        }
+                  
+                
         //-----------------------------------------------------------------------------------------
 
         //* Movimiento y gravedad

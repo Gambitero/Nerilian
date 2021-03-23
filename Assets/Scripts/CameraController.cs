@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour
     public Transform target;
     public float smoothing = 5f;
     private float turnProgress = 0f;
+    private float precision = 0.0001f;
 
     public bool turnCamera = false;
     public float turnSpeed = 0.25f;
@@ -38,10 +39,17 @@ public class CameraController : MonoBehaviour
         turnProgress += Mathf.Abs(turnSpeed);
 
         offset = transform.position - target.position;
-        gameObject.transform.RotateAround(target.position, Vector3.up, turnSpeed);        
+        gameObject.transform.RotateAround(target.position, Vector3.up, turnSpeed);
+        
 
-        if (turnProgress + 0.001f >= 90){
+        if (turnProgress + precision >= 90){
             turnProgress = 0f;
+            gameObject.GetComponent<Transform>().rotation.Set(
+               //truncamiento de las unidades. al parecer unity considera las precisiones en radianes y al girar 90 grados se queda residuo
+               Mathf.RoundToInt(gameObject.GetComponent<Transform>().rotation.x),
+               Mathf.RoundToInt(gameObject.GetComponent<Transform>().rotation.y),
+               Mathf.RoundToInt(gameObject.GetComponent<Transform>().rotation.z),
+               Mathf.RoundToInt(gameObject.GetComponent<Transform>().rotation.w));
             turnCamera = false;
             return;
         }
