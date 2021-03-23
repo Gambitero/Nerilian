@@ -7,7 +7,7 @@ public class Controller : MonoBehaviour
     public CharacterController controller;
     private float speed = 12f;
     private float gravity = -9.81f*9;
-    private float jumpHeight = 4.4f;
+    private float jumpHeight = 2.4f;
 
     public bool flagCamera = false;
     public bool flagTurn = false;
