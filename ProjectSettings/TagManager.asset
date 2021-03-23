@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Turnpoint
+  - Platform
+  - Window
+  - Deathplane
+  - Spawnpoint
   layers:
   - Default
   - TransparentFX
