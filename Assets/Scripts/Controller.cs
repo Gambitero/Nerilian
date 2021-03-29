@@ -10,7 +10,7 @@ public class Controller : MonoBehaviour
     public GameObject sceneCamera;
     public Text livesText = null;
     private float speed = 12f;
-    private float gravity = -9.81f*4;
+    private float gravity = -9.81f;
     public float jumpHeight = 2f;
     
     public float turnSpeed = 0.25f;
@@ -240,11 +240,13 @@ public class Controller : MonoBehaviour
 
         if(groundFlag && Input.GetButtonDown("Jump"))
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }        
-        
-        if(!groundFlag){
-            velocity.y += gravity * Time.deltaTime;        
+            velocity.y = -gravity/3 * jumpHeight + (jumpHeight/3) ;
+        }
+
+        if (!groundFlag)
+        {
+            velocity.y -= Mathf.Pow((gravity / 2), 2) * Time.deltaTime;
+
         }
 
         controller.Move(velocity * Time.deltaTime);
