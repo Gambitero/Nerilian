@@ -28419,7 +28419,7 @@ PrefabInstance:
     - target: {fileID: 2634076718732840026, guid: f5faa3ad3b399ef4fb4badc9785d632e,
         type: 3}
       propertyPath: jumpHeight
-      value: 4
+      value: 2.35
       objectReference: {fileID: 0}
     - target: {fileID: 2634076718732840026, guid: f5faa3ad3b399ef4fb4badc9785d632e,
         type: 3}
@@ -30589,31 +30589,29 @@ Transform:
   - {fileID: 1288394534}
   - {fileID: 81746581}
   - {fileID: 2095916817}
-  - {fileID: 1616164534}
+  - {fileID: 718612134}
   - {fileID: 811717184}
   - {fileID: 1153272815}
-  - {fileID: 718612134}
   - {fileID: 601864717}
   - {fileID: 68988397}
   - {fileID: 108314577}
-  - {fileID: 2083057826}
-  - {fileID: 973064336}
-  - {fileID: 1604990646}
   - {fileID: 41432476}
   - {fileID: 1424696829}
   - {fileID: 1127032789}
   - {fileID: 966155518}
   - {fileID: 2020688630}
-  - {fileID: 1265188641}
   - {fileID: 75914552}
+  - {fileID: 1265188641}
   - {fileID: 1973852416}
   - {fileID: 2038911820}
   - {fileID: 501671441}
   - {fileID: 1265005559}
   - {fileID: 209295383}
   - {fileID: 1717455498}
+  - {fileID: 973064336}
   - {fileID: 331719881}
   - {fileID: 1200710034}
+  - {fileID: 2083057826}
   - {fileID: 248361465}
   - {fileID: 1347802953}
   - {fileID: 1263308698}
@@ -30646,11 +30644,13 @@ Transform:
   - {fileID: 2037854825}
   - {fileID: 1488459576}
   - {fileID: 1755882858}
+  - {fileID: 1616164534}
   - {fileID: 432572081}
   - {fileID: 128994782}
   - {fileID: 887647579}
   - {fileID: 519983419}
   - {fileID: 707673215}
+  - {fileID: 1604990646}
   - {fileID: 659103259}
   - {fileID: 104007910}
   - {fileID: 1189797572}
@@ -30721,11 +30721,11 @@ Transform:
   - {fileID: 513437971}
   - {fileID: 1709433148}
   - {fileID: 609221535}
+  - {fileID: 1884598146}
   - {fileID: 608571042}
+  - {fileID: 1329886322}
   - {fileID: 218507563}
   - {fileID: 1153432607}
-  - {fileID: 1884598146}
-  - {fileID: 1329886322}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

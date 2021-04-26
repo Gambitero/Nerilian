@@ -10,7 +10,7 @@ public class Controller : MonoBehaviour
     public GameObject sceneCamera;
     public Text livesText = null;
     private float speed = 12f;
-    private float gravity = -9.81f;
+    public float gravity = -9.81f;
     public float jumpHeight = 2f;
     
     public float turnSpeed = 0.25f;
@@ -36,8 +36,11 @@ public class Controller : MonoBehaviour
 
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+    public Vector3 fallVelocity;
 
-    Vector3 velocity;    
+    public bool jumping = false;
+    public bool resetFallVel = false;
+    public float resetFallTimer = 0f;
     
     // Se asignan las variables necesarias para hacer el giro
     void SetTurnValues(int turnButton){
@@ -80,12 +83,24 @@ public class Controller : MonoBehaviour
         if (obj.gameObject.CompareTag("Turnpoint")){
             flagTurn = true;
             //Debug.Log("Enter turnpoint");
-            turnObj = obj;            
+            turnObj = obj;
+            return;
         }
 
         // Muerte por caída
         if (obj.gameObject.CompareTag("Deathplane")){
             this.Die();
+            return;
+        }
+    }
+    void OnCollisionEnter(Collision obj){
+        if (!obj.gameObject.CompareTag("Saw")){
+            Debug.Log("holaaaaaaaaa213a");
+        }
+        if (obj.gameObject.CompareTag("Saw")){
+            Debug.Log("holaaaaaaaaaa");
+            this.Die();
+            return;
         }
     }
 
@@ -93,19 +108,22 @@ public class Controller : MonoBehaviour
         // Se deja de permitir el realizar un giro, flagTurn = false      
         if (obj.gameObject.CompareTag("Turnpoint")){
             flagTurn = false;
+            return;
             //Debug.Log("Exit turnpoint");
         }
 
         // Se activa el desplazamiento de cámara en y porque el jugador se ha salido de la ventana de la cámara.
         if (obj.gameObject.CompareTag("Window")){            
             obj.gameObject.GetComponent<CameraWindow>().MoveY(obj.gameObject.transform.position.y < gameObject.transform.position.y);
+            return;
         }
     }
 
-    /*
-    void OnTriggerStay(Collider obj){
-        
-    }*/
+    void resetFall(){
+        fallVelocity.y = 0;
+        resetFallVel = false;
+        resetFallTimer = 0f;
+    }
     
     // Función auxiliar para evitar ángulos negativos
     float standardAngle(float angle){
@@ -236,20 +254,29 @@ public class Controller : MonoBehaviour
 
         Vector3 move = transform.right * x;
 
+        if(!jumping && groundFlag && Input.GetButtonDown("Jump"))
+        {
+            resetFall();
+            fallVelocity = Vector3.up * jumpHeight;
+            jumping = true;
+        }
+
+        if(!groundFlag){
+            fallVelocity.y += gravity * Time.deltaTime;
+        }
+
+        move.y = fallVelocity.y;
+
         controller.Move(move * speed * Time.deltaTime);
-
-        if(groundFlag && Input.GetButtonDown("Jump"))
-        {
-            velocity.y = -gravity/3 * jumpHeight + (jumpHeight/3) ;
+        
+        if(resetFallVel){
+            if(resetFallTimer<0.5f){
+                resetFallTimer += Time.deltaTime;
+            }
+            else{
+                resetFall();
+            }
         }
-
-        if (!groundFlag)
-        {
-            velocity.y -= Mathf.Pow((gravity / 2), 2) * Time.deltaTime;
-
-        }
-
-        controller.Move(velocity * Time.deltaTime);
         //-----------------------------------------------------------------------------------------        
     }
 }

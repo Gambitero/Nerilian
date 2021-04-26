@@ -9,6 +9,8 @@ TagManager:
   - Window
   - Deathplane
   - Spawnpoint
+  - Head
+  - Saw
   layers:
   - Default
   - TransparentFX
