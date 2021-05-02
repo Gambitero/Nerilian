@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SawBehavior : MonoBehaviour
+public class BallBehavior : MonoBehaviour
 {
     public float moveSpeed = 1f;
     public float dir = -1;
@@ -15,12 +15,18 @@ public class SawBehavior : MonoBehaviour
 
     void Update()
     {   
-        controller.Move(new Vector3(0,moveSpeed * dir,0) * Time.deltaTime);     
+        controller.Move(new Vector3(moveSpeed * dir, 0, 0) * Time.deltaTime);     
     }
 
-    void OnTriggerEnter(Collider obj){
-        if(obj.gameObject.transform.CompareTag("Player")){
+    void OnTriggerEnter(Collider obj){        
+        if(obj.CompareTag("Player")){
             obj.gameObject.GetComponent<Controller>().Die();
         }        
+    }
+
+    void OnTriggerExit(Collider obj){        
+        if(obj.CompareTag("PatrolRange")){
+            dir *= -1;
+        }
     }
 }

@@ -93,12 +93,8 @@ public class Controller : MonoBehaviour
             return;
         }
     }
-    void OnCollisionEnter(Collision obj){
-        if (!obj.gameObject.CompareTag("Saw")){
-            Debug.Log("holaaaaaaaaa213a");
-        }
-        if (obj.gameObject.CompareTag("Saw")){
-            Debug.Log("holaaaaaaaaaa");
+    void OnCollisionEnter(Collision obj){        
+        if (obj.gameObject.CompareTag("Saw")){            
             this.Die();
             return;
         }
@@ -156,7 +152,7 @@ public class Controller : MonoBehaviour
 
     // Método de respawn, se ejecuta tras el fadeOut y el objetivo es llevar al jugador al último spawnPoint almacenado y resetear las partes del nivel    
     public void Respawn()
-    {   
+    {        
         // Se actualiza el texto con las vidas
         livesText.text = "x" + plStats.lives;
         // Se desactiva y reactiva el controller porque si no, no se puede cambiar el trasnform.position directamente.
@@ -164,6 +160,7 @@ public class Controller : MonoBehaviour
         this.gameObject.transform.position = sceneController.spawnPoint.transform.position;
         this.gameObject.transform.rotation = sceneController.spawnPoint.transform.rotation;
         controller.enabled = true;
+        controller.Move(new Vector3(0f,2f,0f));
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().Respawn();
         GameObject.FindGameObjectWithTag("Window").GetComponent<CameraWindow>().Respawn();          
     } 
@@ -172,6 +169,10 @@ public class Controller : MonoBehaviour
     // Si le quedan vidas se activa el waitingForRespawn y el jugador volverá a aparecer en el último punto de respawn. De lo contrario aparecerá
     // el Game Over tras el fadeOut, proceso que comenzará poniendo la variable waitingForEnd a true.
     public void Die(){
+        if(this.sceneController.waiting){
+            return;
+        }
+
         plStats.lives--;        
         sceneController.Fade(1f);
         GameObject.FindGameObjectWithTag("Window").GetComponent<CameraWindow>().stop = true;
@@ -185,8 +186,6 @@ public class Controller : MonoBehaviour
         {
             waitingForEnd = true;
         }
-
-        //Debug.Log("Has muerto");
     }
     
     public void Start()
@@ -198,7 +197,7 @@ public class Controller : MonoBehaviour
     {
         //* Comportamientos relacionados con la muerte del jugador
         //-----------------------------------------------------------------------------------------
-        // Si se está esperando al respawnear, es porque se está esperando a que finalize la animación,
+        // Si se está esperando a respawnear, es porque se está esperando a que finalize la animación,
         // mientras la variable waiting de sceneController sea true, se está realizando la animación por
         // lo que deberemos esperar a que esta se vuelva falsa antes de realizar el Respawn.
         if(waitingForRespawn)

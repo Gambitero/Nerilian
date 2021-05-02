@@ -11,6 +11,10 @@ TagManager:
   - Spawnpoint
   - Head
   - Saw
+  - SmasherTrig
+  - Smasher
+  - PatrolRange
+  - BlinkWall
   layers:
   - Default
   - TransparentFX
