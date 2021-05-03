@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Controller : MonoBehaviour
 {
+    public bool invincible = false;
     public CharacterController controller;
     public PlayerStats plStats; 
     public GameObject sceneCamera;
@@ -169,7 +170,7 @@ public class Controller : MonoBehaviour
     // Si le quedan vidas se activa el waitingForRespawn y el jugador volverá a aparecer en el último punto de respawn. De lo contrario aparecerá
     // el Game Over tras el fadeOut, proceso que comenzará poniendo la variable waitingForEnd a true.
     public void Die(){
-        if(this.sceneController.waiting){
+        if(this.sceneController.waiting || this.invincible){
             return;
         }
 

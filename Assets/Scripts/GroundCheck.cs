@@ -9,7 +9,7 @@ public class GroundCheck : MonoBehaviour
     public Controller playerController;
     
     void OnCollisionEnter(Collision obj){
-        if (obj.gameObject.CompareTag("Platform")){            
+        if (obj.gameObject.CompareTag("Platform") || obj.gameObject.CompareTag("Jumpable")){            
             groundFlag = true;
             //playerController.velocity.y = 0;       
             playerController.resetFallVel = true;
@@ -19,14 +19,14 @@ public class GroundCheck : MonoBehaviour
     }
 
     void OnCollisionExit(Collision obj){
-        if (obj.gameObject.CompareTag("Platform")){            
+        if (obj.gameObject.CompareTag("Platform") || obj.gameObject.CompareTag("Jumpable")){            
             groundFlag = false;
             playerController.groundFlag = groundFlag;
         }
     }
 
     void OnCollisionStay(Collision obj){
-        if (obj.gameObject.CompareTag("Platform")){            
+        if (obj.gameObject.CompareTag("Platform") || obj.gameObject.CompareTag("Jumpable")){
             groundFlag = true;
             playerController.groundFlag = groundFlag;
         }
