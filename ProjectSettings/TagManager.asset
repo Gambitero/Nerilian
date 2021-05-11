@@ -17,6 +17,9 @@ TagManager:
   - BlinkWall
   - LaserCanon
   - Laser
+  - Jumpable
+  - Enemy
+  - Platform2
   layers:
   - Default
   - TransparentFX

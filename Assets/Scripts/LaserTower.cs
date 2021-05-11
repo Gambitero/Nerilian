@@ -13,6 +13,7 @@ public class LaserTower : MonoBehaviour
     public bool follow = true;
     public float trigDistance = 500f;
     public float trigDistance2 = 30f;
+    public float trigAngle = 30f;
     public float lookingDir = 1; //0 left, 1 right, 2 forward, 3 backward    
     Vector3 dist;
     Vector3 comparer;
@@ -49,7 +50,7 @@ public class LaserTower : MonoBehaviour
     void Update()
     {
         dist = -gameObject.transform.position+objective.transform.position;
-        if (dist.sqrMagnitude < trigDistance && dist.sqrMagnitude > trigDistance2  && Vector3.Angle(dist, comparer) < 45){
+        if (dist.sqrMagnitude < trigDistance && dist.sqrMagnitude > trigDistance2  && Vector3.Angle(dist, comparer) < trigAngle){
             trig = true;
         }
         else{

@@ -16,7 +16,7 @@ public class SmasherBehavior : MonoBehaviour
         count = 0f;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if(!trig && moveSpeed < 0){
             count += Time.deltaTime;
@@ -35,7 +35,7 @@ public class SmasherBehavior : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider obj){
-        if(obj.gameObject.transform.parent.CompareTag("Player")){
+        if(obj.gameObject.transform.parent.CompareTag("Player") && trig){
             obj.gameObject.GetComponentInParent<Controller>().Die();
         }
         
