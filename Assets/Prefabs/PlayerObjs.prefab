@@ -341,6 +341,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2634076718100560948}
+  - component: {fileID: 4832703307785672923}
   m_Layer: 0
   m_Name: PlayerObjs
   m_TagString: Untagged
@@ -366,6 +367,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4832703307785672923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2634076718100560949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a90fc4157f9b6894c9eaa5e31ed8868b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterClass: 0
+  CharacterPowerUps: 0
+  PlayerCharacter: {fileID: 2634076718732840030}
 --- !u!1 &2634076718340316218
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,10 +658,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2d9dbae403445a4691cab638766de57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invincible: 0
   controller: {fileID: 2634076718732840025}
   plStats: {fileID: 2634076718732840029}
   sceneCamera: {fileID: 2634076718387435331}
   livesText: {fileID: 0}
+  speed: 12
+  weight: 1
   gravity: -7.5
   jumpHeight: 2.35
   turnSpeed: 0.25

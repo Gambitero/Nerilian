@@ -10,7 +10,8 @@ public class Controller : MonoBehaviour
     public PlayerStats plStats; 
     public GameObject sceneCamera;
     public Text livesText = null;
-    private float speed = 12f;
+    public float speed = 12f;
+    public float weight = 1.0f;
     public float gravity = -9.81f;
     public float jumpHeight = 2f;
     
@@ -158,8 +159,8 @@ public class Controller : MonoBehaviour
         livesText.text = "x" + plStats.lives;
         // Se desactiva y reactiva el controller porque si no, no se puede cambiar el trasnform.position directamente.
         controller.enabled = false;
-        this.gameObject.transform.position = sceneController.spawnPoint.transform.position;
-        this.gameObject.transform.rotation = sceneController.spawnPoint.transform.rotation;
+        gameObject.transform.position = sceneController.spawnPoint.transform.position;
+        gameObject.transform.rotation = sceneController.spawnPoint.transform.rotation;
         controller.enabled = true;
         controller.Move(new Vector3(0f,2f,0f));
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().Respawn();
@@ -191,7 +192,9 @@ public class Controller : MonoBehaviour
     
     public void Start()
     {
-        livesText.text = "x" + plStats.lives;
+        var builder = gameObject.GetComponentInParent<CharacterBuild>();
+        builder.PersonajeBuilder(builder.CharacterClass, builder.CharacterPowerUps, gameObject);
+        //livesText.text = "x" + plStats.lives;
     }
 
     void Update()
@@ -222,8 +225,6 @@ public class Controller : MonoBehaviour
             }
         }
         //-----------------------------------------------------------------------------------------
-
-
         //* Giro
         //-----------------------------------------------------------------------------------------
         // Realizar giro
@@ -247,7 +248,6 @@ public class Controller : MonoBehaviour
                   
                 
         //-----------------------------------------------------------------------------------------
-
         //* Movimiento y gravedad
         //-----------------------------------------------------------------------------------------
         float x = Input.GetAxis("Horizontal");
@@ -262,7 +262,7 @@ public class Controller : MonoBehaviour
         }
 
         if(!groundFlag){
-            fallVelocity.y += gravity * Time.deltaTime;
+            fallVelocity.y += gravity * weight * Time.deltaTime;
         }
 
         move.y = fallVelocity.y;
