@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
     private Vector3 spawnPosition;
     private Quaternion spawnRotation;
 
-    void SaveSpawnValues()
+    public void SaveSpawnValues()
     {
         spawnPosition = transform.position;
         spawnRotation = transform.rotation;

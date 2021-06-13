@@ -19,6 +19,8 @@ public class ZombieController : MonoBehaviour
     public bool stop = false;
     public bool chase = false;
     public bool axis = true; // true x, false z
+
+    public int health = 2;
     
     void resetFall(){
         fallVelocity.y = 0;
@@ -32,6 +34,19 @@ public class ZombieController : MonoBehaviour
             dir *= normalSpeed/chaseSpeed;
             obj.gameObject.GetComponent<Controller>().Die();
         }        
+    }
+
+    public void GetHit(){
+        Debug.Log("Me han dado");
+        health --;
+        objective.GetComponent<Controller>().Bounce();
+        if (health == 0){
+            this.Die();
+        }
+    }
+
+    void Die(){
+        this.gameObject.SetActive(false);        
     }
 
     void Update()

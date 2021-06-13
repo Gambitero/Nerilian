@@ -104,6 +104,15 @@ public class Controller : MonoBehaviour
             return;
         }
 
+        if (obj.gameObject.CompareTag("Spawnpoint")){
+            //Debug.Log("Enter Spawnpoint");
+            sceneController.SetSpawnpoint(obj.gameObject);
+            obj.gameObject.transform.rotation = gameObject.transform.rotation;
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().SaveSpawnValues();
+            GameObject.FindGameObjectWithTag("Window").GetComponent<CameraWindow>().SaveSpawnValues();
+            return;
+        }
+
         // Muerte por caída
         if (obj.gameObject.CompareTag("Deathplane")){
             this.Die();
@@ -171,6 +180,10 @@ public class Controller : MonoBehaviour
             flagTurning = false;
             return;
         }
+    }
+
+    public void Bounce(){
+        fallVelocity = Vector3.up * jumpHeight * 0.7f;
     }
 
     // Método de respawn, se ejecuta tras el fadeOut y el objetivo es llevar al jugador al último spawnPoint almacenado y resetear las partes del nivel    

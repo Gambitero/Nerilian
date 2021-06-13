@@ -18,7 +18,7 @@ public class CameraWindow : MonoBehaviour
 
     public SceneController sceneController;
 
-    void SaveSpawnValues()
+    public void SaveSpawnValues()
     {
         spawnPosition = transform.position;        
     }    

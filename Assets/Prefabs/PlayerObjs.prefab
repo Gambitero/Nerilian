@@ -666,7 +666,7 @@ MonoBehaviour:
   speed: 12
   weight: 1
   gravity: -7.5
-  jumpHeight: 2.35
+  jumpHeight: 4
   turnSpeed: 0.25
   cameraTurnSpeed: 1
   groundFlag: 0
@@ -686,8 +686,9 @@ MonoBehaviour:
   resetFallTimer: 0
   hangTime: 0.2
   jumpBufferLength: 0.1
-  dashTime: 3
-  dashSpeed: 0.5
+  dashTime: 0.18
+  dashSpeed: 0.397
+  dashDelay: 0.075
 --- !u!114 &2634076718732840029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,7 +738,7 @@ GameObject:
   - component: {fileID: 2634076718742328089}
   m_Layer: 0
   m_Name: GroundCheck
-  m_TagString: Untagged
+  m_TagString: PlayerFeet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -751,7 +752,7 @@ Transform:
   m_GameObject: {fileID: 2634076718742328095}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0216, y: -1.233, z: 0}
-  m_LocalScale: {x: 0.2072101, y: 0.122994006, z: 0.5288544}
+  m_LocalScale: {x: 0.6984638, y: 0.122994006, z: 0.5288544}
   m_Children: []
   m_Father: {fileID: 2634076718732840028}
   m_RootOrder: 3

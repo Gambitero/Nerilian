@@ -176,6 +176,7 @@ MonoBehaviour:
   stop: 0
   chase: 0
   axis: 1
+  health: 2
 --- !u!65 &696256431747246711
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -187,7 +188,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.7420158, y: 3.008591, z: 1.0000002}
+  m_Size: {x: 2.12, y: 2.04, z: 1.0000002}
   m_Center: {x: 0, y: 0.31986618, z: 0}
 --- !u!54 &696256431747246710
 Rigidbody:
@@ -217,7 +218,7 @@ GameObject:
   - component: {fileID: 696256431924737268}
   - component: {fileID: 696256431924737269}
   - component: {fileID: 696256431924737270}
-  - component: {fileID: 696256431924737271}
+  - component: {fileID: 4385812869612062954}
   m_Layer: 0
   m_Name: HeadCheck
   m_TagString: Untagged
@@ -234,7 +235,7 @@ Transform:
   m_GameObject: {fileID: 696256431924737265}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.644, z: 0}
-  m_LocalScale: {x: 0.2072101, y: 0.122994006, z: 0.5288544}
+  m_LocalScale: {x: 0.4787382, y: 0.122994006, z: 0.5288544}
   m_Children: []
   m_Father: {fileID: 696256431747246706}
   m_RootOrder: 4
@@ -255,10 +256,10 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 696256431924737265}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.4, y: 1, z: 1.53}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &696256431924737270
 Rigidbody:
@@ -276,7 +277,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &696256431924737271
+--- !u!114 &4385812869612062954
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -285,10 +286,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 696256431924737265}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afa7c532a676e2f4eabdce39e17c8dfb, type: 3}
+  m_Script: {fileID: 11500000, guid: 17131f9efc5f38f4594c3443003b350a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 0}
 --- !u!1 &696256431943719642
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,6 +444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saw: 0
   zombie: 1
+  turnBuffer: 0
 --- !u!1 &696256432586969713
 GameObject:
   m_ObjectHideFlags: 0

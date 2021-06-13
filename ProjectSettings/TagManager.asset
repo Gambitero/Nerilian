@@ -20,6 +20,7 @@ TagManager:
   - Jumpable
   - Enemy
   - Platform2
+  - PlayerFeet
   layers:
   - Default
   - TransparentFX
