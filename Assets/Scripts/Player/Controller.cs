@@ -34,7 +34,7 @@ public class Controller : MonoBehaviour
     public float rotationDir = -0.25f;
 
     public SceneController sceneController;
-    public Vector3 newPos;
+    public Vector3 newPos;    
 
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
@@ -43,6 +43,21 @@ public class Controller : MonoBehaviour
     public bool jumping = false;
     public bool resetFallVel = false;
     public float resetFallTimer = 0f;
+
+    public float hangTime = 0.2f;
+    private float hangCount;
+
+    public float jumpBufferLength = 0.1f;
+    private float jumpBufferCount;
+
+    private int lookDir = 1;
+    public float dashTime = 3f;
+    public float dashSpeed = 0.5f;
+    public float dashDelay = 0.075f;
+    private float dashCount;
+    private bool isDashing = false;
+
+    private GameObject windowObj;
     
     // Se asignan las variables necesarias para hacer el giro
     void SetTurnValues(int turnButton){
@@ -94,6 +109,12 @@ public class Controller : MonoBehaviour
             this.Die();
             return;
         }
+        
+        // No se desplaza la cámara en Y
+        if (obj.gameObject.CompareTag("Window")){
+            windowObj = null;
+            return;
+        }
     }
     void OnCollisionEnter(Collision obj){        
         if (obj.gameObject.CompareTag("Saw")){            
@@ -111,8 +132,8 @@ public class Controller : MonoBehaviour
         }
 
         // Se activa el desplazamiento de cámara en y porque el jugador se ha salido de la ventana de la cámara.
-        if (obj.gameObject.CompareTag("Window")){            
-            obj.gameObject.GetComponent<CameraWindow>().MoveY(obj.gameObject.transform.position.y < gameObject.transform.position.y);
+        if (obj.gameObject.CompareTag("Window")){
+            windowObj = obj.gameObject;
             return;
         }
     }
@@ -250,17 +271,66 @@ public class Controller : MonoBehaviour
         //-----------------------------------------------------------------------------------------
         //* Movimiento y gravedad
         //-----------------------------------------------------------------------------------------
+        // Si el dash está activado
+        if (dashCount >= 0){            
+            dashCount -= Time.deltaTime;
+            // Delay de 0.035 segundos
+            if(dashCount < dashTime - dashDelay)
+                Debug.Log("Dash");
+                controller.Move(transform.right * lookDir * dashSpeed);
+            return;
+        }
+        else if (isDashing){
+            dashCount -= Time.deltaTime;
+            if(dashCount <= -dashTime * 3){
+                isDashing = false;
+            }
+        }
+        
         float x = Input.GetAxis("Horizontal");
 
         Vector3 move = transform.right * x;
 
-        if(!jumping && groundFlag && Input.GetButtonDown("Jump"))
+        if(x != 0){
+            lookDir = (int)Mathf.Sign(x);
+        }
+
+        // Acticación del dash
+        if (Input.GetButtonDown("Dash") && !isDashing){            
+            dashCount = dashTime + dashDelay;
+            isDashing = true;
+        }
+        
+        // Hangtime: Se puede saltar unos frames después de caerse de un borde
+        if (groundFlag){
+            hangCount = hangTime;
+        }
+        else{
+            hangCount -= Time.deltaTime;
+        }
+
+        // Jump buffer: Se puede saltar unos frames antes de tocar el suelo
+        if(Input.GetButtonDown("Jump")){
+            jumpBufferCount = jumpBufferLength;
+        }
+        else{
+            jumpBufferCount -= Time.deltaTime;
+        }
+        
+        // Jump hold: Se salta más alto si se mantiene pulsada la tecla
+        if(Input.GetButtonUp("Jump") && fallVelocity.y > 0){
+            fallVelocity.y *= 0.6f;
+        }
+
+        // Inicio del salto
+        if(!jumping && hangCount > 0f && jumpBufferCount >= 0f)
         {
             resetFall();
             fallVelocity = Vector3.up * jumpHeight;
             jumping = true;
         }
 
+        // Si estamos en el aire, la gravedad surte efecto y descendemos
         if(!groundFlag){
             fallVelocity.y += gravity * weight * Time.deltaTime;
         }
@@ -269,6 +339,7 @@ public class Controller : MonoBehaviour
 
         controller.Move(move * speed * Time.deltaTime);
         
+        // Se gestiona el reseteo de fallVelocity.y para que no se acumule la gravedad en varias caidas
         if(resetFallVel){
             if(resetFallTimer<0.5f){
                 resetFallTimer += Time.deltaTime;
@@ -277,6 +348,17 @@ public class Controller : MonoBehaviour
                 resetFall();
             }
         }
-        //-----------------------------------------------------------------------------------------        
+        //-----------------------------------------------------------------------------------------
+
+        //-----------------------------------------------------------------------------------------
+        //* Cámara
+        //-----------------------------------------------------------------------------------------
+        // Si estamos en el suelo y no estamos en colisión con el cameraWindow, desplazamos el mismo
+        // en y
+        if(windowObj != null && groundFlag  && !isDashing){
+            windowObj.GetComponent<CameraWindow>().MoveY(windowObj.transform.position.y < gameObject.transform.position.y);
+            windowObj = null;
+        }
+        //-----------------------------------------------------------------------------------------
     }
 }

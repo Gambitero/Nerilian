@@ -12,9 +12,10 @@ public class CharacterBuild : MonoBehaviour
         Normal = 0
     } //to do
     public enum powerUps {
+        Nada = 0,
         BolaFuego = 1,
         Dash = 2,
-        Nada = 0
+        BunnyHop = 3      
     } //to do
 
     public clases CharacterClass;

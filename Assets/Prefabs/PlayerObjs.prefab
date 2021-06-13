@@ -232,8 +232,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2634076717967039456}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: 0.7899933, z: 0.9199829}
-  m_LocalScale: {x: 0.5, y: 6.9772334, z: 0.5}
+  m_LocalPosition: {x: 4, y: 0.79, z: 0.9199829}
+  m_LocalScale: {x: 2.998, y: 6, z: 0.5}
   m_Children: []
   m_Father: {fileID: 2634076718100560948}
   m_RootOrder: 2
@@ -684,6 +684,10 @@ MonoBehaviour:
   jumping: 0
   resetFallVel: 0
   resetFallTimer: 0
+  hangTime: 0.2
+  jumpBufferLength: 0.1
+  dashTime: 3
+  dashSpeed: 0.5
 --- !u!114 &2634076718732840029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,7 +790,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundFlag: 1
-  playerController: {fileID: 2634076718732840026}
 --- !u!54 &2634076718742328089
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class Flipper : MonoBehaviour
 {
     public bool saw = false;
     public bool zombie = false;
+    public int turnBuffer = 0;
     SawBehavior behavior;
     ZombieController zcontroller;
     
@@ -16,13 +17,27 @@ public class Flipper : MonoBehaviour
                 behavior.dir *= -1;
             }
             if(zombie){
-                if(!zcontroller.chase){
-                    zcontroller.transform.Rotate(Vector3.up, 180);
-                    zcontroller.dir *= -1;
+                if (turnBuffer == 0){
+                    if(!zcontroller.chase){
+                        zcontroller.transform.Rotate(Vector3.up, 180);
+                        zcontroller.dir *= -1;
+                    }
+                    else{
+                        zcontroller.stop = true;
+                    }
                 }
-                else{
-                    zcontroller.stop = true;
+                else
+                {
+                    turnBuffer -= 1;
                 }
+            }
+        }
+    }
+
+    void OnCollisionEnter(Collision obj){
+        if (obj.gameObject.CompareTag("Platform")){
+            if(zombie){
+                turnBuffer = 1;
             }
         }
     }

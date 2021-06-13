@@ -21,7 +21,7 @@ public class Laser : MonoBehaviour
         gameObject.transform.Translate(0,speed*Time.deltaTime,0);
         count += Time.deltaTime;
 
-        if(count > 2f){
+        if(count > 4f){
             this.Reset();  
         }
     }

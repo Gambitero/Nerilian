@@ -7,6 +7,9 @@ public class BallBehavior : MonoBehaviour
     public float moveSpeed = 1f;
     public float dir = -1;
     public CharacterController controller;
+    public bool x;
+    public bool z;
+    public bool y;
     
     void Start()
     {
@@ -15,7 +18,14 @@ public class BallBehavior : MonoBehaviour
 
     void Update()
     {   
-        controller.Move(new Vector3(moveSpeed * dir, 0, 0) * Time.deltaTime);     
+        Vector3 move;
+        if(z)
+            move = new Vector3(0, 0, moveSpeed * dir) * Time.deltaTime;
+        else if(y)
+            move = new Vector3(0, moveSpeed * dir, 0) * Time.deltaTime;
+        else
+            move = new Vector3(moveSpeed * dir, 0, 0) * Time.deltaTime;            
+        controller.Move(move);
     }
 
     void OnTriggerEnter(Collider obj){        

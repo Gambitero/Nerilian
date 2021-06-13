@@ -31,7 +31,7 @@ public class CameraWindow : MonoBehaviour
             if(!Up){
                 dir = -1;
             }        
-            mov = new Vector3(0,5*dir,0);
+            mov = new Vector3(0,6.25f*dir,0);
             
             outLimit = true;
 
@@ -66,7 +66,7 @@ public class CameraWindow : MonoBehaviour
                         Vector3.Lerp(transform.position, transform.position + mov, smoothing * Time.deltaTime).y, 
                         transform.position.z);            
 
-                if(Mathf.Abs(transform.position.y - target.position.y) <= 0.1){
+                if(Mathf.Abs(transform.position.y - target.position.y) <= 0.3){
                     transform.position.Set(transform.position.x, target.position.y + offset, transform.position.z);                
                     count = 0f;
                     outLimit = false;
