@@ -29,7 +29,7 @@ public class ZombieController : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider obj){        
-        if(obj.CompareTag("Player")){
+        if(obj.CompareTag("Player") && false){
             chase = false;
             dir *= normalSpeed/chaseSpeed;
             obj.gameObject.GetComponent<Controller>().Die();

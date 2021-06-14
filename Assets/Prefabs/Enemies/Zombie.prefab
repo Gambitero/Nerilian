@@ -235,7 +235,7 @@ Transform:
   m_GameObject: {fileID: 696256431924737265}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.644, z: 0}
-  m_LocalScale: {x: 0.4787382, y: 0.122994006, z: 0.5288544}
+  m_LocalScale: {x: 0.8556683, y: 0.23337387, z: 0.9452431}
   m_Children: []
   m_Father: {fileID: 696256431747246706}
   m_RootOrder: 4
@@ -444,7 +444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saw: 0
   zombie: 1
-  turnBuffer: 0
+  turnBuffer: -1
 --- !u!1 &696256432586969713
 GameObject:
   m_ObjectHideFlags: 0

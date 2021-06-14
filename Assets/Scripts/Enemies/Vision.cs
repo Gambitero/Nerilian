@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Vision : MonoBehaviour
 {
-    ZombieController zcontroller;
+    ZombieController zcontroller;    
     void OnTriggerEnter(Collider obj){
         if(obj.CompareTag("Player")){
             zcontroller.chase = true;
@@ -13,13 +13,17 @@ public class Vision : MonoBehaviour
 
     void OnTriggerExit(Collider obj){
         if(obj.CompareTag("Player")){
-            zcontroller.chase = false;
-            zcontroller.stop = false;
+            zcontroller.chase = false;            
             zcontroller.dir *= 0.25f/0.4f;
+            if (zcontroller.stop){
+                zcontroller.stop = false;
+                zcontroller.dir *= -1;
+                zcontroller.transform.Rotate(Vector3.up, 180);                
+            }
         }
     }
 
     void Start(){
-        zcontroller = gameObject.GetComponentInParent<ZombieController>();
+        zcontroller = gameObject.GetComponentInParent<ZombieController>();        
     }
 }
