@@ -33,6 +33,9 @@ public class CharacterBuild : MonoBehaviour
         playerController.jumpHeight = Stats[1];
         playerController.weight = Stats[2];
         playerStats.lives = (int) Stats[3];
+        playerController.dashFlag = powerUp.Equals(powerUps.Dash);
+        playerController.shootFlag = powerUp.Equals(powerUps.BolaFuego);
+        playerController.bunnyFlag = powerUp.Equals(powerUps.BunnyHop);
 
     }
 
@@ -62,7 +65,10 @@ public class CharacterBuild : MonoBehaviour
         //Weight
         1.0f,
         //lives
-        3            
+        3,
+        //dash
+        1,
+        
     };
     private float[] MagoRojoStats = {
         //Speed

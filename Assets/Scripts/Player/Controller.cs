@@ -14,6 +14,9 @@ public class Controller : MonoBehaviour
     public float weight = 1.0f;
     public float gravity = -9.81f;
     public float jumpHeight = 2f;
+    public bool dashFlag = true;
+    public bool shootFlag = true;
+    public bool bunnyFlag = true;
     
     public float turnSpeed = 0.25f;
     private float precision = 0.001f;
@@ -279,27 +282,32 @@ public class Controller : MonoBehaviour
             //poner el dir 1 S            
             SetTurnValues(1);  
         }
-                  
-                
+
+
         //-----------------------------------------------------------------------------------------
         //* Movimiento y gravedad
         //-----------------------------------------------------------------------------------------
         // Si el dash está activado
-        if (dashCount >= 0){            
-            dashCount -= Time.deltaTime;
-            // Delay de 0.035 segundos
-            if(dashCount < dashTime - dashDelay)
-                Debug.Log("Dash");
+        if (dashFlag)
+        {
+            if (dashCount >= 0)
+            {
+                dashCount -= Time.deltaTime;
+                // Delay de 0.035 segundos
+                if (dashCount < dashTime - dashDelay)
+                    Debug.Log("Dash");
                 controller.Move(transform.right * lookDir * dashSpeed);
-            return;
-        }
-        else if (isDashing){
-            dashCount -= Time.deltaTime;
-            if(dashCount <= -dashTime * 3){
-                isDashing = false;
+                return;
+            }
+            else if (isDashing)
+            {
+                dashCount -= Time.deltaTime;
+                if (dashCount <= -dashTime * 3)
+                {
+                    isDashing = false;
+                }
             }
         }
-        
         float x = Input.GetAxis("Horizontal");
 
         Vector3 move = transform.right * x;
