@@ -296,9 +296,9 @@ public class Controller : MonoBehaviour
             {
                 dashCount -= Time.deltaTime;
                 // Delay de 0.035 segundos
-                if (dashCount < dashTime - dashDelay)
-                    Debug.Log("Dash");
-                controller.Move(transform.right * lookDir * dashSpeed);
+                if (dashCount < dashTime - dashDelay * 0.05f){                    
+                    controller.Move(transform.right * lookDir * dashSpeed);
+                }
                 return;
             }
             else if (isDashing)
