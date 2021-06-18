@@ -30,8 +30,10 @@ public class Laser : MonoBehaviour
             obj.gameObject.GetComponent<Controller>().Die();
             this.Reset();
         }
+        
 
         if(obj.CompareTag("Platform")){
+            Debug.Log("hola");
             this.Reset();
         }
     }

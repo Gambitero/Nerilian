@@ -60,6 +60,8 @@ public class Controller : MonoBehaviour
     private float dashCount;
     private bool isDashing = false;
 
+    public int bunnyCount = 1;
+
     private GameObject windowObj;
     
     // Se asignan las variables necesarias para hacer el giro
@@ -185,8 +187,8 @@ public class Controller : MonoBehaviour
         }
     }
 
-    public void Bounce(){
-        fallVelocity = Vector3.up * jumpHeight * 0.7f;
+    public void Bounce(float value){
+        fallVelocity = Vector3.up * jumpHeight * value;
     }
 
     // Método de respawn, se ejecuta tras el fadeOut y el objetivo es llevar al jugador al último spawnPoint almacenado y resetear las partes del nivel    
@@ -317,7 +319,7 @@ public class Controller : MonoBehaviour
         }
 
         // Acticación del dash
-        if (Input.GetButtonDown("Dash") && !isDashing){            
+        if (dashFlag && Input.GetButtonDown("Dash") && !isDashing){            
             dashCount = dashTime + dashDelay;
             isDashing = true;
         }
@@ -339,21 +341,26 @@ public class Controller : MonoBehaviour
         }
         
         // Jump hold: Se salta más alto si se mantiene pulsada la tecla
-        if(Input.GetButtonUp("Jump") && fallVelocity.y > 0){
+        if(Input.GetButtonUp("Jump") && fallVelocity.y > 0){            
             fallVelocity.y *= 0.6f;
         }
 
         // Inicio del salto
         if(!jumping && hangCount > 0f && jumpBufferCount >= 0f)
         {
+            bunnyCount = 1;
             resetFall();
             fallVelocity = Vector3.up * jumpHeight;
-            jumping = true;
+            jumping = true;            
         }
 
         // Si estamos en el aire, la gravedad surte efecto y descendemos
         if(!groundFlag){
             fallVelocity.y += gravity * weight * Time.deltaTime;
+            if(bunnyFlag && bunnyCount == 1 && Input.GetButtonDown("Jump")){
+                Bounce(0.9f);
+                bunnyCount = 0;
+            }
         }
 
         move.y = fallVelocity.y;

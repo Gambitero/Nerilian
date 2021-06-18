@@ -409,7 +409,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 881112799919604642}
+  - {fileID: 3781279498630706067}
   m_Father: {fileID: 2634076718100560948}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -469,7 +469,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 8.11
+  near clip plane: 8.5
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -667,6 +667,9 @@ MonoBehaviour:
   weight: 1
   gravity: -7.5
   jumpHeight: 4
+  dashFlag: 1
+  shootFlag: 1
+  bunnyFlag: 1
   turnSpeed: 0.25
   cameraTurnSpeed: 1
   groundFlag: 0
@@ -689,6 +692,7 @@ MonoBehaviour:
   dashTime: 0.18
   dashSpeed: 0.397
   dashDelay: 0.075
+  bunnyCount: 1
 --- !u!114 &2634076718732840029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -886,7 +890,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1001 &5336252030394013907
+--- !u!1001 &8236439633245513954
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -916,7 +920,7 @@ PrefabInstance:
     - target: {fileID: 5058804203096742769, guid: 0aa6850fb8aade540b6b8b659c5f4703,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.8917236
+      value: -2.217
       objectReference: {fileID: 0}
     - target: {fileID: 5058804203096742769, guid: 0aa6850fb8aade540b6b8b659c5f4703,
         type: 3}
@@ -960,9 +964,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0aa6850fb8aade540b6b8b659c5f4703, type: 3}
---- !u!4 &881112799919604642 stripped
+--- !u!4 &3781279498630706067 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5058804203096742769, guid: 0aa6850fb8aade540b6b8b659c5f4703,
     type: 3}
-  m_PrefabInstance: {fileID: 5336252030394013907}
+  m_PrefabInstance: {fileID: 8236439633245513954}
   m_PrefabAsset: {fileID: 0}
