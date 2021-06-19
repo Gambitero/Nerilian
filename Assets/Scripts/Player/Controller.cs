@@ -37,7 +37,7 @@ public class Controller : MonoBehaviour
     public float rotationDir = -0.25f;
 
     public SceneController sceneController;
-    public Vector3 newPos;    
+    public Vector3 newPos;
 
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
@@ -53,6 +53,7 @@ public class Controller : MonoBehaviour
     public float jumpBufferLength = 0.1f;
     private float jumpBufferCount;
 
+    private int prevLookDir = 1;
     private int lookDir = 1;
     public float dashTime = 3f;
     public float dashSpeed = 0.5f;
@@ -63,6 +64,7 @@ public class Controller : MonoBehaviour
     public int bunnyCount = 1;
 
     private GameObject windowObj;
+    private Animator animator;
     public GameObject pauseObj;
     
     // Se asignan las variables necesarias para hacer el giro
@@ -243,7 +245,8 @@ public class Controller : MonoBehaviour
     public void Start()
     {
         var builder = gameObject.GetComponentInParent<CharacterBuild>();
-        builder.PersonajeBuilder(builder.CharacterClass, builder.CharacterPowerUps, gameObject);                
+        builder.PersonajeBuilder(builder.CharacterClass, builder.CharacterPowerUps, gameObject);
+        animator = gameObject.GetComponentInChildren<Animator>();
         //livesText.text = "x" + plStats.lives;
     }
 
@@ -344,11 +347,23 @@ public class Controller : MonoBehaviour
         }
         float x = Input.GetAxis("Horizontal");
 
+        if (x == 0){
+            animator.SetBool("Move", false);
+        }
+        else{
+            animator.SetBool("Move", true);
+        }
+
+
         Vector3 move = transform.right * x;
 
         if(x != 0){
             lookDir = (int)Mathf.Sign(x);
-        }
+            if (lookDir != prevLookDir){
+                gameObject.transform.GetChild(0).Rotate(0f, 180f, 0f);
+                prevLookDir = lookDir;                
+            }
+        }        
 
         // Acticación del dash
         if (dashFlag && Input.GetButtonDown("Dash") && !isDashing){            
@@ -367,6 +382,7 @@ public class Controller : MonoBehaviour
         // Jump buffer: Se puede saltar unos frames antes de tocar el suelo
         if(Input.GetButtonDown("Jump")){
             jumpBufferCount = jumpBufferLength;
+            animator.SetTrigger("Jump");
         }
         else{
             jumpBufferCount -= Time.deltaTime;
