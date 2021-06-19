@@ -63,6 +63,7 @@ public class Controller : MonoBehaviour
     public int bunnyCount = 1;
 
     private GameObject windowObj;
+    public GameObject pauseObj;
     
     // Se asignan las variables necesarias para hacer el giro
     void SetTurnValues(int turnButton){
@@ -191,6 +192,15 @@ public class Controller : MonoBehaviour
         fallVelocity = Vector3.up * jumpHeight * value;
     }
 
+    // Métodos de pausa, resume y pause
+    public void Pause(){
+        Time.timeScale = 0f;
+    }
+
+    public void Resume(){
+        Time.timeScale = 1f;
+    }
+
     // Método de respawn, se ejecuta tras el fadeOut y el objetivo es llevar al jugador al último spawnPoint almacenado y resetear las partes del nivel    
     public void Respawn()
     {        
@@ -203,7 +213,8 @@ public class Controller : MonoBehaviour
         controller.enabled = true;
         controller.Move(new Vector3(0f,2f,0f));
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().Respawn();
-        GameObject.FindGameObjectWithTag("Window").GetComponent<CameraWindow>().Respawn();          
+        GameObject.FindGameObjectWithTag("Window").GetComponent<CameraWindow>().Respawn();
+        GameObject.FindGameObjectWithTag("EnemyController").GetComponent<EnemyReset>().EnemReset();
     } 
 
     // Define la muerrte del jugador, pierde una vida, se hace un fade in a negro (dura 1 segundo) y se detiene la camara parando el CameraWindow
@@ -232,12 +243,33 @@ public class Controller : MonoBehaviour
     public void Start()
     {
         var builder = gameObject.GetComponentInParent<CharacterBuild>();
-        builder.PersonajeBuilder(builder.CharacterClass, builder.CharacterPowerUps, gameObject);
+        builder.PersonajeBuilder(builder.CharacterClass, builder.CharacterPowerUps, gameObject);                
         //livesText.text = "x" + plStats.lives;
     }
 
     void Update()
-    {
+    {        
+        //-----------------------------------------------------------------------------------------
+        //* Pausa del juego
+        //----------------------------------------------------------------------------------------- 
+        // Sólo se puede poner pausa si se está en el suelo.
+        // Para poner pausa se pulsa la tecla escape, mientras el juego está en pausa no se reciben
+        // inputs.
+        if(Input.GetKeyDown(KeyCode.Escape) && groundFlag){
+            if(Time.timeScale == 0){
+                Resume();
+                pauseObj.SetActive(false);
+            }
+            else{
+                Pause();
+                pauseObj.SetActive(true);
+            }
+            return;
+        }
+        
+        if(Time.timeScale == 0){
+            return;
+        }
         //* Comportamientos relacionados con la muerte del jugador
         //-----------------------------------------------------------------------------------------
         // Si se está esperando a respawnear, es porque se está esperando a que finalize la animación,

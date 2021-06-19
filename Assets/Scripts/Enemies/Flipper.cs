@@ -9,6 +9,10 @@ public class Flipper : MonoBehaviour
     public int turnBuffer = -1;    
     SawBehavior behavior;
     ZombieController zcontroller;
+
+    void OnDisable(){
+        turnBuffer = -1;
+    }
     
     void OnCollisionExit(Collision obj){     
         if (obj.gameObject.CompareTag("Platform")){

@@ -425,6 +425,7 @@ GameObject:
   - component: {fileID: 2634076718387435329}
   - component: {fileID: 2634076718387435330}
   - component: {fileID: 2634076718387435343}
+  - component: {fileID: 689544050013823706}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -469,7 +470,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 8.5
+  near clip plane: 8.8
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -515,6 +516,36 @@ MonoBehaviour:
   turnSpeed: 0.25
   stop: 0
   targetTurnPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &689544050013823706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2634076718387435331}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78da3f00f3328541b4526c0b0b5ec5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineThickness: 1
+  lineIntensity: 0.58
+  fillAmount: 0
+  lineColor0: {r: 1, g: 0.5986656, b: 0, a: 1}
+  lineColor1: {r: 0, g: 1, b: 0, a: 1}
+  lineColor2: {r: 0.24705884, g: 0.5921569, b: 1, a: 1}
+  additiveRendering: 0
+  backfaceCulling: 1
+  cornerOutlines: 0
+  addLinesBetweenColors: 0
+  scaleWithScreenSize: 1
+  alphaCutoff: 0.139
+  flipY: 0
+  sourceCamera: {fileID: 2634076718387435329}
+  outlineCamera: {fileID: 0}
+  outlineShaderMaterial: {fileID: 0}
+  renderTexture: {fileID: 0}
+  extraRenderTexture: {fileID: 0}
 --- !u!1 &2634076718598122445
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,6 +724,7 @@ MonoBehaviour:
   dashSpeed: 0.397
   dashDelay: 0.075
   bunnyCount: 1
+  pauseObj: {fileID: 0}
 --- !u!114 &2634076718732840029
 MonoBehaviour:
   m_ObjectHideFlags: 0

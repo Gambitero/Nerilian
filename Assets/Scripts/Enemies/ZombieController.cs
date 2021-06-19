@@ -7,7 +7,7 @@ public class ZombieController : MonoBehaviour
     public GameObject objective;
     public CharacterController controller;
     float normalSpeed = 0f;
-    public float dir = 0.15f;
+    public float dir = 0.15f;    
     public float chaseSpeed = 0.4f;
     public float prevDir = 0f;
     float speed = 12f;
@@ -21,6 +21,10 @@ public class ZombieController : MonoBehaviour
     public bool axis = true; // true x, false z
 
     public int health = 2;
+    private Quaternion initRotation;
+    private Vector3 initPosition;
+    private bool initStop;
+    private float initDir;
     
     void resetFall(){
         fallVelocity.y = 0;
@@ -44,8 +48,21 @@ public class ZombieController : MonoBehaviour
         }
     }
 
-    void Die(){
+    void Die(){        
         this.gameObject.SetActive(false);        
+    }
+
+    void OnDisable(){
+        gameObject.transform.rotation = initRotation;
+        gameObject.transform.position = initPosition;
+        stop = initStop;
+        chase = false;
+        dir = initDir;
+    }
+
+    void OnEnable(){
+        groundFlag = false;
+        health = 2;
     }
 
     void Update()
@@ -97,5 +114,9 @@ public class ZombieController : MonoBehaviour
     void Start(){
         objective = GameObject.FindGameObjectWithTag("Player");
         normalSpeed = Mathf.Abs(dir);
+        initRotation = gameObject.transform.rotation;
+        initPosition = gameObject.transform.position;
+        initStop = stop;
+        initDir = dir;
     }
 }

@@ -21,6 +21,7 @@ TagManager:
   - Enemy
   - Platform2
   - PlayerFeet
+  - Pause
   layers:
   - Default
   - TransparentFX

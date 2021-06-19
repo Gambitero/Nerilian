@@ -32,8 +32,7 @@ public class Laser : MonoBehaviour
         }
         
 
-        if(obj.CompareTag("Platform")){
-            Debug.Log("hola");
+        if(obj.CompareTag("Platform")){            
             this.Reset();
         }
     }
