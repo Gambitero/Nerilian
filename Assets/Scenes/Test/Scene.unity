@@ -1642,7 +1642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1083227183}
-  spawnPoint: {fileID: 2933050337712578564}
+  spawnPoint: {fileID: 0}
   nextLevel: 
   waiting: 0
   delay: 0
@@ -3244,12 +3244,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6595832831784930857, guid: f5faa3ad3b399ef4fb4badc9785d632e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f5faa3ad3b399ef4fb4badc9785d632e, type: 3}
---- !u!1 &2933050337712578564 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 881112799919604643, guid: f5faa3ad3b399ef4fb4badc9785d632e,
-    type: 3}
-  m_PrefabInstance: {fileID: 2634076717906437031}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4967584233477482192
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3730,6 +3724,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyCage
+      objectReference: {fileID: 0}
+    - target: {fileID: 8968585934975701665, guid: 34035a84195cf034d89db32c23fc0f8c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8968585934975701665, guid: 34035a84195cf034d89db32c23fc0f8c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8968585934975701665, guid: 34035a84195cf034d89db32c23fc0f8c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34035a84195cf034d89db32c23fc0f8c, type: 3}

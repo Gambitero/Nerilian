@@ -12,10 +12,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Final/Scene 1.unity
     guid: be83a84c36bde15478abedae869d0d18
   - enabled: 1
-    path: Assets/Scenes/Final/Scene 2.unity
+    path: Assets/Scenes/Final/Scene 3.unity
     guid: 784ca4faf9318844f8eb6238838f551e
   - enabled: 1
-    path: Assets/Scenes/Final/Scene 3.unity
+    path: Assets/Scenes/Final/Scene 2.unity
     guid: 53a82948188518a489fef34204f95efb
   - enabled: 0
     path: Assets/Scenes/Final/New Scene.unity
