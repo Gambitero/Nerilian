@@ -15,6 +15,9 @@ public class BlinkWall : MonoBehaviour
     
     void Update()
     {
+        if (blinkTime == -1){
+            return;
+        }
         count += Time.deltaTime;
 
         if(count > blinkTime){
