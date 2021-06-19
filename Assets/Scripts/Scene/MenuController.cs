@@ -13,7 +13,7 @@ public class MenuController : MonoBehaviour
     void Start()
     {
         if(gameObject.name.Equals("Slider"))
-        slider.value = PlayerPrefs.GetFloat("MusicVolume", 0.75f);
+            slider.value = PlayerPrefs.GetFloat("MusicVolume", 0.75f);
     }
     public void SetLevel(float sliderValue)
     {

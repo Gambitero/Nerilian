@@ -23,6 +23,7 @@ TagManager:
   - PlayerFeet
   - Pause
   - EnemyController
+  - UIText
   layers:
   - Default
   - TransparentFX
