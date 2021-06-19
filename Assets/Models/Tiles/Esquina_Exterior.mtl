@@ -1,7 +1,7 @@
 # Blender MTL File: 'None'
 # Material Count: 2
 
-newmtl palette
+newmtl palette.002
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 1.000000 1.000000 1.000000
@@ -10,9 +10,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 1
-map_Kd C:\\Users\\ivanv\\Desktop\\Export\\pared\\ParedTileable-0-Wall_Tileable-1-Wall_Ground_Tileable-0.png
+map_Kd C:\\Users\\ivanv\\Desktop\\Export\\Esquina exterior\\EsquinaExterior-0-Wall_Tileable-1-Wall_Ground_Tileable-0.png
 
-newmtl palette.001
+newmtl palette.003
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 1.000000 1.000000 1.000000
@@ -21,4 +21,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 1
-map_Kd C:\\Users\\ivanv\\Desktop\\Export\\pared\\ParedTileable-1-Wall_Tileable-0-Wall_Ground_Tileable-0.png
+map_Kd C:\\Users\\ivanv\\Desktop\\Export\\Esquina exterior\\EsquinaExterior-1-Wall_Tileable-0-Wall_Ground_Tileable-0.png
