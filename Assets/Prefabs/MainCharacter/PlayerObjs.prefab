@@ -727,10 +727,10 @@ MonoBehaviour:
   plStats: {fileID: 2634076718732840029}
   sceneCamera: {fileID: 2634076718387435331}
   livesText: {fileID: 0}
-  speed: 12
+  speed: 18
   weight: 1
   gravity: -7.5
-  jumpHeight: 4
+  jumpHeight: 2.35
   dashFlag: 1
   shootFlag: 1
   bunnyFlag: 1
@@ -752,7 +752,7 @@ MonoBehaviour:
   resetFallVel: 0
   resetFallTimer: 0
   hangTime: 0.2
-  jumpBufferLength: 0.1
+  jumpBufferLength: 0.3
   dashTime: 0.18
   dashSpeed: 0.397
   dashDelay: 0.075
