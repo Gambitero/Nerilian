@@ -52,6 +52,7 @@ public class Controller : MonoBehaviour
 
     public float jumpBufferLength = 0.1f;
     private float jumpBufferCount;
+    private float jumpCount = 0;
 
     private int prevLookDir = 1;
     private int lookDir = 1;
@@ -155,7 +156,7 @@ public class Controller : MonoBehaviour
         }
     }
 
-    void resetFall(){
+    void resetFall(){        
         fallVelocity.y = 0;
         resetFallVel = false;
         resetFallTimer = 0f;
@@ -374,18 +375,18 @@ public class Controller : MonoBehaviour
         
         // Hangtime: Se puede saltar unos frames después de caerse de un borde
         if (groundFlag){
-            hangCount = hangTime;
+            hangCount = hangTime;            
         }
         else{
+            //animator.SetTrigger("Jump0");
             hangCount -= Time.deltaTime;
         }
 
         // Jump buffer: Se puede saltar unos frames antes de tocar el suelo
-        if(Input.GetButtonDown("Jump")){
-            jumpBufferCount = jumpBufferLength;
-            animator.SetTrigger("Jump");
+        if(Input.GetButtonDown("Jump")){            
+            jumpBufferCount = jumpBufferLength;            
         }
-        else{
+        else{            
             jumpBufferCount -= Time.deltaTime;
         }
         
@@ -396,11 +397,17 @@ public class Controller : MonoBehaviour
 
         // Inicio del salto
         if(!jumping && hangCount > 0f && jumpBufferCount >= 0f)
-        {
+        {            
+            animator.SetTrigger("Jump" + jumpCount);
             bunnyCount = 1;
             resetFall();
-            fallVelocity = Vector3.up * jumpHeight;
-            jumping = true;            
+            fallVelocity = Vector3.up * (jumpHeight + jumpCount*0.24f);
+            jumping = true;
+            jumpCount = 1 - jumpCount;
+        }
+
+        if (jumpBufferCount < -jumpBufferLength){
+            jumpCount = 0;
         }
 
         // Si estamos en el aire, la gravedad surte efecto y descendemos
@@ -417,11 +424,11 @@ public class Controller : MonoBehaviour
         controller.Move(move * speed * Time.deltaTime);
         
         // Se gestiona el reseteo de fallVelocity.y para que no se acumule la gravedad en varias caidas
-        if(resetFallVel){
+        if(resetFallVel && groundFlag){            
             if(resetFallTimer<0.5f){
                 resetFallTimer += Time.deltaTime;
             }
-            else{
+            else{                
                 resetFall();
             }
         }
