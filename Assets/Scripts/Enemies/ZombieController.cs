@@ -37,6 +37,7 @@ public class ZombieController : MonoBehaviour
             chase = false;
             dir *= normalSpeed/chaseSpeed;
             obj.gameObject.GetComponent<Controller>().Die();
+            this.Die();
         }        
     }
 
