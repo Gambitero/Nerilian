@@ -192,6 +192,7 @@ public class Controller : MonoBehaviour
 
     public void Bounce(float value){
         fallVelocity = Vector3.up * jumpHeight * value;
+        animator.SetTrigger("Bounce");
     }
 
     // Métodos de pausa, resume y pause

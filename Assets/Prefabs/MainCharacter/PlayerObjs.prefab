@@ -1055,7 +1055,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d61f35f5e3838b744bfe0a2f635d9871,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 40
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d61f35f5e3838b744bfe0a2f635d9871,
         type: 3}
@@ -1070,7 +1070,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d61f35f5e3838b744bfe0a2f635d9871,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.308
+      value: -1.453
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d61f35f5e3838b744bfe0a2f635d9871,
         type: 3}
@@ -1122,6 +1122,16 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 92c824e4fd80c93409062dded924d769, type: 2}
+    - target: {fileID: 5866666021909216657, guid: d61f35f5e3838b744bfe0a2f635d9871,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d61f35f5e3838b744bfe0a2f635d9871,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d61f35f5e3838b744bfe0a2f635d9871, type: 3}
 --- !u!4 &8993631743932060909 stripped
