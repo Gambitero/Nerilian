@@ -397,8 +397,14 @@ public class Controller : MonoBehaviour
 
         // Inicio del salto
         if(!jumping && hangCount > 0f && jumpBufferCount >= 0f)
-        {            
-            animator.SetTrigger("Jump" + jumpCount);
+        {
+            if (x == 0){
+                animator.SetTrigger("JumpInPlace");
+            }
+            else{
+                animator.SetTrigger("Jump" + jumpCount);
+
+            }            
             bunnyCount = 1;
             resetFall();
             fallVelocity = Vector3.up * (jumpHeight + jumpCount*0.24f);
