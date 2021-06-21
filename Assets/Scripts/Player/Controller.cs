@@ -10,6 +10,7 @@ public class Controller : MonoBehaviour
     public PlayerStats plStats; 
     public GameObject sceneCamera;
     public Text livesText = null;
+    public Text scoreText = null;
     public float speed = 12f;
     public float weight = 1.0f;
     public float gravity = -9.81f;
@@ -72,6 +73,9 @@ public class Controller : MonoBehaviour
 
     public Animator animator;
     public GameObject pauseObj;
+
+    public int score = 0;
+    public int totalScore = 0;
     
     // Se asignan las variables necesarias para hacer el giro
     void SetTurnValues(int turnButton){
@@ -130,6 +134,12 @@ public class Controller : MonoBehaviour
         // Muerte por caída
         if (obj.gameObject.CompareTag("Deathplane")){
             this.Die();
+            return;
+        }
+
+        if (obj.gameObject.CompareTag("Score")){
+            plStats.TakeGold();
+            obj.gameObject.SetActive(false);
             return;
         }
         

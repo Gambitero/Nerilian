@@ -8,6 +8,7 @@ public class PlayerStats : MonoBehaviour
     int currentHp;
     public int lives = 1;
     public int gold;
+    public int goldExchange = 100;
 
     public SceneController sceneController;
     public CharacterController controller;       
@@ -33,6 +34,11 @@ public class PlayerStats : MonoBehaviour
     // Coger oro/puntos...
     public void TakeGold()
     {
-        gold++;
+        gold++;        
+        if (gold >= goldExchange) {
+            gold -= goldExchange;
+            TakeLife();
+        }
+        controller.gameObject.GetComponent<Controller>().scoreText.text = "" + gold%goldExchange;
     }
 }
