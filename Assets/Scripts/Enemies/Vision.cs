@@ -9,6 +9,11 @@ public class Vision : MonoBehaviour
         if(obj.CompareTag("Player")){
             zcontroller.chase = true;
         }
+
+        if(obj.CompareTag("Enemy")){
+            zcontroller.transform.Rotate(Vector3.up, 180);
+            zcontroller.dir *= -1;
+        }
     }
 
     void OnTriggerExit(Collider obj){

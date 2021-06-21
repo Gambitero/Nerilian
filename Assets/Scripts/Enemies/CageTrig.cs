@@ -10,8 +10,11 @@ public class CageTrig : MonoBehaviour
         if(!trig && (obj.gameObject.transform.CompareTag("Player") || obj.gameObject.transform.parent.CompareTag("Player"))){
             trig = true;
             gameObject.transform.parent.GetChild(0).Translate(10000, 0, 0);
+            GameObject zombie;
             for (int i = 0; i < gameObject.transform.parent.GetChild(2).childCount; i++){
-                gameObject.transform.parent.GetChild(2).GetChild(i).GetComponent<ZombieController>().stop = false;
+                zombie = gameObject.transform.parent.GetChild(2).GetChild(i).gameObject;
+                zombie.SetActive(true);
+                zombie.GetComponent<ZombieController>().stop = false;
             }
         }        
     }
