@@ -62,10 +62,15 @@ public class Controller : MonoBehaviour
     private float dashCount;
     private bool isDashing = false;
 
+    public float cameraFall = 0.5f;
+
     public int bunnyCount = 1;
 
     private GameObject windowObj;
-    private Animator animator;
+    public float cameraCount;
+    public float cameraCountLength = 0.5f;
+
+    public Animator animator;
     public GameObject pauseObj;
     
     // Se asignan las variables necesarias para hacer el giro
@@ -130,6 +135,7 @@ public class Controller : MonoBehaviour
         
         // No se desplaza la cámara en Y
         if (obj.gameObject.CompareTag("Window")){
+            cameraCount = -1f;
             windowObj = null;
             return;
         }
@@ -151,6 +157,7 @@ public class Controller : MonoBehaviour
 
         // Se activa el desplazamiento de cámara en y porque el jugador se ha salido de la ventana de la cámara.
         if (obj.gameObject.CompareTag("Window")){
+            cameraCount = cameraCountLength;
             windowObj = obj.gameObject;
             return;
         }
@@ -314,12 +321,12 @@ public class Controller : MonoBehaviour
         if (flagTurn && Input.GetButtonUp("CameraRotationUP"))
         {
             //poner el dir -1 W
-            SetTurnValues(-1);
+            SetTurnValues(-lookDir);
         }
         if (flagTurn && Input.GetButtonUp("CameraRotationDOWN"))
         {
             //poner el dir 1 S            
-            SetTurnValues(1);  
+            SetTurnValues(lookDir);
         }
 
 
@@ -393,11 +400,18 @@ public class Controller : MonoBehaviour
         // Jump hold: Se salta más alto si se mantiene pulsada la tecla
         if(Input.GetButtonUp("Jump") && fallVelocity.y > 0){            
             fallVelocity.y *= 0.6f;
+            if (fallVelocity.y < (jumpHeight + (1-jumpCount)*0.24f)/1){
+                animator.SetBool("Height", false);
+                //animator.SetFloat("MultJump", 2f);
+            }
         }
 
         // Inicio del salto
         if(!jumping && hangCount > 0f && jumpBufferCount >= 0f)
         {
+            animator.SetBool("Ground", false);
+            animator.SetBool("Height", true);
+            animator.SetFloat("MultJump", 1f);
             if (x == 0){
                 animator.SetTrigger("JumpInPlace");
             }
@@ -420,7 +434,7 @@ public class Controller : MonoBehaviour
         if(!groundFlag){
             fallVelocity.y += gravity * weight * Time.deltaTime;
             if(bunnyFlag && bunnyCount == 1 && Input.GetButtonDown("Jump")){
-                Bounce(0.9f);
+                Bounce(0.7f);
                 bunnyCount = 0;
             }
         }
@@ -438,17 +452,15 @@ public class Controller : MonoBehaviour
                 resetFall();
             }
         }
-        //-----------------------------------------------------------------------------------------
 
-        //-----------------------------------------------------------------------------------------
-        //* Cámara
-        //-----------------------------------------------------------------------------------------
-        // Si estamos en el suelo y no estamos en colisión con el cameraWindow, desplazamos el mismo
-        // en y
-        if(windowObj != null && groundFlag  && !isDashing){
-            windowObj.GetComponent<CameraWindow>().MoveY(windowObj.transform.position.y < gameObject.transform.position.y);
-            windowObj = null;
+        if (cameraCount >= 0f)
+        {
+            cameraCount -= Time.deltaTime;
         }
-        //-----------------------------------------------------------------------------------------
+
+        if(windowObj != null  && !isDashing && groundFlag){
+                windowObj.GetComponent<CameraWindow>().MoveY(windowObj.transform.position.y < gameObject.transform.position.y, 6.25f);
+                windowObj = null;
+            }                
     }
 }

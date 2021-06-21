@@ -6,15 +6,18 @@ using UnityEngine;
 public class GroundCheck : MonoBehaviour
 {
     public bool groundFlag = true;
-    Controller playerController;
+    Controller playerController;    
     
     void OnCollisionEnter(Collision obj){
         if (obj.gameObject.CompareTag("Platform") || obj.gameObject.CompareTag("Platform2") || obj.gameObject.CompareTag("Jumpable")){            
             groundFlag = true;
             //playerController.velocity.y = 0;       
             playerController.resetFallVel = true;
+            if (playerController.jumping) {
+                playerController.animator.SetBool("Ground", true);
+            }
             playerController.jumping = false;
-            playerController.groundFlag = groundFlag;            
+            playerController.groundFlag = groundFlag;
         }        
     }
 

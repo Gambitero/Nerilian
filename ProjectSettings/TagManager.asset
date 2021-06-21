@@ -24,6 +24,7 @@ TagManager:
   - Pause
   - EnemyController
   - UIText
+  - PlWindow
   layers:
   - Default
   - TransparentFX
