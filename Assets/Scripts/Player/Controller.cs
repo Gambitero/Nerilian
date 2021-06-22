@@ -7,7 +7,7 @@ public class Controller : MonoBehaviour
 {
     public bool invincible = false;
     public CharacterController controller;
-    public PlayerStats plStats; 
+    public PlayerStats PlayerStats; 
     public GameObject sceneCamera;
     public Text livesText = null;
     public Text scoreText = null;
@@ -138,7 +138,7 @@ public class Controller : MonoBehaviour
         }
 
         if (obj.gameObject.CompareTag("Score")){
-            plStats.TakeGold();
+            PlayerStats.TakeGold();
             obj.gameObject.SetActive(false);
             return;
         }
@@ -224,9 +224,9 @@ public class Controller : MonoBehaviour
 
     // Método de respawn, se ejecuta tras el fadeOut y el objetivo es llevar al jugador al último spawnPoint almacenado y resetear las partes del nivel    
     public void Respawn()
-    {        
+    {
         // Se actualiza el texto con las vidas
-        livesText.text = "x" + plStats.lives;
+        livesText.text = "x" + PlayerStats.lives;
         // Se desactiva y reactiva el controller porque si no, no se puede cambiar el trasnform.position directamente.
         controller.enabled = false;
         gameObject.transform.position = sceneController.spawnPoint.transform.position;
@@ -245,13 +245,13 @@ public class Controller : MonoBehaviour
         if(this.sceneController.waiting || this.invincible){
             return;
         }
-
-        plStats.lives--;        
+        flagTurn = false;
+        PlayerStats.lives--;        
         sceneController.Fade(1f);
         GameObject.FindGameObjectWithTag("Window").GetComponent<CameraWindow>().stop = true;
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().stop = true;
         
-        if(plStats.lives>=0)
+        if(PlayerStats.lives>=0)
         {
             waitingForRespawn = true;            
         }
@@ -266,7 +266,7 @@ public class Controller : MonoBehaviour
         var builder = gameObject.GetComponentInParent<CharacterBuild>();
         builder.PersonajeBuilder(builder.CharacterClass, builder.CharacterPowerUps, gameObject);
         animator = gameObject.GetComponentInChildren<Animator>();
-        //livesText.text = "x" + plStats.lives;
+        livesText.text = "x" + PlayerStats.lives;
     }
 
     void Update()
@@ -332,11 +332,13 @@ public class Controller : MonoBehaviour
         {
             //poner el dir -1 W
             SetTurnValues(-lookDir);
+            animator.SetBool("Move", false);
         }
         if (flagTurn && Input.GetButtonUp("CameraRotationDOWN"))
         {
             //poner el dir 1 S            
             SetTurnValues(lookDir);
+            animator.SetBool("Move", false);
         }
 
 

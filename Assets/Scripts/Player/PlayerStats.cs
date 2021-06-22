@@ -6,8 +6,8 @@ public class PlayerStats : MonoBehaviour
 {    
     PlayerClass pClass;    
     int currentHp;
-    public int lives = 1;
-    public int gold;
+    static public int lives = 1;
+    static public int gold;
     public int goldExchange = 100;
 
     public SceneController sceneController;

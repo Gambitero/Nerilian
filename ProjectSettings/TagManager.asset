@@ -25,6 +25,8 @@ TagManager:
   - EnemyController
   - UIText
   - PlWindow
+  - Score
+  - Portal
   layers:
   - Default
   - TransparentFX

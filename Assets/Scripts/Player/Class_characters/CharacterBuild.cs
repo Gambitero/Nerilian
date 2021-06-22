@@ -24,15 +24,14 @@ public class CharacterBuild : MonoBehaviour
 
     public void PersonajeBuilder(clases clase, powerUps powerUp, GameObject playerCharacter)
     {
-        var playerController = playerCharacter.GetComponent<Controller>();
-        var playerStats = playerCharacter.GetComponent<PlayerStats>();
+        var playerController = playerCharacter.GetComponent<Controller>();        
 
         float[] Stats = ClassStatsSelector(clase);
 
         playerController.speed = Stats[0];
         playerController.jumpHeight = Stats[1];
         playerController.weight = Stats[2];
-        playerStats.lives = (int) Stats[3];
+        PlayerStats.lives = (int) Stats[3];
         playerController.dashFlag = powerUp.Equals(powerUps.Dash);
         playerController.shootFlag = powerUp.Equals(powerUps.BolaFuego);
         playerController.bunnyFlag = powerUp.Equals(powerUps.BunnyHop);
