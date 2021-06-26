@@ -15,7 +15,7 @@ public class MenuController : MonoBehaviour
         if(gameObject.name.Equals("Slider"))
             slider.value = PlayerPrefs.GetFloat("MusicVolume", 0.75f);
     }
-    public void SetLevel(float sliderValue)
+    public void SetAudioLevel(float sliderValue)
     {
         mixer.SetFloat("AudioVol", Mathf.Log10(sliderValue) * 20);
         PlayerPrefs.SetFloat("AudioVol", sliderValue);
@@ -28,5 +28,19 @@ public class MenuController : MonoBehaviour
     public void LoadNewScene(string scene)
     {
         SceneManager.LoadScene(scene);
+    }
+
+    public void LoadNextScene()
+    {
+        if (PlayerStats.level < 4)
+            SceneManager.LoadScene("Scene " + PlayerStats.level);
+
+        else
+            SceneManager.LoadScene("Credits");
+
+    }
+
+    public void SetPlayerLevel(int lvl){
+        PlayerStats.level = lvl;
     }
 }

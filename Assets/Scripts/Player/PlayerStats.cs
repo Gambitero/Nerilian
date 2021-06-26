@@ -6,11 +6,11 @@ public class PlayerStats : MonoBehaviour
 {    
     PlayerClass pClass;    
     int currentHp;
-    static public int lives = 1;
-    static public int gold;
-    public int goldExchange = 100;
-
-    public SceneController sceneController;
+    public static int lives = 1;
+    public static int gold = 0;
+    public static int goldExchange = 100;
+    public static int level = 1;
+    
     public CharacterController controller;       
 
     // Se activa al ser atacado
@@ -39,6 +39,6 @@ public class PlayerStats : MonoBehaviour
             gold -= goldExchange;
             TakeLife();
         }
-        controller.gameObject.GetComponent<Controller>().scoreText.text = "" + gold%goldExchange;
+        controller.gameObject.GetComponent<Controller>().scoreText.text = "" + gold % goldExchange;
     }
 }
