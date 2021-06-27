@@ -875,9 +875,9 @@ MonoBehaviour:
   resetFallTimer: 0
   hangTime: 0.2
   jumpBufferLength: 0.3
-  dashTime: 0.18
-  dashSpeed: 0.397
-  dashDelay: 0.075
+  dashTime: 0.1
+  dashSpeed: 2
+  dashDelay: 0.035
   cameraFall: 0.5
   bunnyCount: 1
   cameraCount: 0
@@ -898,8 +898,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2837fa7d8df543748b57257b25c8fd70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldExchange: 100
-  sceneController: {fileID: 0}
   controller: {fileID: 2634076718732840025}
 --- !u!143 &2634076718732840025
 CharacterController:

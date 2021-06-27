@@ -38,8 +38,8 @@ ModelImporter:
       name: mixamo.com
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
-      lastFrame: 73
+      firstFrame: 18
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -48,7 +48,7 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
@@ -72,13 +72,13 @@ ModelImporter:
             inWeight: 0
             outWeight: 0
           - serializedVersion: 3
-            time: 0.092131175
-            value: 0.40347943
-            inSlope: 1.3442438
-            outSlope: 1.3442438
+            time: 0.0793006
+            value: 0.7326056
+            inSlope: 8.562095
+            outSlope: 8.562095
             tangentMode: 0
             weightedMode: 0
-            inWeight: 0.33333334
+            inWeight: 1
             outWeight: 0.33333334
           - serializedVersion: 3
             time: 1

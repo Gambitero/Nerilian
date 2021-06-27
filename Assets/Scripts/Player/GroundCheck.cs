@@ -9,15 +9,15 @@ public class GroundCheck : MonoBehaviour
     Controller playerController;    
     
     void OnCollisionEnter(Collision obj){
-        if (obj.gameObject.CompareTag("Platform") || obj.gameObject.CompareTag("Platform2") || obj.gameObject.CompareTag("Jumpable")){            
-            groundFlag = true;
-            //playerController.velocity.y = 0;       
-            playerController.resetFallVel = true;
-            if (playerController.jumping) {
+        if (obj.gameObject.CompareTag("Platform") || obj.gameObject.CompareTag("Platform2") || obj.gameObject.CompareTag("Jumpable")){
+            if (playerController.jumping && playerController.fallVelocity.y < 0f) {
+                //playerController.velocity.y = 0;
+                groundFlag = true;
+                playerController.resetFallVel = true;
                 playerController.animator.SetBool("Ground", true);
-            }
-            playerController.jumping = false;
-            playerController.groundFlag = groundFlag;
+                playerController.jumping = false;
+                playerController.groundFlag = groundFlag;
+            }            
         }        
     }
 

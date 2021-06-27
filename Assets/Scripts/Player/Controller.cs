@@ -79,6 +79,7 @@ public class Controller : MonoBehaviour
     
     // Se asignan las variables necesarias para hacer el giro
     void SetTurnValues(int turnButton){
+        animator.SetBool("Move", false);
         //turnDir = turnObj.gameObject.GetComponent<Turnpoint>().turnDir;
         turnDir = turnButton;
         //turnObj.gameObject.GetComponent<Turnpoint>().turnDir *= -1;
@@ -331,14 +332,12 @@ public class Controller : MonoBehaviour
         if (flagTurn && Input.GetButtonUp("CameraRotationUP"))
         {
             //poner el dir -1 W
-            SetTurnValues(-lookDir);
-            animator.SetBool("Move", false);
+            SetTurnValues(-lookDir);            
         }
         if (flagTurn && Input.GetButtonUp("CameraRotationDOWN"))
         {
             //poner el dir 1 S            
             SetTurnValues(lookDir);
-            animator.SetBool("Move", false);
         }
 
 
@@ -371,7 +370,7 @@ public class Controller : MonoBehaviour
         if (x == 0){
             animator.SetBool("Move", false);
         }
-        else{
+        else if (!flagTurning){
             animator.SetBool("Move", true);
         }
 
@@ -421,6 +420,7 @@ public class Controller : MonoBehaviour
         // Inicio del salto
         if(!jumping && hangCount > 0f && jumpBufferCount >= 0f)
         {
+            Debug.Log("holaaaaaa");
             animator.SetBool("Ground", false);
             animator.SetBool("Height", true);
             animator.SetFloat("MultJump", 1f);
