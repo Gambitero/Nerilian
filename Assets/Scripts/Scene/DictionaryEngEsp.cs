@@ -8,9 +8,11 @@ public class DictionaryEngEsp : MonoBehaviour
 {
     public GameObject SettingControl;
     List<string> textos = new List<string>{"Volver", "Empezar", "Jugar", "Opciones", "Volumen", "Idioma",
-                        "Mundo 1", "Mundo 2", "Mundo 3"};
+                        "Mundo 1", "Mundo 2", "Mundo 3", "Clase", "Continuar", "Guerrero", "Pícaro", "Mago", "Normal",
+                         "Poder", "Dash", "Nada", "Salto doble"};
     List<string> texts = new List<string>{"Back", "Start", "Play", "Options", "Volume", "Language",
-                        "World 1", "World 2", "World 3"};
+                        "World 1", "World 2", "World 3", "Class", "Continue", "Warrior", "Rogue", "Wizard", "Normal",
+                         "Power", "Dash", "Nothing", "Double jump"};
 
     private void Update()
     {

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Controller : MonoBehaviour
 {
+    public static int Cindex = 0;
+    public static int Pindex = 0;
     public bool invincible = false;
     public CharacterController controller;
     public PlayerStats PlayerStats; 
@@ -19,9 +21,9 @@ public class Controller : MonoBehaviour
     public bool shootFlag = true;
     public bool bunnyFlag = true;
     
-    public float turnSpeed = 0.25f;
+    public float turnSpeed = 0.5f;
     private float precision = 0.001f;
-    public int cameraTurnSpeed = 1;
+    public int cameraTurnSpeed = 2;
     private float currentTurn;
     private Collider turnObj = null;
     private int turnDir = 0;
@@ -103,7 +105,7 @@ public class Controller : MonoBehaviour
         //Debug.Log("The Starting Angle");
         //Debug.Log(angle);
 
-        angle = standardAngle(angle + 0.25f * turnDir) + 0.25f * -turnDir;
+        angle = standardAngle(angle + turnSpeed * turnDir) + turnSpeed * -turnDir;
 
         //Debug.Log("The Fixed Starting Angle");
         //Debug.Log(angle);
@@ -261,11 +263,22 @@ public class Controller : MonoBehaviour
             waitingForEnd = true;
         }
     }
-    
-    public void Start()
+
+    public CharacterBuild builder = new CharacterBuild();
+    public void Awake()
     {
-        var builder = gameObject.GetComponentInParent<CharacterBuild>();
-        builder.PersonajeBuilder(builder.CharacterClass, builder.CharacterPowerUps, gameObject);
+        builder = gameObject.GetComponentInParent<CharacterBuild>();
+        builder.CharacterClass.Add(CharacterBuild.clases.Normal);
+        builder.CharacterClass.Add(CharacterBuild.clases.Vulkan);
+        builder.CharacterClass.Add(CharacterBuild.clases.Herzs);
+        Debug.Log(builder.CharacterClass.Count);
+        builder.CharacterPowerUps.Add(CharacterBuild.powerUps.No);
+        builder.CharacterPowerUps.Add(CharacterBuild.powerUps.Dash);
+        builder.CharacterPowerUps.Add(CharacterBuild.powerUps.Reactor);
+    }
+    public void Start()
+    {        
+        builder.PersonajeBuilder(builder.CharacterClass[Cindex], builder.CharacterPowerUps[Pindex], gameObject);
         animator = gameObject.GetComponentInChildren<Animator>();
         livesText.text = "x" + PlayerStats.lives;
     }
