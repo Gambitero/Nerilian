@@ -114,9 +114,12 @@ public class Controller : MonoBehaviour
         //Debug.Log(angle + 90 * turnDir);
     }
 
+
+    
     void OnTriggerEnter(Collider obj){
         // Se permite el realizar un giro, flagTurn = true
         if (obj.gameObject.CompareTag("Turnpoint")){
+            //Debug.Log(obj.gameObject.transform.name);
             flagTurn = true;
             //Debug.Log("Enter turnpoint");
             turnObj = obj;

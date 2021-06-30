@@ -41,4 +41,9 @@ public class PlayerStats : MonoBehaviour
         }
         controller.gameObject.GetComponent<Controller>().scoreText.text = "" + gold % goldExchange;
     }
+
+    void Start(){
+        controller.gameObject.GetComponent<Controller>().scoreText.text = "" + gold % goldExchange;
+        controller.gameObject.GetComponent<Controller>().livesText.text = "x" + lives;
+    }
 }

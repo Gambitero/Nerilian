@@ -60,10 +60,10 @@ public class CameraWindow : MonoBehaviour
     
     public void Respawn()
     {        
-        transform.position = new Vector3(transform.position.x, spawnPosition.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x, spawnPosition.y, transform.position.z);        
         offset = transform.position.y - target.position.y;
         initY = transform.position.y;   
-        outLimit = false;           
+        outLimit = true;
         stop = false;
     }
     
