@@ -281,8 +281,6 @@ public class Controller : MonoBehaviour
         }
     }
 
-<<<<<<< HEAD
-
     public void Move()
     {
         moveX = playerInput.actions["Move"].ReadValue<float>();
@@ -298,12 +296,9 @@ public class Controller : MonoBehaviour
     
         moveX = Mathf.Clamp(gravityX, -1, 1);
     }
-    
-    public void Start()
-=======
     public CharacterBuild builder = new CharacterBuild();
     public void Awake()
->>>>>>> nuevaRama
+
     {
         builder = gameObject.GetComponentInParent<CharacterBuild>();
         builder.CharacterClass.Add(CharacterBuild.clases.Normal);
