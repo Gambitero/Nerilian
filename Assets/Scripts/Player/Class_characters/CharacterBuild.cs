@@ -1,25 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterBuild : MonoBehaviour
 {
     public enum clases {
-        Guerrero = 1,
-        MagoRojo = 2,
-        Berserker = 3,
-        Picaro = 4,
+        Vulkan = 1,
+        Herzs = 2,
         Normal = 0
     } //to do
     public enum powerUps {
-        Nada = 0,
-        BolaFuego = 1,
-        Dash = 2,
-        BunnyHop = 3      
+        No = 0,
+        Dash = 1,
+        Reactor = 2      
     } //to do
 
-    public clases CharacterClass;
-    public powerUps CharacterPowerUps;
+    public List<clases> CharacterClass = new List<clases>() { clases.Normal, clases.Vulkan, clases.Herzs };
+    public List<powerUps> CharacterPowerUps = new List<powerUps>(){powerUps.No, powerUps.Dash, powerUps.Reactor};
     public GameObject PlayerCharacter;
 
     public void PersonajeBuilder(clases clase, powerUps powerUp, GameObject playerCharacter)
@@ -33,8 +31,7 @@ public class CharacterBuild : MonoBehaviour
         playerController.weight = Stats[2];
         PlayerStats.lives = (int) Stats[3];
         playerController.dashFlag = powerUp.Equals(powerUps.Dash);
-        playerController.shootFlag = powerUp.Equals(powerUps.BolaFuego);
-        playerController.bunnyFlag = powerUp.Equals(powerUps.BunnyHop);
+        playerController.bunnyFlag = powerUp.Equals(powerUps.Reactor);
 
     }
 
@@ -42,13 +39,9 @@ public class CharacterBuild : MonoBehaviour
 
         switch (clase)
         {            
-            case clases.Guerrero:
+            case clases.Vulkan:
                 return GuerreroStats;
-            case clases.MagoRojo:
-                return MagoRojoStats;
-            case clases.Berserker:
-                return BerserkerStats;
-            case clases.Picaro:
+            case clases.Herzs:
                 return PicaroStats;
             case clases.Normal:
                 return NormalStats;
@@ -58,56 +51,34 @@ public class CharacterBuild : MonoBehaviour
     //Stats de las clases - TO DO cambiar segun clase
     private float[] GuerreroStats = {    
         //Speed
-        12.0f,
+        10.0f,
         //Jumpforce
-        5.0f,
+        4.0f,
         //Weight
-        1.0f,
+        1.5f,
         //lives
         3,
-        //dash
-        1,
         
-    };
-    private float[] MagoRojoStats = {
-        //Speed
-        12.0f,
-        //Jumpforce
-        2.0f,
-        //Weight
-        1.0f,
-        //lives
-        3
-    };
-    private float[] BerserkerStats = {
-        //Speed
-        12.0f,
-        //Jumpforce
-        2.0f,
-        //Weight
-        1.0f,
-        //lives
-        3
     };
     private float[] PicaroStats = {
         //Speed
-        12.0f,
+        14.0f,
         //Jumpforce
         2.0f,
         //Weight
         1.0f,
         //lives
-        3
+        2
     };
     private float[] NormalStats = {
         //Speed
         12.0f,
         //Jumpforce
-        2.5f,
+        3.0f,
         //Weight
-        1.0f,
+        1.2f,
         //lives
-        3
+        4
     };
 
 

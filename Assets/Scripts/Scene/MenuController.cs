@@ -39,6 +39,11 @@ public class MenuController : MonoBehaviour
             SceneManager.LoadScene("Credits");
 
     }
+    public void setPlayerStats()
+    {
+        Controller.Cindex = Selector.classListIterator;
+        Controller.Pindex = Selector.powerListIterator;
+    }
 
     public void SetPlayerLevel(int lvl){
         PlayerStats.level = lvl;
