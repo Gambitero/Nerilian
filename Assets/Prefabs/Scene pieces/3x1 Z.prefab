@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5732500786214831423}
   - component: {fileID: 5732500786214831422}
   - component: {fileID: 5732500786214831421}
-  - component: {fileID: 988869012}
   m_Layer: 0
   m_Name: 3x1 Z
   m_TagString: Platform
@@ -81,23 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &988869012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5732500786214831419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 2
-  eraseRenderer: 0
-  useAsInfill: 1
-  originalLayer: 0
-  originalMaterials: []
 --- !u!1001 &5584923238869046323
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -381,8 +381,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a90fc4157f9b6894c9eaa5e31ed8868b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterClass: 0
-  CharacterPowerUps: 0
+  CharacterClass: 
+  CharacterPowerUps: 
   PlayerCharacter: {fileID: 2634076718732840030}
 --- !u!1 &2634076718340316218
 GameObject:
@@ -428,7 +428,6 @@ GameObject:
   - component: {fileID: 2634076718387435330}
   - component: {fileID: 2634076718387435343}
   - component: {fileID: 7426388723713910059}
-  - component: {fileID: 689544050013823706}
   - component: {fileID: 6785195974264777786}
   m_Layer: 0
   m_Name: Main Camera
@@ -540,36 +539,6 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   score: {fileID: 0}
   turning: {fileID: 0}
---- !u!114 &689544050013823706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2634076718387435331}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a78da3f00f3328541b4526c0b0b5ec5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lineThickness: 1
-  lineIntensity: 0.58
-  fillAmount: 0
-  lineColor0: {r: 1, g: 0.5986656, b: 0, a: 1}
-  lineColor1: {r: 0, g: 1, b: 0, a: 1}
-  lineColor2: {r: 0.24705884, g: 0.5921569, b: 1, a: 1}
-  additiveRendering: 0
-  backfaceCulling: 1
-  cornerOutlines: 0
-  addLinesBetweenColors: 0
-  scaleWithScreenSize: 1
-  alphaCutoff: 0.139
-  flipY: 0
-  sourceCamera: {fileID: 2634076718387435329}
-  outlineCamera: {fileID: 0}
-  outlineShaderMaterial: {fileID: 0}
-  renderTexture: {fileID: 0}
-  extraRenderTexture: {fileID: 0}
 --- !u!114 &6785195974264777786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -791,6 +760,7 @@ MonoBehaviour:
   pauseObj: {fileID: 0}
   score: 0
   totalScore: 0
+  builder: {fileID: 0}
 --- !u!114 &2634076718732840029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -862,10 +832,11 @@ AudioSource:
   m_GameObject: {fileID: 2634076718732840030}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -352108721318423002, guid: c9a029e6e30025046b3a9515190467a6,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 50ff1585f563f614daf6d5936037b4cb, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
+  m_Volume: 1
   m_Pitch: 1.5
   Loop: 0
   Mute: 0
@@ -958,10 +929,11 @@ AudioSource:
   m_GameObject: {fileID: 2634076718732840030}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -352108721318423002, guid: c9a029e6e30025046b3a9515190467a6,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 50ff1585f563f614daf6d5936037b4cb, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
+  m_Volume: 1
   m_Pitch: 1.5
   Loop: 0
   Mute: 0
@@ -970,7 +942,7 @@ AudioSource:
   Priority: 70
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 77814.56
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

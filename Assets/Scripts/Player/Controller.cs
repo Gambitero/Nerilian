@@ -192,7 +192,8 @@ public class Controller : MonoBehaviour
         }
     }
 
-    void resetFall(){        
+    void resetFall(){
+        Debug.Log("reseteando fallvel");
         fallVelocity.y = 0;
         resetFallVel = false;
         resetFallTimer = 0f;
@@ -296,7 +297,7 @@ public class Controller : MonoBehaviour
     
         moveX = Mathf.Clamp(gravityX, -1, 1);
     }
-    public CharacterBuild builder = new CharacterBuild();
+    public CharacterBuild builder;// = new CharacterBuild();
     public void Awake()
 
     {
@@ -304,7 +305,7 @@ public class Controller : MonoBehaviour
         builder.CharacterClass.Add(CharacterBuild.clases.Normal);
         builder.CharacterClass.Add(CharacterBuild.clases.Vulkan);
         builder.CharacterClass.Add(CharacterBuild.clases.Herzs);
-        Debug.Log(builder.CharacterClass.Count);
+        //Debug.Log(builder.CharacterClass.Count);
         builder.CharacterPowerUps.Add(CharacterBuild.powerUps.No);
         builder.CharacterPowerUps.Add(CharacterBuild.powerUps.Dash);
         builder.CharacterPowerUps.Add(CharacterBuild.powerUps.Reactor);
@@ -471,6 +472,7 @@ public class Controller : MonoBehaviour
         // Inicio del salto
         if(!jumping && hangCount > 0f && jumpBufferCount >= 0f)
         {
+            Debug.Log("salto");
             Jump1.Play();
             animator.SetBool("Ground", false);
             animator.SetBool("Height", true);
@@ -504,6 +506,8 @@ public class Controller : MonoBehaviour
         }
 
         move.y = fallVelocity.y;
+
+        Debug.Log(move.y);
 
         controller.Move(move * speed * Time.deltaTime);
         
