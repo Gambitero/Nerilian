@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class Controller : MonoBehaviour
 {
@@ -76,6 +77,18 @@ public class Controller : MonoBehaviour
 
     public int score = 0;
     public int totalScore = 0;
+
+    private PlayerInput playerInput;
+
+
+    private float moveX;
+    private float gravityX;    
+    
+    private float inputAcceleration = 12f;
+    private float inputDeceleration = 15f;
+
+    private AudioSource Jump1;
+    private AudioSource Jump2;
     
     // Se asignan las variables necesarias para hacer el giro
     void SetTurnValues(int turnButton){
@@ -85,7 +98,7 @@ public class Controller : MonoBehaviour
         //turnObj.gameObject.GetComponent<Turnpoint>().turnDir *= -1;
         newPos = turnObj.gameObject.transform.position;
 
-        turnProgress = 0f;
+        turnProgress = 0f;        
         
         //Debug.Log("TurnDir ==> " + turnDir);
 
@@ -213,6 +226,7 @@ public class Controller : MonoBehaviour
     }
 
     public void Bounce(float value){
+        Jump2.Play();
         fallVelocity = Vector3.up * jumpHeight * value;
         animator.SetTrigger("Bounce");
     }
@@ -264,6 +278,23 @@ public class Controller : MonoBehaviour
             waitingForEnd = true;
         }
     }
+
+
+    public void Move()
+    {
+        moveX = playerInput.actions["Move"].ReadValue<float>();
+    }
+    public virtual void MoveInput()
+    {
+        if (moveX == 0)
+        {
+            gravityX = Mathf.MoveTowards(gravityX, 0f, Time.deltaTime * inputDeceleration);
+        }
+        else
+            gravityX = Mathf.MoveTowards(gravityX, moveX, Time.deltaTime * inputAcceleration);
+    
+        moveX = Mathf.Clamp(gravityX, -1, 1);
+    }
     
     public void Start()
     {
@@ -271,6 +302,9 @@ public class Controller : MonoBehaviour
         builder.PersonajeBuilder(builder.CharacterClass, builder.CharacterPowerUps, gameObject);
         animator = gameObject.GetComponentInChildren<Animator>();
         livesText.text = "x" + PlayerStats.lives;
+        playerInput = GetComponent<PlayerInput>();
+        Jump1 = GetComponent<AudioSource>();
+        Jump2 = GetComponents<AudioSource>()[1];
     }
 
     void Update()
@@ -281,7 +315,7 @@ public class Controller : MonoBehaviour
         // Sólo se puede poner pausa si se está en el suelo.
         // Para poner pausa se pulsa la tecla escape, mientras el juego está en pausa no se reciben
         // inputs.
-        if(Input.GetKeyDown(KeyCode.Escape) && groundFlag){
+        if(playerInput.actions["Pause"].triggered && groundFlag){
             if(Time.timeScale == 0){
                 Resume();
                 pauseObj.SetActive(false);
@@ -332,12 +366,12 @@ public class Controller : MonoBehaviour
         }
 
         // Configurar valores para el giro
-        if (flagTurn && Input.GetButtonUp("CameraRotationUP"))
+        if (flagTurn && playerInput.actions["Up"].triggered)
         {
             //poner el dir -1 W
             SetTurnValues(-lookDir);            
         }
-        if (flagTurn && Input.GetButtonUp("CameraRotationDOWN"))
+        if (flagTurn && playerInput.actions["Down"].triggered)
         {
             //poner el dir 1 S            
             SetTurnValues(lookDir);
@@ -368,9 +402,11 @@ public class Controller : MonoBehaviour
                 }
             }
         }
-        float x = Input.GetAxis("Horizontal");
-
-        if (x == 0){
+        //float moveX = playerInput.actions["Move"].ReadValue<float>();//Input.GetAxis("Horizontal");
+        Move();
+        MoveInput();        
+        
+        if (moveX == 0){
             animator.SetBool("Move", false);
         }
         else if (!flagTurning){
@@ -378,10 +414,10 @@ public class Controller : MonoBehaviour
         }
 
 
-        Vector3 move = transform.right * x;
+        Vector3 move = transform.right * moveX;
 
-        if(x != 0){
-            lookDir = (int)Mathf.Sign(x);
+        if(moveX != 0){
+            lookDir = (int)Mathf.Sign(moveX);
             if (lookDir != prevLookDir){
                 gameObject.transform.GetChild(0).Rotate(0f, 180f, 0f);
                 prevLookDir = lookDir;                
@@ -389,7 +425,7 @@ public class Controller : MonoBehaviour
         }        
 
         // Acticación del dash
-        if (dashFlag && Input.GetButtonDown("Dash") && !isDashing){            
+        if (dashFlag && playerInput.actions["Dash"].triggered && !isDashing){            
             dashCount = dashTime + dashDelay;
             isDashing = true;
         }
@@ -404,7 +440,7 @@ public class Controller : MonoBehaviour
         }
 
         // Jump buffer: Se puede saltar unos frames antes de tocar el suelo
-        if(Input.GetButtonDown("Jump")){            
+        if(playerInput.actions["Jump"].triggered){            
             jumpBufferCount = jumpBufferLength;            
         }
         else{            
@@ -412,7 +448,7 @@ public class Controller : MonoBehaviour
         }
         
         // Jump hold: Se salta más alto si se mantiene pulsada la tecla
-        if(Input.GetButtonUp("Jump") && fallVelocity.y > 0){            
+        if(playerInput.actions["Jump"].triggered && fallVelocity.y > 0){            
             fallVelocity.y *= 0.6f;
             if (fallVelocity.y < (jumpHeight + (1-jumpCount)*0.24f)/1){
                 animator.SetBool("Height", false);
@@ -423,11 +459,11 @@ public class Controller : MonoBehaviour
         // Inicio del salto
         if(!jumping && hangCount > 0f && jumpBufferCount >= 0f)
         {
-            Debug.Log("holaaaaaa");
+            Jump1.Play();
             animator.SetBool("Ground", false);
             animator.SetBool("Height", true);
             animator.SetFloat("MultJump", 1f);
-            if (x == 0){
+            if (moveX == 0){
                 animator.SetTrigger("JumpInPlace");
             }
             else{
@@ -448,7 +484,8 @@ public class Controller : MonoBehaviour
         // Si estamos en el aire, la gravedad surte efecto y descendemos
         if(!groundFlag){
             fallVelocity.y += gravity * weight * Time.deltaTime;
-            if(bunnyFlag && bunnyCount == 1 && Input.GetButtonDown("Jump")){
+            // Salto doble o bunny hop
+            if(bunnyFlag && bunnyCount == 1 && playerInput.actions["Jump"].triggered){
                 Bounce(0.7f);
                 bunnyCount = 0;
             }

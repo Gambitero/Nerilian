@@ -17,8 +17,11 @@ public class LaserTower : MonoBehaviour
     public float lookingDir = 1; //0 left, 1 right, 2 forward, 3 backward    
     Vector3 dist;
     Vector3 comparer;
+
+    AudioSource shootSound;
     void Start()
-    {        
+    {
+        shootSound = GetComponent<AudioSource>();
         objective = GameObject.FindGameObjectsWithTag("Player")[0];        
         delayedPos = objective.transform.position;
         trig = false;
@@ -42,6 +45,7 @@ public class LaserTower : MonoBehaviour
     }
     
     void shoot(){
+        shootSound.Play();
         laserBullet = gameObject.transform.GetChild(1).gameObject;
         laserBullet.transform.SetParent(gameObject.transform.parent.GetChild(0));
         laserBullet.SetActive(true);        
