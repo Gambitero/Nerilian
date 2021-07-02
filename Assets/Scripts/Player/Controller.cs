@@ -273,6 +273,7 @@ public class Controller : MonoBehaviour
         if(this.sceneController.waiting || this.invincible){
             return;
         }
+
         flagTurn = false;
         PlayerStats.lives--;        
         sceneController.Fade(1f);
@@ -330,7 +331,15 @@ public class Controller : MonoBehaviour
         WalkSound = GetComponents<AudioSource>()[4];
     }
 
-    void FixedUpdate(){        
+    void FixedUpdate(){
+        //-----------------------------------------------------------------------------------------
+        //* Pausa
+        //-----------------------------------------------------------------------------------------
+        // Detectar si el juego está en pausa.
+        if(Time.timeScale == 0){            
+            return;
+        }
+
         //-----------------------------------------------------------------------------------------
         //* Movimiento y gravedad
         //-----------------------------------------------------------------------------------------
@@ -409,7 +418,11 @@ public class Controller : MonoBehaviour
                 Respawn();
                 // El delayedFade es una animación de Fade que funciona igual que un fade pero tiene un delay
                 // (definido por la primera variable que se le pasa) en realizar la animación de fade
-                sceneController.DelayedFade(1f, 1.0f);                
+                sceneController.DelayedFade(1f, 1.0f);
+            }
+            else
+            {
+                return;
             }
         }
         // Si se está esperando al final de partida, cuando se termine el fadeOut, es decir cuando waiting sea
@@ -419,6 +432,10 @@ public class Controller : MonoBehaviour
             if(!sceneController.waiting)
             {
                 sceneController.GameOver();
+            }
+            else
+            {
+                return;
             }
         }
         //-----------------------------------------------------------------------------------------
@@ -446,7 +463,12 @@ public class Controller : MonoBehaviour
         // Si el dash está activado        
         //float moveX = playerInput.actions["Move"].ReadValue<float>();//Input.GetAxis("Horizontal");
         Move();
-        MoveInput();        
+        if(Controller.limitJump == 0.7f && (int)Mathf.Sign(moveX) == lookDir){
+            moveX = 0;        }
+        else{
+            Controller.limitJump = 1f;
+            MoveInput();
+        }
         
         if (moveX == 0){
             WalkSound.Stop();
@@ -548,8 +570,8 @@ public class Controller : MonoBehaviour
         
 
         if(windowObj != null  && !isDashing && groundFlag){
-                windowObj.GetComponent<CameraWindow>().MoveY(windowObj.transform.position.y < gameObject.transform.position.y, 6.25f);
-                windowObj = null;
-            }                
+            windowObj.GetComponent<CameraWindow>().MoveY(windowObj.transform.position.y < gameObject.transform.position.y, 6.25f);
+            windowObj = null;
+        }                
     }
 }
