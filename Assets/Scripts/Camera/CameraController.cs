@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
     private float precision = 0.0001f;
 
     public bool turnCamera = false;
-    public float turnSpeed = 0.5f;
+    public float turnSpeed = 0.7f;
 
     public bool stop = false;
 

@@ -559,7 +559,7 @@ MonoBehaviour:
   target: {fileID: 2634076717967039468}
   smoothing: 6
   turnCamera: 0
-  turnSpeed: 0.25
+  turnSpeed: 0.7
   stop: 0
   targetTurnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &6785195974264777786

@@ -22,7 +22,7 @@ public class Controller : MonoBehaviour
     public bool dashFlag = true;    
     public bool bunnyFlag = true;
     
-    public float turnSpeed = 0.5f;
+    public float turnSpeed = 2.0f;
     private float precision = 0.001f;
     public int cameraTurnSpeed = 2;
     private float currentTurn;
@@ -38,7 +38,7 @@ public class Controller : MonoBehaviour
     bool waitingForEnd = false;
     
     public float angle;
-    public float rotationDir = -0.25f;
+    public float rotationDir = -0.7f;
 
     public SceneController sceneController;
     public Vector3 newPos;

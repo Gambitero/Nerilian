@@ -19,7 +19,6 @@ public class LanguageSystem : MonoBehaviour
         // 1 english
 
         languageValue = language.value;
-
     }
 
 }

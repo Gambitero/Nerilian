@@ -7,18 +7,40 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    public AudioMixer mixer;
-    public Slider slider;
+    public AudioMixer Mixer;
+    public Slider generalSlider;
+    public Slider musicSlider;
+    public Slider fxSlider;
 
     void Start()
     {
-        if(gameObject.name.Equals("Slider"))
-            slider.value = PlayerPrefs.GetFloat("MusicVolume", 0.75f);
+        if (gameObject.name.Equals("generalSlider"))
+        {
+            generalSlider.value = PlayerPrefs.GetFloat("GeneralVolume", 0.75f);
+        }
+        if (gameObject.name.Equals("musicSlider"))
+        {
+            musicSlider.value = PlayerPrefs.GetFloat("musicVolume", 0.75f);
+        }
+        if (gameObject.name.Equals("fxSlider"))
+        {
+            fxSlider.value = PlayerPrefs.GetFloat("fxVolume", 0.75f);
+        }
     }
-    public void SetAudioLevel(float sliderValue)
+    public void SetGeneralAudioLevel(float sliderValue)
     {
-        mixer.SetFloat("AudioVol", Mathf.Log10(sliderValue) * 20);
-        PlayerPrefs.SetFloat("AudioVol", sliderValue);
+        Mixer.SetFloat("generalVol", Mathf.Log10(sliderValue) * 20);
+        PlayerPrefs.SetFloat("generalVol", sliderValue);
+    }
+    public void SetMusicAudioLevel(float sliderValue)
+    {
+        Mixer.SetFloat("musicVol", Mathf.Log10(sliderValue) * 20);
+        PlayerPrefs.SetFloat("musicVol", sliderValue);
+    }
+    public void SetFXAudioLevel(float sliderValue)
+    {
+        Mixer.SetFloat("fxVol", Mathf.Log10(sliderValue) * 20);
+        PlayerPrefs.SetFloat("fxVol", sliderValue);
     }
     public void GoTo(GameObject canvas) {
         canvas.SetActive(true);
@@ -30,7 +52,7 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene(scene);
     }
 
-    public void LoadNextScene()
+    public void LoadSavedScene()
     {
         if (PlayerStats.level < 4)
             SceneManager.LoadScene("Scene " + PlayerStats.level);
