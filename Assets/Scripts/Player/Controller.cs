@@ -18,6 +18,7 @@ public class Controller : MonoBehaviour
     public float weight = 1.0f;
     public float gravity = -9.81f;
     public float jumpHeight = 2f;
+    public static float limitJump = 1;
     public bool dashFlag = true;
     public bool shootFlag = true;
     public bool bunnyFlag = true;
@@ -91,9 +92,13 @@ public class Controller : MonoBehaviour
 
     private AudioSource Jump1;
     private AudioSource Jump2;
+    private AudioSource Jump3;
+    private AudioSource ScoreSound;
+    private AudioSource WalkSound;
     
     // Se asignan las variables necesarias para hacer el giro
     void SetTurnValues(int turnButton){
+        WalkSound.Stop();
         animator.SetBool("Move", false);
         //turnDir = turnObj.gameObject.GetComponent<Turnpoint>().turnDir;
         turnDir = turnButton;
@@ -158,6 +163,7 @@ public class Controller : MonoBehaviour
 
         if (obj.gameObject.CompareTag("Score")){
             PlayerStats.TakeGold();
+            ScoreSound.Play();
             obj.gameObject.SetActive(false);
             return;
         }
@@ -193,7 +199,7 @@ public class Controller : MonoBehaviour
     }
 
     void resetFall(){
-        Debug.Log("reseteando fallvel");
+        //Debug.Log("reseteando fallvel");
         fallVelocity.y = 0;
         resetFallVel = false;
         resetFallTimer = 0f;
@@ -230,7 +236,7 @@ public class Controller : MonoBehaviour
 
     public void Bounce(float value){
         Jump2.Play();
-        fallVelocity = Vector3.up * jumpHeight * value;
+        fallVelocity = Vector3.up * jumpHeight * value * limitJump;
         animator.SetTrigger("Bounce");
     }
 
@@ -318,6 +324,9 @@ public class Controller : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         Jump1 = GetComponent<AudioSource>();
         Jump2 = GetComponents<AudioSource>()[1];
+        Jump3 = GetComponents<AudioSource>()[2];
+        ScoreSound = GetComponents<AudioSource>()[3];
+        WalkSound = GetComponents<AudioSource>()[4];
     }
 
     void Update()
@@ -420,6 +429,7 @@ public class Controller : MonoBehaviour
         MoveInput();        
         
         if (moveX == 0){
+            WalkSound.Stop();
             animator.SetBool("Move", false);
         }
         else if (!flagTurning){
@@ -430,6 +440,8 @@ public class Controller : MonoBehaviour
         Vector3 move = transform.right * moveX;
 
         if(moveX != 0){
+            if(!WalkSound.isPlaying)
+                WalkSound.Play();
             lookDir = (int)Mathf.Sign(moveX);
             if (lookDir != prevLookDir){
                 gameObject.transform.GetChild(0).Rotate(0f, 180f, 0f);
@@ -449,6 +461,7 @@ public class Controller : MonoBehaviour
         }
         else{
             //animator.SetTrigger("Jump0");
+            WalkSound.Stop();
             hangCount -= Time.deltaTime;
         }
 
@@ -461,7 +474,7 @@ public class Controller : MonoBehaviour
         }
         
         // Jump hold: Se salta más alto si se mantiene pulsada la tecla
-        if(playerInput.actions["Jump"].triggered && fallVelocity.y > 0){            
+        if(playerInput.actions["Jump"].triggered && fallVelocity.y > 0){
             fallVelocity.y *= 0.6f;
             if (fallVelocity.y < (jumpHeight + (1-jumpCount)*0.24f)/1){
                 animator.SetBool("Height", false);
@@ -472,8 +485,12 @@ public class Controller : MonoBehaviour
         // Inicio del salto
         if(!jumping && hangCount > 0f && jumpBufferCount >= 0f)
         {
-            Debug.Log("salto");
-            Jump1.Play();
+            WalkSound.Stop();
+            //Debug.Log("salto");
+            if (jumpCount == 0)
+                Jump1.Play();
+            else
+                Jump3.Play();
             animator.SetBool("Ground", false);
             animator.SetBool("Height", true);
             animator.SetFloat("MultJump", 1f);
@@ -486,7 +503,7 @@ public class Controller : MonoBehaviour
             }            
             bunnyCount = 1;
             resetFall();
-            fallVelocity = Vector3.up * (jumpHeight + jumpCount*0.24f);
+            fallVelocity = Vector3.up * (jumpHeight + jumpCount * 0.44f) * limitJump;
             jumping = true;
             jumpCount = 1 - jumpCount;
         }
@@ -505,9 +522,7 @@ public class Controller : MonoBehaviour
             }
         }
 
-        move.y = fallVelocity.y;
-
-        Debug.Log(move.y);
+        move.y = fallVelocity.y;        
 
         controller.Move(move * speed * Time.deltaTime);
         

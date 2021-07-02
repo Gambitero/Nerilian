@@ -10,7 +10,7 @@ public class Selector : MonoBehaviour
     public GameObject classText;
     public GameObject powerText;
 
-    CharacterBuild builder = new CharacterBuild();
+    CharacterBuild builder;
     public void powerIterPlus() {
         powerListIterator += 1;
         if (powerListIterator > 2)
@@ -43,6 +43,7 @@ public class Selector : MonoBehaviour
 
     private void Update()
     {
+        builder = GetComponent<CharacterBuild>();
         classText.GetComponent<Text>().text = builder.CharacterClass[classListIterator].ToString();
         powerText.GetComponent<Text>().text = builder.CharacterPowerUps[powerListIterator].ToString();
 
