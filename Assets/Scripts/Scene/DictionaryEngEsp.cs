@@ -7,12 +7,17 @@ using UnityEngine.UI;
 public class DictionaryEngEsp : MonoBehaviour
 {
     public GameObject SettingControl;
-    List<string> textos = new List<string>{"Volver", "Empezar", "Jugar", "Opciones", "Volumen", "Idioma",
-                        "Mundo 1", "Mundo 2", "Mundo 3", "Clase", "Continuar", "Guerrero", "Pícaro", "Mago", "Normal",
-                         "Poder", "Dash", "Nada", "Salto doble"};
-    List<string> texts = new List<string>{"Back", "Start", "Play", "Options", "Volume", "Language",
-                        "World 1", "World 2", "World 3", "Class", "Continue", "Warrior", "Rogue", "Wizard", "Normal",
-                         "Power", "Dash", "Nothing", "Double jump"};
+    List<string> textos = new List<string>{"VOLVER", "EMPEZAR", "JUGAR", "OPCIONES", "VOLUMEN", "IDIOMA",
+                        "MUNDO 1", "MUNDO 2", "MUNDO 3", "CLASE", "CONTINUAR", "GUERRERO", "PICARO", "MAGO", "NORMAL",
+                         "PODER", "DASH", "NADA", "SALTO DOBLE", "GUARDAR", "SALIR"};
+    List<string> texts = new List<string>{"BACK", "START", "PLAY", "OPTIONS", "VOLUME", "LANGUAGE",
+                        "WORLD 1", "WORLD 2", "WORLD 3", "CLASS", "CONTINUE", "WARRIOR", "ROGUE", "WIZARD", "NORMAL",
+                         "POWER", "DASH", "NOTHING", "DOUBLE JUMP", "SAVE", "EXIT"};
+
+    private void Awake()
+    {
+        SettingControl = GameObject.Find("SettingsPersistent");
+    }
 
     private void Update()
     {
