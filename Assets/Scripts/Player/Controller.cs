@@ -19,8 +19,7 @@ public class Controller : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 2f;
     public static float limitJump = 1;
-    public bool dashFlag = true;
-    public bool shootFlag = true;
+    public bool dashFlag = true;    
     public bool bunnyFlag = true;
     
     public float turnSpeed = 2.0f;
@@ -72,8 +71,6 @@ public class Controller : MonoBehaviour
     public int bunnyCount = 1;
 
     private GameObject windowObj;
-    public float cameraCount;
-    public float cameraCountLength = 0.5f;
 
     public Animator animator;
     public GameObject pauseObj;
@@ -128,7 +125,7 @@ public class Controller : MonoBehaviour
         //Debug.Log("The Fixed Starting Angle");
         //Debug.Log(angle);
 
-        flagTurning = true;            
+        flagTurning = true;
         
         //Debug.Log("The Angle");
         //Debug.Log(angle + 90 * turnDir);
@@ -170,7 +167,6 @@ public class Controller : MonoBehaviour
         
         // No se desplaza la cámara en Y
         if (obj.gameObject.CompareTag("Window")){
-            cameraCount = -1f;
             windowObj = null;
             return;
         }
@@ -198,7 +194,6 @@ public class Controller : MonoBehaviour
 
         // Se activa el desplazamiento de cámara en y porque el jugador se ha salido de la ventana de la cámara.
         if (obj.gameObject.CompareTag("Window")){
-            cameraCount = cameraCountLength;
             windowObj = obj.gameObject;
             return;
         }
@@ -278,6 +273,7 @@ public class Controller : MonoBehaviour
         if(this.sceneController.waiting || this.invincible){
             return;
         }
+
         flagTurn = false;
         PlayerStats.lives--;        
         sceneController.Fade(1f);
@@ -335,76 +331,14 @@ public class Controller : MonoBehaviour
         WalkSound = GetComponents<AudioSource>()[4];
     }
 
-    void Update()
-    {        
+    void FixedUpdate(){
         //-----------------------------------------------------------------------------------------
-        //* Pausa del juego
-        //----------------------------------------------------------------------------------------- 
-        // Sólo se puede poner pausa si se está en el suelo.
-        // Para poner pausa se pulsa la tecla escape, mientras el juego está en pausa no se reciben
-        // inputs.
-        if(playerInput.actions["Pause"].triggered && groundFlag){
-            if(Time.timeScale == 0){
-                Resume();
-                pauseObj.SetActive(false);
-            }
-            else{
-                Pause();
-                pauseObj.SetActive(true);
-            }
+        //* Pausa
+        //-----------------------------------------------------------------------------------------
+        // Detectar si el juego está en pausa.
+        if(Time.timeScale == 0){            
             return;
         }
-        
-        if(Time.timeScale == 0){
-            return;
-        }
-        //* Comportamientos relacionados con la muerte del jugador
-        //-----------------------------------------------------------------------------------------
-        // Si se está esperando a respawnear, es porque se está esperando a que finalize la animación,
-        // mientras la variable waiting de sceneController sea true, se está realizando la animación por
-        // lo que deberemos esperar a que esta se vuelva falsa antes de realizar el Respawn.
-        if(waitingForRespawn)
-        {            
-            if(!sceneController.waiting)
-            {
-                waitingForRespawn = false;
-                Respawn();
-                // El delayedFade es una animación de Fade que funciona igual que un fade pero tiene un delay
-                // (definido por la primera variable que se le pasa) en realizar la animación de fade
-                sceneController.DelayedFade(1f, 1.0f);                
-            }
-        }
-        // Si se está esperando al final de partida, cuando se termine el fadeOut, es decir cuando waiting sea
-        // false, haremos la animación de GameOver
-        else if(waitingForEnd)
-        {
-            if(!sceneController.waiting)
-            {
-                sceneController.GameOver();
-            }
-        }
-        //-----------------------------------------------------------------------------------------
-        //* Giro
-        //-----------------------------------------------------------------------------------------
-        // Realizar giro
-        if (flagTurning)
-        {                   
-            TurnPlayer();
-            return;
-        }
-
-        // Configurar valores para el giro
-        if (flagTurn && playerInput.actions["Up"].triggered)
-        {
-            //poner el dir -1 W
-            SetTurnValues(-lookDir);            
-        }
-        if (flagTurn && playerInput.actions["Down"].triggered)
-        {
-            //poner el dir 1 S            
-            SetTurnValues(lookDir);
-        }
-
 
         //-----------------------------------------------------------------------------------------
         //* Movimiento y gravedad
@@ -428,11 +362,113 @@ public class Controller : MonoBehaviour
                 {
                     isDashing = false;
                 }
+                return;
             }
         }
+
+        // Se gestiona el reseteo de fallVelocity.y para que no se acumule la gravedad en varias caidas
+        if(resetFallVel && groundFlag){                           
+            resetFall();            
+        }
+
+        //-----------------------------------------------------------------------------------------
+        //* Giro
+        //-----------------------------------------------------------------------------------------
+        // Realizar giro
+        if (flagTurning)
+        {                   
+            TurnPlayer();
+            return;
+        }
+    }
+    
+    void Update()
+    {        
+        //-----------------------------------------------------------------------------------------
+        //* Pausa del juego
+        //----------------------------------------------------------------------------------------- 
+        // Sólo se puede poner pausa si se está en el suelo.
+        // Para poner pausa se pulsa la tecla escape, mientras el juego está en pausa no se reciben
+        // inputs.
+        if(playerInput.actions["Pause"].triggered && groundFlag){
+            if(Time.timeScale == 0){
+                Resume();
+                pauseObj.SetActive(false);
+            }
+            else{
+                Pause();
+                pauseObj.SetActive(true);
+            }
+            return;
+        }
+        
+        if(Time.timeScale == 0){            
+            return;
+        }
+        //* Comportamientos relacionados con la muerte del jugador
+        //-----------------------------------------------------------------------------------------
+        // Si se está esperando a respawnear, es porque se está esperando a que finalize la animación,
+        // mientras la variable waiting de sceneController sea true, se está realizando la animación por
+        // lo que deberemos esperar a que esta se vuelva falsa antes de realizar el Respawn.
+        if(waitingForRespawn)
+        {            
+            if(!sceneController.waiting)
+            {
+                waitingForRespawn = false;
+                Respawn();
+                // El delayedFade es una animación de Fade que funciona igual que un fade pero tiene un delay
+                // (definido por la primera variable que se le pasa) en realizar la animación de fade
+                sceneController.DelayedFade(1f, 1.0f);
+            }
+            else
+            {
+                return;
+            }
+        }
+        // Si se está esperando al final de partida, cuando se termine el fadeOut, es decir cuando waiting sea
+        // false, haremos la animación de GameOver
+        else if(waitingForEnd)
+        {
+            if(!sceneController.waiting)
+            {
+                sceneController.GameOver();
+            }
+            else
+            {
+                return;
+            }
+        }
+        //-----------------------------------------------------------------------------------------
+        //* Giro
+        //-----------------------------------------------------------------------------------------        
+
+        // Configurar valores para el giro
+        if(!flagTurning){
+            if (flagTurn && playerInput.actions["Up"].triggered)
+            {
+                //poner el dir -1 W
+                SetTurnValues(-lookDir);            
+            }
+            if (flagTurn && playerInput.actions["Down"].triggered)
+            {
+                //poner el dir 1 S            
+                SetTurnValues(lookDir);
+            }
+        }
+
+
+        //-----------------------------------------------------------------------------------------
+        //* Movimiento y gravedad
+        //-----------------------------------------------------------------------------------------
+        // Si el dash está activado        
         //float moveX = playerInput.actions["Move"].ReadValue<float>();//Input.GetAxis("Horizontal");
         Move();
-        MoveInput();        
+        if(Controller.limitJump == 0.7f && (int)Mathf.Sign(moveX) == lookDir){
+            moveX = 0;        }
+        else{
+            Controller.limitJump = 1f;
+            MoveInput();
+        }
         
         if (moveX == 0){
             WalkSound.Stop();
@@ -530,26 +566,12 @@ public class Controller : MonoBehaviour
 
         move.y = fallVelocity.y;        
 
-        controller.Move(move * speed * Time.deltaTime);
+        controller.Move(move * speed * Time.deltaTime);        
         
-        // Se gestiona el reseteo de fallVelocity.y para que no se acumule la gravedad en varias caidas
-        if(resetFallVel && groundFlag){            
-            if(resetFallTimer<0.1f){
-                resetFallTimer += Time.deltaTime;
-            }
-            else{                
-                resetFall();
-            }
-        }
-
-        if (cameraCount >= 0f)
-        {
-            cameraCount -= Time.deltaTime;
-        }
 
         if(windowObj != null  && !isDashing && groundFlag){
-                windowObj.GetComponent<CameraWindow>().MoveY(windowObj.transform.position.y < gameObject.transform.position.y, 6.25f);
-                windowObj = null;
-            }                
+            windowObj.GetComponent<CameraWindow>().MoveY(windowObj.transform.position.y < gameObject.transform.position.y, 6.25f);
+            windowObj = null;
+        }                
     }
 }

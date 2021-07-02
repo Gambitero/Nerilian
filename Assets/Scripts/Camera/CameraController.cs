@@ -63,13 +63,17 @@ public class CameraController : MonoBehaviour
         SaveSpawnValues();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if(!stop){                
+        if(!stop){
             if(turnCamera){            
                 TurnCamera();
                 return;
             }
+        }
+    }
+    void Update(){
+        if(!stop){
             Vector3 targetCamPos = target.position + offset;
             //targetCamPos = new Vector3 (targetCamPos.x, targetCamPos.y, targetCamPos.z);
 
