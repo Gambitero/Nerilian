@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Este script regula las animaciones de la escena, los cambios de escena...
 public class SceneController : MonoBehaviour
@@ -37,6 +38,10 @@ public class SceneController : MonoBehaviour
         delay = true;
         animLength = del;
         animLength2 = l;        
+    }
+
+    public void LoadScoreScene(){
+        SceneManager.LoadScene("Score");
     }
 
     // Si se cambia de spawnPoint dentro de la misma escena, se llama a este método y se le pasa el nuevo spawnPoint

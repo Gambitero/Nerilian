@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2747218418832012426}
   - component: {fileID: 2962120234335627359}
   m_Layer: 0
-  m_Name: Particle System
-  m_TagString: Untagged
+  m_Name: Portal
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 223630604805542006}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: -0}
-  m_LocalPosition: {x: -0.4, y: 1.0299988, z: 0}
-  m_LocalScale: {x: -1.6175548, y: 3.6144676, z: 47.8485}
+  m_LocalPosition: {x: -0.4, y: 0.06, z: 0}
+  m_LocalScale: {x: -1.6175548, y: 3.1448038, z: 47.8485}
   m_Children: []
   m_Father: {fileID: 3824580739966583661}
   m_RootOrder: 0
@@ -9589,7 +9589,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2524442321393854532}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3.89, y: 1, z: 8.68}

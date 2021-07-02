@@ -174,6 +174,12 @@ public class Controller : MonoBehaviour
             windowObj = null;
             return;
         }
+
+        if (obj.gameObject.CompareTag("Portal")){
+            Debug.Log("holaaaaaaaaa");
+            sceneController.LoadScoreScene();
+            return;
+        }
     }
     void OnCollisionEnter(Collision obj){        
         if (obj.gameObject.CompareTag("Saw")){            
@@ -528,7 +534,7 @@ public class Controller : MonoBehaviour
         
         // Se gestiona el reseteo de fallVelocity.y para que no se acumule la gravedad en varias caidas
         if(resetFallVel && groundFlag){            
-            if(resetFallTimer<0.5f){
+            if(resetFallTimer<0.1f){
                 resetFallTimer += Time.deltaTime;
             }
             else{                
