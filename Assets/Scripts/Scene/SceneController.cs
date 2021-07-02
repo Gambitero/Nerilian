@@ -50,7 +50,7 @@ public class SceneController : MonoBehaviour
         this.spawnPoint = sP;
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         if(waiting)
         {
