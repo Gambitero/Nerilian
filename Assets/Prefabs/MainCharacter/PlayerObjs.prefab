@@ -502,7 +502,7 @@ Camera:
   m_GameObject: {fileID: 2634076718387435331}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -516,7 +516,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 20.8
+  near clip plane: 22.8
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -657,11 +657,10 @@ MonoBehaviour:
   speed: 18
   weight: 1
   gravity: -7.5
-  jumpHeight: 2.35
+  jumpHeight: 4.7
   dashFlag: 1
-  shootFlag: 1
   bunnyFlag: 1
-  turnSpeed: 0.25
+  turnSpeed: 1.5
   cameraTurnSpeed: 1
   groundFlag: 0
   flagTurning: 0
@@ -680,8 +679,8 @@ MonoBehaviour:
   resetFallTimer: 0
   hangTime: 0.2
   jumpBufferLength: 0.3
-  dashTime: 0.1
-  dashSpeed: 2
+  dashTime: 0.4
+  dashSpeed: 0.25
   dashDelay: 0.035
   cameraFall: 0.5
   bunnyCount: 1

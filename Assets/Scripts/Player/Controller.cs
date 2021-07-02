@@ -19,8 +19,7 @@ public class Controller : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 2f;
     public static float limitJump = 1;
-    public bool dashFlag = true;
-    public bool shootFlag = true;
+    public bool dashFlag = true;    
     public bool bunnyFlag = true;
     
     public float turnSpeed = 0.5f;
@@ -72,8 +71,6 @@ public class Controller : MonoBehaviour
     public int bunnyCount = 1;
 
     private GameObject windowObj;
-    public float cameraCount;
-    public float cameraCountLength = 0.5f;
 
     public Animator animator;
     public GameObject pauseObj;
@@ -128,7 +125,7 @@ public class Controller : MonoBehaviour
         //Debug.Log("The Fixed Starting Angle");
         //Debug.Log(angle);
 
-        flagTurning = true;            
+        flagTurning = true;
         
         //Debug.Log("The Angle");
         //Debug.Log(angle + 90 * turnDir);
@@ -170,7 +167,6 @@ public class Controller : MonoBehaviour
         
         // No se desplaza la cámara en Y
         if (obj.gameObject.CompareTag("Window")){
-            cameraCount = -1f;
             windowObj = null;
             return;
         }
@@ -198,7 +194,6 @@ public class Controller : MonoBehaviour
 
         // Se activa el desplazamiento de cámara en y porque el jugador se ha salido de la ventana de la cámara.
         if (obj.gameObject.CompareTag("Window")){
-            cameraCount = cameraCountLength;
             windowObj = obj.gameObject;
             return;
         }
@@ -335,6 +330,49 @@ public class Controller : MonoBehaviour
         WalkSound = GetComponents<AudioSource>()[4];
     }
 
+    void FixedUpdate(){        
+        //-----------------------------------------------------------------------------------------
+        //* Movimiento y gravedad
+        //-----------------------------------------------------------------------------------------
+        // Si el dash está activado
+        if (dashFlag)
+        {
+            if (dashCount >= 0)
+            {
+                dashCount -= Time.deltaTime;
+                // Delay de 0.035 segundos
+                if (dashCount < dashTime - dashDelay * 0.05f){                    
+                    controller.Move(transform.right * lookDir * dashSpeed);
+                }
+                return;
+            }
+            else if (isDashing)
+            {
+                dashCount -= Time.deltaTime;
+                if (dashCount <= -dashTime * 3)
+                {
+                    isDashing = false;
+                }
+                return;
+            }
+        }
+
+        // Se gestiona el reseteo de fallVelocity.y para que no se acumule la gravedad en varias caidas
+        if(resetFallVel && groundFlag){                           
+            resetFall();            
+        }
+
+        //-----------------------------------------------------------------------------------------
+        //* Giro
+        //-----------------------------------------------------------------------------------------
+        // Realizar giro
+        if (flagTurning)
+        {                   
+            TurnPlayer();
+            return;
+        }
+    }
+    
     void Update()
     {        
         //-----------------------------------------------------------------------------------------
@@ -355,7 +393,7 @@ public class Controller : MonoBehaviour
             return;
         }
         
-        if(Time.timeScale == 0){
+        if(Time.timeScale == 0){            
             return;
         }
         //* Comportamientos relacionados con la muerte del jugador
@@ -385,51 +423,27 @@ public class Controller : MonoBehaviour
         }
         //-----------------------------------------------------------------------------------------
         //* Giro
-        //-----------------------------------------------------------------------------------------
-        // Realizar giro
-        if (flagTurning)
-        {                   
-            TurnPlayer();
-            return;
-        }
+        //-----------------------------------------------------------------------------------------        
 
         // Configurar valores para el giro
-        if (flagTurn && playerInput.actions["Up"].triggered)
-        {
-            //poner el dir -1 W
-            SetTurnValues(-lookDir);            
-        }
-        if (flagTurn && playerInput.actions["Down"].triggered)
-        {
-            //poner el dir 1 S            
-            SetTurnValues(lookDir);
+        if(!flagTurning){
+            if (flagTurn && playerInput.actions["Up"].triggered)
+            {
+                //poner el dir -1 W
+                SetTurnValues(-lookDir);            
+            }
+            if (flagTurn && playerInput.actions["Down"].triggered)
+            {
+                //poner el dir 1 S            
+                SetTurnValues(lookDir);
+            }
         }
 
 
         //-----------------------------------------------------------------------------------------
         //* Movimiento y gravedad
         //-----------------------------------------------------------------------------------------
-        // Si el dash está activado
-        if (dashFlag)
-        {
-            if (dashCount >= 0)
-            {
-                dashCount -= Time.deltaTime;
-                // Delay de 0.035 segundos
-                if (dashCount < dashTime - dashDelay * 0.05f){                    
-                    controller.Move(transform.right * lookDir * dashSpeed);
-                }
-                return;
-            }
-            else if (isDashing)
-            {
-                dashCount -= Time.deltaTime;
-                if (dashCount <= -dashTime * 3)
-                {
-                    isDashing = false;
-                }
-            }
-        }
+        // Si el dash está activado        
         //float moveX = playerInput.actions["Move"].ReadValue<float>();//Input.GetAxis("Horizontal");
         Move();
         MoveInput();        
@@ -530,22 +544,8 @@ public class Controller : MonoBehaviour
 
         move.y = fallVelocity.y;        
 
-        controller.Move(move * speed * Time.deltaTime);
+        controller.Move(move * speed * Time.deltaTime);        
         
-        // Se gestiona el reseteo de fallVelocity.y para que no se acumule la gravedad en varias caidas
-        if(resetFallVel && groundFlag){            
-            if(resetFallTimer<0.1f){
-                resetFallTimer += Time.deltaTime;
-            }
-            else{                
-                resetFall();
-            }
-        }
-
-        if (cameraCount >= 0f)
-        {
-            cameraCount -= Time.deltaTime;
-        }
 
         if(windowObj != null  && !isDashing && groundFlag){
                 windowObj.GetComponent<CameraWindow>().MoveY(windowObj.transform.position.y < gameObject.transform.position.y, 6.25f);
