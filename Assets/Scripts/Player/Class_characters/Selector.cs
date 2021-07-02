@@ -44,8 +44,8 @@ public class Selector : MonoBehaviour
     private void Update()
     {
         builder = GetComponent<CharacterBuild>();
-        classText.GetComponent<Text>().text = builder.CharacterClass[classListIterator].ToString();
-        powerText.GetComponent<Text>().text = builder.CharacterPowerUps[powerListIterator].ToString();
+        classText.GetComponent<Text>().text = builder.CharacterClass[classListIterator].ToString().ToUpper();
+        powerText.GetComponent<Text>().text = builder.CharacterPowerUps[powerListIterator].ToString().ToUpper();
 
     }
 }
