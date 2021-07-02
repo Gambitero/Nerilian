@@ -44,6 +44,7 @@ public class ZombieController : MonoBehaviour
     public void GetHit(){        
         health --;
         objective.GetComponent<Controller>().Bounce(0.7f);
+        
         if (health == 0){
             this.Die();
         }
