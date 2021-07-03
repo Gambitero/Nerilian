@@ -5707,11 +5707,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerObjs
       objectReference: {fileID: 0}
-    - target: {fileID: 2634076718387435328, guid: f5faa3ad3b399ef4fb4badc9785d632e,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 2634076718387435329, guid: f5faa3ad3b399ef4fb4badc9785d632e,
         type: 3}
       propertyPath: near clip plane
