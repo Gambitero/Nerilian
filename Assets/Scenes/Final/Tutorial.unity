@@ -887,14 +887,14 @@ Transform:
   - {fileID: 305882201}
   - {fileID: 118562639}
   - {fileID: 1668035092}
-  - {fileID: 803469}
   - {fileID: 908169906}
+  - {fileID: 803469}
   - {fileID: 164683829}
-  - {fileID: 1920365141}
   - {fileID: 1066911622}
+  - {fileID: 1920365141}
   - {fileID: 1020981891}
-  - {fileID: 218269970}
   - {fileID: 761893565}
+  - {fileID: 218269970}
   m_Father: {fileID: 2101904088}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5682,11 +5682,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerObjs
-      objectReference: {fileID: 0}
-    - target: {fileID: 2634076718387435328, guid: f5faa3ad3b399ef4fb4badc9785d632e,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2634076718387435329, guid: f5faa3ad3b399ef4fb4badc9785d632e,
         type: 3}
