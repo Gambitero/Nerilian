@@ -6,7 +6,8 @@ public class MobileControls : MonoBehaviour
 {    
     void Start()
     {        
-        if (!MobileChecker.isMobile()){
+        
+        if (MobileChecker.isMobile()){
             gameObject.SetActive(false);
         }
     }
