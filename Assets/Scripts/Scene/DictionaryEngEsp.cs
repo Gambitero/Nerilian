@@ -15,7 +15,7 @@ public class DictionaryEngEsp : MonoBehaviour
     List<string> texts = new List<string>{"BACK", "START", "PLAY", "OPTIONS", "VOLUME", "LANGUAGE",
                         "WORLD 1", "WORLD 2", "WORLD 3", "CLASS", "CONTINUE", "WARRIOR", "ROGUE", "WIZARD", "NORMAL",
                          "POWER", "DASH", "NOTHING", "DOUBLE JUMP", "SAVE", "EXIT", "GENERAL", "MUSIC", "EFFECTS", "EXIT TO MENU",
-                        "LEVEL", "LEVEL SCORE:", "CREDITS", "PROGRAMMING AND SOUND", "UX/UI & PROGRAMACIÓN", "GAME & LEVEL DESIGN", "ART & VISUAL", "LEARN HOW TO PLAY"};
+                        "LEVEL", "LEVEL SCORE:", "CREDITS", "PROGRAMMING AND SOUND", "UX/UI & PROGRAMACION", "GAME & LEVEL DESIGN", "ART & VISUAL", "LEARN HOW TO PLAY"};
     private void Update()
     {
         if (LanguageSystem.languageValue == 0) { 
