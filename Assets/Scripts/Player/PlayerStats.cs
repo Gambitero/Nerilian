@@ -34,7 +34,7 @@ public class PlayerStats : MonoBehaviour
     // Coger oro/puntos...
     public void TakeGold()
     {
-        gold++;        
+        gold+=5;        
         if (gold >= goldExchange) {
             gold -= goldExchange;
             TakeLife();

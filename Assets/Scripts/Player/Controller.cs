@@ -36,6 +36,7 @@ public class Controller : MonoBehaviour
 
     bool waitingForRespawn = false;
     bool waitingForEnd = false;
+    float waitingToMoveCount = .3f;
     
     public float angle;
     public float rotationDir = -0.7f;
@@ -171,8 +172,7 @@ public class Controller : MonoBehaviour
             return;
         }
 
-        if (obj.gameObject.CompareTag("Portal")){
-            Debug.Log("holaaaaaaaaa");
+        if (obj.gameObject.CompareTag("Portal")){            
             sceneController.LoadScoreScene();
             return;
         }
@@ -414,16 +414,18 @@ public class Controller : MonoBehaviour
         {            
             if(!sceneController.waiting)
             {
+
                 waitingForRespawn = false;
                 Respawn();
                 // El delayedFade es una animación de Fade que funciona igual que un fade pero tiene un delay
                 // (definido por la primera variable que se le pasa) en realizar la animación de fade
                 sceneController.DelayedFade(1f, 1.0f);
+                if (waitingToMoveCount <= 0f){
+                    waitingToMoveCount = 1.1f;
+                }
             }
-            else
-            {
-                return;
-            }
+
+            return;
         }
         // Si se está esperando al final de partida, cuando se termine el fadeOut, es decir cuando waiting sea
         // false, haremos la animación de GameOver
@@ -433,10 +435,7 @@ public class Controller : MonoBehaviour
             {
                 sceneController.GameOver();
             }
-            else
-            {
-                return;
-            }
+            return;
         }
         //-----------------------------------------------------------------------------------------
         //* Giro
@@ -462,13 +461,14 @@ public class Controller : MonoBehaviour
         //-----------------------------------------------------------------------------------------
         // Si el dash está activado        
         //float moveX = playerInput.actions["Move"].ReadValue<float>();//Input.GetAxis("Horizontal");
-        Move();
-        if(Controller.limitJump == 0.7f && (int)Mathf.Sign(moveX) == lookDir){
-            moveX = 0;        }
-        else{
-            Controller.limitJump = 1f;
-            MoveInput();
+        if (waitingToMoveCount > 0f){
+            waitingToMoveCount-= Time.deltaTime;
+            return;
         }
+
+
+        Move();
+        MoveInput();
         
         if (moveX == 0){
             WalkSound.Stop();
