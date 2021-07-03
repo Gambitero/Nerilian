@@ -22902,9 +22902,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 718220749}
   spawnPoint: {fileID: 2087310244}
-  nextLevel: 
   waiting: 0
   delay: 0
+  gameOverMenu: {fileID: 1962964126}
 --- !u!82 &756279291
 AudioSource:
   m_ObjectHideFlags: 0
@@ -60249,6 +60249,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1962964126 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5410916114382274658, guid: 8acff8d2fbecd37449470453da94c8fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 1962964124}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1964211170
 PrefabInstance:
   m_ObjectHideFlags: 0

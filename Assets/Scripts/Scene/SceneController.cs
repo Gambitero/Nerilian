@@ -8,18 +8,20 @@ public class SceneController : MonoBehaviour
 {
     public Animator animator;
     public GameObject spawnPoint;
-    public string nextLevel;
+    //public string nextLevel;
     float count = 0f;
     float animLength;
     float animLength2;
-    float delayLength;
+    //float delayLength;
     public bool waiting = false;
     public bool delay = false;
+    public GameObject gameOverMenu;
 
     public void GameOver(float l = 2f)
     {
         animLength = l;
         animator.SetTrigger("GameOver");
+        gameOverMenu.SetActive(true);
     }
     
     // Hace fade in o fade out, según el estado en el que se esté actualmente, el parámetro l debe contener la duración de la animación
