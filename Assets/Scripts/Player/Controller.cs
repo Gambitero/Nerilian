@@ -35,7 +35,7 @@ public class Controller : MonoBehaviour
 
     bool waitingForRespawn = false;
     bool waitingForEnd = false;
-    float waitingToMoveCount = .3f;
+    float waitingToMoveCount = 0f;
     
     public float angle;
     public float rotationDir = -0.7f;
