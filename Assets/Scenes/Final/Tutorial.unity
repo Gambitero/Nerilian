@@ -1039,11 +1039,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed21776752466374c80aed8ffc14f5bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 404241863}
   spawnPoint: {fileID: 1157723959}
   waiting: 0
   delay: 0
-  gameOverMenu: {fileID: 0}
+  gameOverMenu: {fileID: 625196929}
 --- !u!4 &218269970 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2326364756936318583, guid: 4e1d70d88daaec64496776fe7001cb71,
@@ -1741,6 +1741,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 401103207}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &404241863 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1456402874058800758, guid: 8acff8d2fbecd37449470453da94c8fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 1962964124}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &438736558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2184,6 +2190,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 654763994326902616, guid: b9c3e756ea1be1d4f83b2ac72650e188,
     type: 3}
   m_PrefabInstance: {fileID: 625155118}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &625196929 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1456402874330347804, guid: 8acff8d2fbecd37449470453da94c8fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 1962964124}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &662412667
 PrefabInstance:
@@ -4183,6 +4195,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1078123394}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1099957736 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2634076718387435343, guid: f5faa3ad3b399ef4fb4badc9785d632e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1529631806}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 360326c8b14a7c642b3ff11bd837abb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1120709394
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5723,6 +5747,11 @@ PrefabInstance:
       propertyPath: sceneController
       value: 
       objectReference: {fileID: 183884661}
+    - target: {fileID: 2634076718732840026, guid: f5faa3ad3b399ef4fb4badc9785d632e,
+        type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 1099957736}
     - target: {fileID: 2634076718732840029, guid: f5faa3ad3b399ef4fb4badc9785d632e,
         type: 3}
       propertyPath: goldExchange
