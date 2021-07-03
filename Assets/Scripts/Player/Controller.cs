@@ -10,8 +10,7 @@ public class Controller : MonoBehaviour
     public static int Pindex = 0;
     public bool invincible = false;
     public CharacterController controller;
-    public PlayerStats PlayerStats; 
-    public GameObject sceneCamera;
+    public PlayerStats PlayerStats;     
     public Text livesText = null;
     public Text scoreText = null;
     public float speed = 12f;
@@ -67,7 +66,7 @@ public class Controller : MonoBehaviour
     private float dashCount;
     private bool isDashing = false;
 
-    public float cameraFall = 0.5f;
+    public CameraController cameraController;
 
     public int bunnyCount = 1;
 
@@ -108,9 +107,9 @@ public class Controller : MonoBehaviour
         //Debug.Log("TurnDir ==> " + turnDir);
 
         //Activar giro de cámara
-        sceneCamera.GetComponent<CameraController>().turnCamera = true;
-        sceneCamera.GetComponent<CameraController>().turnSpeed = turnSpeed/cameraTurnSpeed * turnDir;
-        sceneCamera.GetComponent<CameraController>().targetTurnPosition = gameObject.transform.position;
+        cameraController.turnCamera = true;
+        cameraController.turnSpeed = turnSpeed/cameraTurnSpeed * turnDir;
+        cameraController.targetTurnPosition = gameObject.transform.position;
         //
         controller.enabled = false;
         this.gameObject.transform.position = new Vector3(newPos.x, this.gameObject.transform.position.y, newPos.z);
@@ -148,7 +147,7 @@ public class Controller : MonoBehaviour
             //Debug.Log("Enter Spawnpoint");
             sceneController.SetSpawnpoint(obj.gameObject);
             obj.gameObject.transform.rotation = gameObject.transform.rotation;
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().SaveSpawnValues();
+            cameraController.SaveSpawnValues();
             GameObject.FindGameObjectWithTag("Window").GetComponent<CameraWindow>().SaveSpawnValues();
             return;
         }
@@ -220,6 +219,7 @@ public class Controller : MonoBehaviour
         turnProgress += turnSpeed;
 
         controller.gameObject.transform.Rotate(0f, turnSpeed * turnDir, 0f);
+        cameraController.TurnCamera();
 
         if (turnProgress + precision >= 90){
             //Debug.Log("Stop");
@@ -261,7 +261,7 @@ public class Controller : MonoBehaviour
         gameObject.transform.rotation = sceneController.spawnPoint.transform.rotation;
         controller.enabled = true;
         controller.Move(new Vector3(0f,2f,0f));
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().Respawn();
+        cameraController.Respawn();
         GameObject.FindGameObjectWithTag("Window").GetComponent<CameraWindow>().Respawn();
         GameObject.FindGameObjectWithTag("EnemyController").GetComponent<EnemyReset>().EnemReset();
     } 
@@ -278,7 +278,7 @@ public class Controller : MonoBehaviour
         PlayerStats.lives--;        
         sceneController.Fade(1f);
         GameObject.FindGameObjectWithTag("Window").GetComponent<CameraWindow>().stop = true;
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().stop = true;
+        cameraController.stop = true;
         
         if(PlayerStats.lives>=0)
         {
@@ -319,7 +319,8 @@ public class Controller : MonoBehaviour
         builder.CharacterPowerUps.Add(CharacterBuild.powerUps.Reactor);
     }
     public void Start()
-    {        
+    {
+        cameraController = gameObject.transform.parent.GetComponentInChildren<CameraController>(); //GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();        
         builder.PersonajeBuilder(builder.CharacterClass[Cindex], builder.CharacterPowerUps[Pindex], gameObject);
         animator = gameObject.GetComponentInChildren<Animator>();
         livesText.text = "x" + PlayerStats.lives;
@@ -441,7 +442,10 @@ public class Controller : MonoBehaviour
         //-----------------------------------------------------------------------------------------
         //* Giro
         //-----------------------------------------------------------------------------------------        
-
+        if (flagTurning)
+        {        
+            return;
+        }
         // Configurar valores para el giro
         if(!flagTurning){
             if (flagTurn && playerInput.actions["Up"].triggered)
