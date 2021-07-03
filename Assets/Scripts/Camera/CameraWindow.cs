@@ -63,7 +63,7 @@ public class CameraWindow : MonoBehaviour
         transform.position = new Vector3(transform.position.x, spawnPosition.y, transform.position.z);        
         offset = transform.position.y - target.position.y;
         initY = transform.position.y;   
-        outLimit = true;
+        outLimit = false;
         stop = false;
     }
     
