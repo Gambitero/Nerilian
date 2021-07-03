@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 211970750012598054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 2.1309366, z: 1}
+  m_LocalScale: {x: 1.064136, y: 2.1309366, z: 1}
   m_Children: []
   m_Father: {fileID: 2634076718732840028}
   m_RootOrder: 3
@@ -516,7 +516,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 22.8
+  near clip plane: 24
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -684,8 +684,6 @@ MonoBehaviour:
   dashDelay: 0.035
   cameraFall: 0.5
   bunnyCount: 1
-  cameraCount: 0
-  cameraCountLength: 0.5
   animator: {fileID: 0}
   pauseObj: {fileID: 0}
   score: 0
@@ -1267,7 +1265,7 @@ Transform:
   m_GameObject: {fileID: 2634076718742328095}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.075, y: -1.263, z: 0}
-  m_LocalScale: {x: 1.8492283, y: 0.19367379, z: 1.9391552}
+  m_LocalScale: {x: 1.1670617, y: 0.19367379, z: 1.9391552}
   m_Children: []
   m_Father: {fileID: 2634076718732840028}
   m_RootOrder: 2

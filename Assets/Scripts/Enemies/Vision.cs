@@ -10,7 +10,7 @@ public class Vision : MonoBehaviour
             zcontroller.chase = true;
         }
 
-        if(obj.CompareTag("Enemy")){
+        if(obj.CompareTag("Enemy") || obj.CompareTag("Platform")){
             zcontroller.transform.Rotate(Vector3.up, 180);
             zcontroller.dir *= -1;
         }

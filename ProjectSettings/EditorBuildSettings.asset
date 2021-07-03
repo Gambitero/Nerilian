@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Final/Score.unity
     guid: 4777eab37d659c84da787dcb754d0fd5
-  - enabled: 1
-    path: Assets/Scenes/Final/Loader.unity
-    guid: ed5b38f460097eb47843f21e45df09e0
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}

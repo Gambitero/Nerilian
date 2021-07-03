@@ -421,7 +421,7 @@ public class Controller : MonoBehaviour
                 // (definido por la primera variable que se le pasa) en realizar la animación de fade
                 sceneController.DelayedFade(1f, 1.0f);
                 if (waitingToMoveCount <= 0f){
-                    waitingToMoveCount = 1.1f;
+                    waitingToMoveCount = 1.0f;
                 }
             }
 
@@ -433,6 +433,7 @@ public class Controller : MonoBehaviour
         {
             if(!sceneController.waiting)
             {
+                Respawn();
                 sceneController.GameOver();
             }
             return;

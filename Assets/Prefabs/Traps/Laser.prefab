@@ -846,7 +846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   follow: 0
-  trigDistance: 500
+  trigDistance: 2000
   trigDistance2: 50
   trigAngle: 30
   lookingDir: 1
