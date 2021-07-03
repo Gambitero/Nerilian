@@ -16,15 +16,15 @@ public class MenuController : MonoBehaviour
     {
         if (gameObject.name.Equals("generalSlider"))
         {
-            generalSlider.value = PlayerPrefs.GetFloat("GeneralVolume", 0.75f);
+            generalSlider.value = PlayerPrefs.GetFloat("GeneralVolume", 0.8f);
         }
         if (gameObject.name.Equals("musicSlider"))
         {
-            musicSlider.value = PlayerPrefs.GetFloat("musicVolume", 0.75f);
+            musicSlider.value = PlayerPrefs.GetFloat("musicVolume", 0.8f);
         }
         if (gameObject.name.Equals("fxSlider"))
         {
-            fxSlider.value = PlayerPrefs.GetFloat("fxVolume", 0.75f);
+            fxSlider.value = PlayerPrefs.GetFloat("fxVolume", 0.8f);
         }
     }
     public void SetGeneralAudioLevel(float sliderValue)

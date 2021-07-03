@@ -866,7 +866,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8, y: -157}
+  m_AnchoredPosition: {x: -49, y: -157}
   m_SizeDelta: {x: 369.39548, y: 79.95862}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &200203119
@@ -1237,7 +1237,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8, y: -119}
+  m_AnchoredPosition: {x: -49, y: -119}
   m_SizeDelta: {x: 369.39548, y: 79.95862}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &276155887
@@ -1285,7 +1285,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: MECANICAS Y JUEGO
+  m_Text: DISENO DE JUEGO Y NIVELES
 --- !u!222 &276155889
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1637,7 +1637,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '@GAMBITEROTEAM'
+  m_Text: '@GAMBITEROT'
 --- !u!222 &376684940
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8054,7 +8054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9150943, g: 0.5398262, b: 0.06474723, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -9110,7 +9110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9150943, g: 0.5398262, b: 0.06474723, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -9809,7 +9809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9150943, g: 0.5398262, b: 0.06474723, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -9955,7 +9955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.87058824, g: 0.87058824, b: 0.87058824, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -10946,11 +10946,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_NormalColor: {r: 1, g: 0.6174753, b: 0.3254717, a: 1}
+    m_HighlightedColor: {r: 0.9245283, g: 0.784076, b: 0.49279103, a: 1}
+    m_PressedColor: {r: 0.92549026, g: 0.7843138, b: 0.49411768, a: 1}
+    m_SelectedColor: {r: 1, g: 0.6156863, b: 0.3254902, a: 1}
+    m_DisabledColor: {r: 1, g: 0.6156863, b: 0.3254902, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -17642,11 +17642,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_NormalColor: {r: 1, g: 0.6174753, b: 0.3254717, a: 1}
+    m_HighlightedColor: {r: 0.9245283, g: 0.784076, b: 0.49279103, a: 1}
+    m_PressedColor: {r: 0.92549026, g: 0.7843138, b: 0.49411768, a: 1}
+    m_SelectedColor: {r: 1, g: 0.5185466, b: 0.15499997, a: 1}
+    m_DisabledColor: {r: 1, g: 0.6156863, b: 0.3254902, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -17795,11 +17795,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_NormalColor: {r: 1, g: 0.6174753, b: 0.3254717, a: 1}
+    m_HighlightedColor: {r: 0.9245283, g: 0.784076, b: 0.49279103, a: 1}
+    m_PressedColor: {r: 0.92549026, g: 0.7843138, b: 0.49411768, a: 1}
+    m_SelectedColor: {r: 1, g: 0.6156863, b: 0.3254902, a: 1}
+    m_DisabledColor: {r: 1, g: 0.6156863, b: 0.3254902, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -18540,7 +18540,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8, y: -51}
+  m_AnchoredPosition: {x: -49, y: -51}
   m_SizeDelta: {x: 369.39548, y: 79.95862}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1803237469
@@ -18588,7 +18588,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: MUSICA Y CODIGO
+  m_Text: PROGRAMACION Y SONIDO
 --- !u!222 &1803237471
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18801,7 +18801,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8, y: -82}
+  m_AnchoredPosition: {x: -49, y: -82}
   m_SizeDelta: {x: 369.39548, y: 79.95862}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1861294397
@@ -18849,7 +18849,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: UX/UI Y CODIGO
+  m_Text: UX/UI Y PROGRAMACION
 --- !u!222 &1861294399
 CanvasRenderer:
   m_ObjectHideFlags: 0
