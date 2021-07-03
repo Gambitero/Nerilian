@@ -54,9 +54,11 @@ public class MenuController : MonoBehaviour
 
     public void LoadSavedScene()
     {
-        if (PlayerStats.level < 4)
+        if (PlayerStats.level < 4 && PlayerStats.level > 0)
             SceneManager.LoadScene("Scene " + PlayerStats.level);
 
+        else if (PlayerStats.level == 0)
+            SceneManager.LoadScene("Tutorial");
         else
             SceneManager.LoadScene("Credits");
 
