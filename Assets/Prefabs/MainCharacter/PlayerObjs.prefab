@@ -516,7 +516,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 22.8
+  near clip plane: 24
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -684,8 +684,6 @@ MonoBehaviour:
   dashDelay: 0.035
   cameraFall: 0.5
   bunnyCount: 1
-  cameraCount: 0
-  cameraCountLength: 0.5
   animator: {fileID: 0}
   pauseObj: {fileID: 0}
   score: 0
