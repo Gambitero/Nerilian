@@ -10,7 +10,7 @@ public class ScoreMenu : MonoBehaviour
     void Start()
     {
         levelText.text = "NIVEL " + PlayerStats.level;
-        scoreText.text = "Has obtenido " + PlayerStats.gold + " puntos.";
+        scoreText.text = "HAS OBTENIDO " + PlayerStats.gold + " PUNTOS.";
         
         PlayerStats.level += 1;
         PlayerStats.gold = 0;        
