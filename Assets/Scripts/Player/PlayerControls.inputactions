@@ -96,7 +96,7 @@
                 {
                     "name": "",
                     "id": "a911018c-cae4-4c44-ab4f-6e8aa467e1c8",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -250,7 +250,7 @@
                 {
                     "name": "",
                     "id": "785b1af8-118e-4ed4-b7b3-e22541bd8f5a",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
