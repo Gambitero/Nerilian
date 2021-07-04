@@ -45,6 +45,9 @@ public class SceneController : MonoBehaviour
     public void LoadScoreScene(){
         SceneManager.LoadScene("Score");
     }
+    public void LoadMenuScene(){
+        SceneManager.LoadScene("MainMenu");
+    }
 
     // Si se cambia de spawnPoint dentro de la misma escena, se llama a este método y se le pasa el nuevo spawnPoint
     public void SetSpawnpoint(GameObject sP)

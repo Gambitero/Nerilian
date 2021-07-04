@@ -876,15 +876,15 @@ Transform:
   - {fileID: 1515541998}
   - {fileID: 1078123395}
   - {fileID: 2014978068}
-  - {fileID: 11682100}
-  - {fileID: 1196448638}
   - {fileID: 401103208}
-  - {fileID: 1642352484}
+  - {fileID: 11682100}
   - {fileID: 910335377}
   - {fileID: 2049525418}
   - {fileID: 1365837749}
   - {fileID: 558008183}
+  - {fileID: 1196448638}
   - {fileID: 305882201}
+  - {fileID: 1642352484}
   - {fileID: 118562639}
   - {fileID: 1668035092}
   - {fileID: 908169906}
@@ -5730,6 +5730,11 @@ PrefabInstance:
       propertyPath: pauseObj
       value: 
       objectReference: {fileID: 753901569}
+    - target: {fileID: 2634076718732840026, guid: f5faa3ad3b399ef4fb4badc9785d632e,
+        type: 3}
+      propertyPath: tutorial
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2634076718732840026, guid: f5faa3ad3b399ef4fb4badc9785d632e,
         type: 3}
       propertyPath: livesText

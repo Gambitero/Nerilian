@@ -31,8 +31,8 @@ public class CharacterBuild : MonoBehaviour
         playerController.weight = Stats[2];
         PlayerStats.lives = (int) Stats[3];
         PlayerStats.gold = 0;
-        playerController.dashFlag = powerUp.Equals(powerUps.Dash);
-        playerController.bunnyFlag = powerUp.Equals(powerUps.Reactor);
+        playerController.dashFlag = clase.Equals(clases.Vulkan);
+        playerController.bunnyFlag = clase.Equals(clases.Herzs);
 
     }
 

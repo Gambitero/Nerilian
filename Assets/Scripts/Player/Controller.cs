@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Controller : MonoBehaviour
 {
+    public bool tutorial = false;
     public static int Cindex = 0;
     public static int Pindex = 0;
     public bool invincible = false;
@@ -171,7 +172,11 @@ public class Controller : MonoBehaviour
             return;
         }
 
-        if (obj.gameObject.CompareTag("Portal")){            
+        if (obj.gameObject.CompareTag("Portal")){
+            if (tutorial){
+                sceneController.LoadMenuScene();
+                return;
+            }           
             sceneController.LoadScoreScene();
             return;
         }
@@ -331,7 +336,7 @@ public class Controller : MonoBehaviour
         WalkSound = GetComponents<AudioSource>()[4];
     }
 
-    void FixedUpdate(){
+    void FixedUpdate(){        
         //-----------------------------------------------------------------------------------------
         //* Pausa
         //-----------------------------------------------------------------------------------------
@@ -383,7 +388,10 @@ public class Controller : MonoBehaviour
     }
     
     void Update()
-    {        
+    {    
+        if (waitingToMoveCount > 0f){
+            return;
+        }    
         //-----------------------------------------------------------------------------------------
         //* Pausa del juego
         //----------------------------------------------------------------------------------------- 
@@ -446,7 +454,7 @@ public class Controller : MonoBehaviour
             return;
         }
         // Configurar valores para el giro
-        if(!flagTurning){
+        else{
             if (flagTurn && playerInput.actions["Up"].triggered)
             {
                 //poner el dir -1 W
@@ -478,7 +486,7 @@ public class Controller : MonoBehaviour
             WalkSound.Stop();
             animator.SetBool("Move", false);
         }
-        else if (!flagTurning){
+        else if (!flagTurning && !isDashing){
             animator.SetBool("Move", true);
         }
 
@@ -568,8 +576,7 @@ public class Controller : MonoBehaviour
             }
         }
 
-        move.y = fallVelocity.y;        
-
+        move.y = fallVelocity.y;
         controller.Move(move * speed * Time.deltaTime);        
         
 

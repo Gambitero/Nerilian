@@ -648,6 +648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2d9dbae403445a4691cab638766de57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorial: 0
   invincible: 0
   controller: {fileID: 2634076718732840025}
   PlayerStats: {fileID: 2634076718732840029}
@@ -656,7 +657,7 @@ MonoBehaviour:
   speed: 18
   weight: 1
   gravity: -7.5
-  jumpHeight: 4.7
+  jumpHeight: 2.35
   dashFlag: 1
   bunnyFlag: 1
   turnSpeed: 1.5
@@ -678,8 +679,8 @@ MonoBehaviour:
   resetFallTimer: 0
   hangTime: 0.2
   jumpBufferLength: 0.3
-  dashTime: 0.4
-  dashSpeed: 0.25
+  dashTime: 0.2
+  dashSpeed: 1
   dashDelay: 0.035
   cameraController: {fileID: 0}
   bunnyCount: 1
