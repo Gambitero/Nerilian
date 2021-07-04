@@ -281,6 +281,7 @@ public class Controller : MonoBehaviour
             return;
         }
         
+        resetFallVel = true;
         animator.SetBool("Move", false);
         flagTurn = false;
         PlayerStats.lives--;        
@@ -315,7 +316,8 @@ public class Controller : MonoBehaviour
     }
     public CharacterBuild builder;// = new CharacterBuild();
     public void Awake()
-    {        
+    {  
+        resetFallVel = true;      
         builder = gameObject.GetComponentInParent<CharacterBuild>();
         builder.CharacterClass.Add(CharacterBuild.clases.Normal);
         builder.CharacterClass.Add(CharacterBuild.clases.Vulkan);
