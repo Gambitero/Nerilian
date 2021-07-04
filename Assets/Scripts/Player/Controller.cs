@@ -403,9 +403,9 @@ public class Controller : MonoBehaviour
             animator.SetBool("Move", true);
         }
 
-
-        Vector3 move = transform.right * moveX;
-
+         //-----------------------------------------------------------------------------------------
+        //* Movimiento y gravedad
+        //-----------------------------------------------------------------------------------------
         if(moveX != 0){
             if(!WalkSound.isPlaying)
                 WalkSound.Play();
@@ -441,9 +441,6 @@ public class Controller : MonoBehaviour
             jumping = true;
             jumpCount = 1 - jumpCount;
         }
-
-        move.y = fallVelocity.y;
-        controller.Move(move * speed * Time.deltaTime);  
     }
     
     void Update()
@@ -526,9 +523,9 @@ public class Controller : MonoBehaviour
 
         //-----------------------------------------------------------------------------------------
         //* Movimiento y gravedad
-        //-----------------------------------------------------------------------------------------
-        // Si el dash está activado        
-        //float moveX = playerInput.actions["Move"].ReadValue<float>();//Input.GetAxis("Horizontal");
+        //-----------------------------------------------------------------------------------------        
+        Vector3 move = transform.right * moveX;
+
         if (waitingToMoveCount > 0f){            
             moveX = 0;
             waitingToMoveCount-= Time.deltaTime;
@@ -583,7 +580,11 @@ public class Controller : MonoBehaviour
                 Bounce(0.7f);
                 bunnyCount = 0;
             }
-        }     
+        }
+
+        
+        move.y = fallVelocity.y;
+        controller.Move(move * speed * Time.deltaTime);  
         
 
         if(windowObj != null  && groundFlag){
