@@ -64,7 +64,9 @@ public class Controller : MonoBehaviour
     public float dashTime = 3f;
     public float dashSpeed = 0.5f;
     public float dashDelay = 0.075f;
-    private float dashCount;
+    public static float dashCount;
+    public static BoxCollider door;
+
     private bool isDashing = false;
 
     public CameraController cameraController;
@@ -278,7 +280,7 @@ public class Controller : MonoBehaviour
         if(this.sceneController.waiting || this.invincible){
             return;
         }
-
+        
         animator.SetBool("Move", false);
         flagTurn = false;
         PlayerStats.lives--;        
@@ -369,9 +371,13 @@ public class Controller : MonoBehaviour
                     isDashing = false;
                 }
                 else if (dashCount >= -0.05f){
+                    if (door != null){
+                        door.enabled = true;
+                        door = null;
+                    }
                     return;
                 }
-            }
+            }            
         }
 
         // Se gestiona el reseteo de fallVelocity.y para que no se acumule la gravedad en varias caidas

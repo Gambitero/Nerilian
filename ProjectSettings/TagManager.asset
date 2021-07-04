@@ -28,6 +28,7 @@ TagManager:
   - Score
   - Portal
   - undestroy
+  - Breakable
   layers:
   - Default
   - TransparentFX

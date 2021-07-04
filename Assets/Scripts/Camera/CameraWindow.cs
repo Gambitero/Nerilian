@@ -65,6 +65,7 @@ public class CameraWindow : MonoBehaviour
         initY = transform.position.y;   
         outLimit = false;
         stop = false;
+        trueFollow = false;
     }
     
     void Start()
@@ -90,7 +91,7 @@ public class CameraWindow : MonoBehaviour
 
             if(outLimit){
                 transform.position = new Vector3(transform.position.x, 
-                        Vector3.Lerp(transform.position, transform.position + mov, smoothing * Time.deltaTime).y, 
+                        Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime).y, 
                         transform.position.z);            
                 if(Mathf.Abs(transform.position.y - target.position.y) <= 1.2f * mov.y){
                     mov.Set(0,target.position.y - transform.position.y ,0);
