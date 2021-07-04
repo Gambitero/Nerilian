@@ -30,6 +30,7 @@ public class CharacterBuild : MonoBehaviour
         playerController.jumpHeight = Stats[1];
         playerController.weight = Stats[2];
         PlayerStats.lives = (int) Stats[3];
+        PlayerStats.gold = 0;
         playerController.dashFlag = powerUp.Equals(powerUps.Dash);
         playerController.bunnyFlag = powerUp.Equals(powerUps.Reactor);
 
@@ -68,7 +69,7 @@ public class CharacterBuild : MonoBehaviour
         //Weight
         1.0f,
         //lives
-        2
+        3
     };
     private float[] NormalStats = {
         //Speed

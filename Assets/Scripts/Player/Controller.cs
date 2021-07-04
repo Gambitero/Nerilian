@@ -307,8 +307,7 @@ public class Controller : MonoBehaviour
     }
     public CharacterBuild builder;// = new CharacterBuild();
     public void Awake()
-
-    {
+    {        
         builder = gameObject.GetComponentInParent<CharacterBuild>();
         builder.CharacterClass.Add(CharacterBuild.clases.Normal);
         builder.CharacterClass.Add(CharacterBuild.clases.Vulkan);
@@ -405,7 +404,7 @@ public class Controller : MonoBehaviour
         
         if(Time.timeScale == 0){            
             return;
-        }
+        }        
         //* Comportamientos relacionados con la muerte del jugador
         //-----------------------------------------------------------------------------------------
         // Si se está esperando a respawnear, es porque se está esperando a que finalize la animación,

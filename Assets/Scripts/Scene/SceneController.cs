@@ -27,10 +27,10 @@ public class SceneController : MonoBehaviour
     // Hace fade in o fade out, según el estado en el que se esté actualmente, el parámetro l debe contener la duración de la animación
     public void Fade(float l = 0f)
     {
+        Debug.Log("holaaaaaaaaaaaaaaaaaa");
         waiting = true;
         animLength = l;        
-        animator.SetTrigger("FadeOut");        
-        //animator.ResetTrigger("FadeOut");
+        animator.SetTrigger("FadeOut");
     }
     
     // Desencadena un fade tras un tiempo de espera marcado por la variable del
@@ -50,6 +50,10 @@ public class SceneController : MonoBehaviour
     public void SetSpawnpoint(GameObject sP)
     {
         this.spawnPoint = sP;
+    }
+
+    public void Awake(){
+        Time.timeScale = 1;
     }
 
     public void FixedUpdate()
