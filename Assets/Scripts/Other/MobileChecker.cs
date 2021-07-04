@@ -1,19 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine;
 using System.Runtime.InteropServices;
-using UnityEngine;
-
-public class MobileChecker : MonoBehaviour
+public class WebGLHandler : MonoBehaviour
 {
-    [DllImport("__Internal")]
-    private static extern bool IsMobile();
-
-    public static bool isMobile()
-    {
-        //return true; //descomentar para testear en el editor        
-        #if !UNITY_EDITOR && UNITY_WEBGL
-                return IsMobile();
-        #endif
-                return false;
-    }
+  [DllImport("__Internal")]
+  public static extern bool IsMobileBrowser();
 }
