@@ -23011,6 +23011,7 @@ MonoBehaviour:
   waiting: 0
   delay: 0
   gameOverMenu: {fileID: 1962964126}
+  mobileControls: {fileID: 1962964127}
 --- !u!82 &756279291
 AudioSource:
   m_ObjectHideFlags: 0
@@ -60839,6 +60840,12 @@ MonoBehaviour:
 --- !u!1 &1962964126 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5410916114382274658, guid: 8acff8d2fbecd37449470453da94c8fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 1962964124}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1962964127 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4297764899120432751, guid: 8acff8d2fbecd37449470453da94c8fe,
     type: 3}
   m_PrefabInstance: {fileID: 1962964124}
   m_PrefabAsset: {fileID: 0}

@@ -16,12 +16,14 @@ public class SceneController : MonoBehaviour
     public bool waiting = false;
     public bool delay = false;
     public GameObject gameOverMenu;
+    //public GameObject mobileControls;
 
     public void GameOver(float l = 2f)
     {
         animLength = l;
         animator.SetTrigger("GameOver");
         gameOverMenu.SetActive(true);
+        //mobileControls.SetActive(false);
     }
     
     // Hace fade in o fade out, según el estado en el que se esté actualmente, el parámetro l debe contener la duración de la animación
