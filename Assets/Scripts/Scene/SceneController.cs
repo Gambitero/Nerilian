@@ -26,8 +26,7 @@ public class SceneController : MonoBehaviour
     
     // Hace fade in o fade out, según el estado en el que se esté actualmente, el parámetro l debe contener la duración de la animación
     public void Fade(float l = 0f)
-    {
-        Debug.Log("holaaaaaaaaaaaaaaaaaa");
+    {        
         waiting = true;
         animLength = l;        
         animator.SetTrigger("FadeOut");

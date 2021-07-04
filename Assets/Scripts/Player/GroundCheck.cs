@@ -6,33 +6,36 @@ using UnityEngine;
 public class GroundCheck : MonoBehaviour
 {
     public bool groundFlag = true;
-    Controller playerController;    
+    Controller playerController;
+    public int frameCounter = 0;
     
     void OnCollisionEnter(Collision obj){
-        if (obj.gameObject.CompareTag("Platform") || obj.gameObject.CompareTag("Platform2") || obj.gameObject.CompareTag("Jumpable")){
-            playerController.resetFallVel = true;
-            if (playerController.jumping && playerController.fallVelocity.y < 0f) {
-                //playerController.velocity.y = 0;                
-                playerController.resetFallVel = true;
-                playerController.animator.SetBool("Ground", true);
-                playerController.jumping = false;                
-            }
-            groundFlag = true;
-            playerController.groundFlag = groundFlag;
+        if (obj.gameObject.CompareTag("Platform") || obj.gameObject.CompareTag("Platform2") || obj.gameObject.CompareTag("Jumpable")){            
+            frameCounter = 0;
         }        
     }
 
     void OnCollisionExit(Collision obj){
-        if (obj.gameObject.CompareTag("Platform") || obj.gameObject.CompareTag("Platform2") || obj.gameObject.CompareTag("Jumpable")){            
+        if (obj.gameObject.CompareTag("Platform") || obj.gameObject.CompareTag("Platform2") || obj.gameObject.CompareTag("Jumpable")){                        
             groundFlag = false;
-            playerController.groundFlag = groundFlag;
+            playerController.groundFlag = groundFlag;            
         }
     }
 
     void OnCollisionStay(Collision obj){
         if (obj.gameObject.CompareTag("Platform") || obj.gameObject.CompareTag("Platform2") || obj.gameObject.CompareTag("Jumpable")){
-            groundFlag = true;
-            playerController.groundFlag = groundFlag;
+            if (frameCounter >= 5){                
+                if (playerController.jumping && playerController.fallVelocity.y < 0f) {                                    
+                    playerController.resetFallVel = true;
+                    playerController.animator.SetBool("Ground", true);
+                }
+                groundFlag = true;
+                playerController.groundFlag = groundFlag;
+                playerController.jumping = false;
+            }
+            else{
+                frameCounter++;
+            }
         }
     }
 

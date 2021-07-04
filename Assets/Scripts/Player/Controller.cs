@@ -345,6 +345,10 @@ public class Controller : MonoBehaviour
             return;
         }
 
+        if (waitingToMoveCount > 0f){
+            return;
+        }
+
         //-----------------------------------------------------------------------------------------
         //* Movimiento y gravedad
         //-----------------------------------------------------------------------------------------
@@ -363,11 +367,13 @@ public class Controller : MonoBehaviour
             else if (isDashing)
             {
                 dashCount -= Time.deltaTime;
-                if (dashCount <= -dashTime * 3)
+                if (dashCount <= -dashTime * 5)
                 {
                     isDashing = false;
                 }
-                return;
+                else if (dashCount >= -0.05f){
+                    return;
+                }
             }
         }
 
@@ -385,13 +391,60 @@ public class Controller : MonoBehaviour
             TurnPlayer();
             return;
         }
+
+        if (moveX == 0){
+            WalkSound.Stop();
+            animator.SetBool("Move", false);
+        }
+        else if (!flagTurning){
+            animator.SetBool("Move", true);
+        }
+
+
+        Vector3 move = transform.right * moveX;
+
+        if(moveX != 0){
+            if(!WalkSound.isPlaying)
+                WalkSound.Play();
+            lookDir = (int)Mathf.Sign(moveX);
+            if (lookDir != prevLookDir){
+                gameObject.transform.GetChild(0).Rotate(0f, 180f, 0f);
+                prevLookDir = lookDir;                
+            }
+        }
+
+        // Inicio del salto
+        if(!jumping && hangCount > 0f && jumpBufferCount >= 0f)
+        {
+            WalkSound.Stop();
+            //Debug.Log("salto");
+            if (jumpCount == 0)
+                Jump1.Play();
+            else
+                Jump3.Play();
+            animator.SetBool("Ground", false);
+            animator.SetBool("Height", true);
+            animator.SetFloat("MultJump", 1f);
+            if (moveX == 0){
+                animator.SetTrigger("JumpInPlace");
+            }
+            else{
+                animator.SetTrigger("Jump" + jumpCount);
+
+            }            
+            bunnyCount = 1;
+            resetFall();
+            fallVelocity = Vector3.up * (jumpHeight + jumpCount * 0.44f) * limitJump;
+            jumping = true;
+            jumpCount = 1 - jumpCount;
+        }
+
+        move.y = fallVelocity.y;
+        controller.Move(move * speed * Time.deltaTime);  
     }
     
     void Update()
-    {    
-        if (waitingToMoveCount > 0f){
-            return;
-        }    
+    {   
         //-----------------------------------------------------------------------------------------
         //* Pausa del juego
         //----------------------------------------------------------------------------------------- 
@@ -473,35 +526,14 @@ public class Controller : MonoBehaviour
         //-----------------------------------------------------------------------------------------
         // Si el dash está activado        
         //float moveX = playerInput.actions["Move"].ReadValue<float>();//Input.GetAxis("Horizontal");
-        if (waitingToMoveCount > 0f){
+        if (waitingToMoveCount > 0f){            
+            moveX = 0;
             waitingToMoveCount-= Time.deltaTime;
             return;
-        }
-
+        }        
 
         Move();
         MoveInput();
-        
-        if (moveX == 0){
-            WalkSound.Stop();
-            animator.SetBool("Move", false);
-        }
-        else if (!flagTurning && !isDashing){
-            animator.SetBool("Move", true);
-        }
-
-
-        Vector3 move = transform.right * moveX;
-
-        if(moveX != 0){
-            if(!WalkSound.isPlaying)
-                WalkSound.Play();
-            lookDir = (int)Mathf.Sign(moveX);
-            if (lookDir != prevLookDir){
-                gameObject.transform.GetChild(0).Rotate(0f, 180f, 0f);
-                prevLookDir = lookDir;                
-            }
-        }        
 
         // Acticación del dash
         if (dashFlag && playerInput.actions["Dash"].triggered && !isDashing){            
@@ -534,33 +566,7 @@ public class Controller : MonoBehaviour
                 animator.SetBool("Height", false);
                 //animator.SetFloat("MultJump", 2f);
             }
-        }
-
-        // Inicio del salto
-        if(!jumping && hangCount > 0f && jumpBufferCount >= 0f)
-        {
-            WalkSound.Stop();
-            //Debug.Log("salto");
-            if (jumpCount == 0)
-                Jump1.Play();
-            else
-                Jump3.Play();
-            animator.SetBool("Ground", false);
-            animator.SetBool("Height", true);
-            animator.SetFloat("MultJump", 1f);
-            if (moveX == 0){
-                animator.SetTrigger("JumpInPlace");
-            }
-            else{
-                animator.SetTrigger("Jump" + jumpCount);
-
-            }            
-            bunnyCount = 1;
-            resetFall();
-            fallVelocity = Vector3.up * (jumpHeight + jumpCount * 0.44f) * limitJump;
-            jumping = true;
-            jumpCount = 1 - jumpCount;
-        }
+        }        
 
         if (jumpBufferCount < -jumpBufferLength){
             jumpCount = 0;
@@ -574,13 +580,10 @@ public class Controller : MonoBehaviour
                 Bounce(0.7f);
                 bunnyCount = 0;
             }
-        }
-
-        move.y = fallVelocity.y;
-        controller.Move(move * speed * Time.deltaTime);        
+        }     
         
 
-        if(windowObj != null  && !isDashing && groundFlag){
+        if(windowObj != null  && groundFlag){
             windowObj.GetComponent<CameraWindow>().MoveY(windowObj.transform.position.y < gameObject.transform.position.y, 6.25f);
             windowObj = null;
         }                
