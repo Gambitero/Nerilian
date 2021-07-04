@@ -2023,7 +2023,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: MUNDO 1
+  m_Text: NIVEL 1
 --- !u!222 &484050893
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10154,7 +10154,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: MUNDO 3
+  m_Text: LEVEL 3
 --- !u!222 &1137937401
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11400,7 +11400,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: MUNDO 2
+  m_Text: NIVEL 2
 --- !u!222 &1299498274
 CanvasRenderer:
   m_ObjectHideFlags: 0
