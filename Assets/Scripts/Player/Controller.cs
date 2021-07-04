@@ -279,6 +279,7 @@ public class Controller : MonoBehaviour
             return;
         }
 
+        animator.SetBool("Move", false);
         flagTurn = false;
         PlayerStats.lives--;        
         sceneController.Fade(1f);
@@ -341,12 +342,8 @@ public class Controller : MonoBehaviour
         //* Pausa
         //-----------------------------------------------------------------------------------------
         // Detectar si el juego está en pausa.
-        if(Time.timeScale == 0){            
-            return;
-        }
-
-        if (waitingToMoveCount > 0f){
-            return;
+        if(Time.timeScale == 0 || waitingToMoveCount > 0f || waitingForRespawn || waitingForEnd){            
+            return;            
         }
 
         //-----------------------------------------------------------------------------------------
